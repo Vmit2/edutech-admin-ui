@@ -1,0 +1,40 @@
+.container {
+  .firstTree {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column !important;
+    flex: 1;
+    width: 100% !important;
+    .secondRow {
+      margin: 0;
+      padding: 0;
+      width: 100% !important;
+      display: flex !important;
+      justify-content: center !important;
+      .personLeftArrow {
+        right: 25% !important;
+        position: relative;
+      }
+      .personRightArrow {
+        left: 25% !important;
+        position: relative;
+      }
+    }
+    .thirdRow {
+      margin: 0;
+      padding: 0;
+      width: 100% !important;
+      display: flex !important;
+      justify-content: center !important;
+      .person2 {
+        right: 15% !important;
+        position: relative;
+      }
+      .person3 {
+        left: 15% !important;
+        position: relative;
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+@font-face {
+  font-family: 'ITC Souvenir Std';
+  src: url('./fontConfig/ITCSouvenirStd/ITCSouvenirStd-light.woff2')
+      format('woff2'),
+    url('./fontConfig/ITCSouvenirStd/ITCSouvenirStd-light.woff') format('woff');
+  font-style: normal;
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'ITC Souvenir Std';
+  src: url('./fontConfig/ITCSouvenirStd/ITCSouvenirStd-medium.woff2')
+      format('woff2'),
+    url('./fontConfig/ITCSouvenirStd/ITCSouvenirStd-medium.woff') format('woff');
+  font-style: normal;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'TT Norms Pro';
+  src: url('./fontConfig/TTNormsPro/TTNormsPro-regular.woff2') format('woff2'),
+    url('./fontConfig/TTNormsPro/TTNormsPro-regular.woff') format('woff');
+  font-style: normal;
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'TT Norms Pro';
+  src: url('./fontConfig/TTNormsPro/TTNormsPro-medium.woff2') format('woff2'),
+    url('./fontConfig/TTNormsPro/TTNormsPro-medium.woff') format('woff');
+  font-style: normal;
+  font-weight: 500;
+}
+@font-face {
+  font-family: 'TT Norms Pro';
+  src: url('./fontConfig/TTNormsPro/TTNormsPro-semibold.woff2') format('woff2'),
+    url('./fontConfig/TTNormsPro/TTNormsPro-semibold.woff') format('woff');
+  font-style: normal;
+  font-weight: 600;
+}
+@font-face {
+  font-family: 'TT Norms Pro';
+  src: url('./fontConfig/TTNormsPro/TTNormsPro-bold.woff2') format('woff2'),
+    url('./fontConfig/TTNormsPro/TTNormsPro-bold.woff') format('woff');
+  font-style: normal;
+  font-weight: 700;
+}
