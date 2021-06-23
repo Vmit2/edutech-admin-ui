@@ -31,6 +31,7 @@ const Item = () => {
   const { name } = useParams();
   return (
     <div>
+<<<<<<< HEAD
       <h3>requested name is -
 
         <CustomTable
@@ -39,6 +40,9 @@ const Item = () => {
           switchLabel='label'
         />
       </h3>
+=======
+      <h3>requested name is {name}</h3>
+>>>>>>> fd9ede2b0db427bb201c586aa0dbe41f249f120d
     </div>
   );
 };
