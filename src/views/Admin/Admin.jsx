@@ -6,7 +6,7 @@ const Item = () => {
   const { name } = useParams();
   return (
     <div>
-      <h3>requested name is {name}</h3>
+      <h3>requested name his.. {name}</h3>
     </div>
   );
 };
