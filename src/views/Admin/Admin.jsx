@@ -18,6 +18,7 @@ const Item = () => {
       <RadioButtonsGroup radioLabel="Male" value="Male" />
       <RadioButtonsGroup radioLabel="Female" value="Female" />
       {/* <RadioButtonsGroup radio={radio} selected="Male"/> */}
+      <h3>requested name his.. {name}</h3>
     </div>
   );
 };
