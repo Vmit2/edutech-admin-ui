@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import DashboardPage from "../../layouts/Dashboard/DashboardPage";
 import Checkboxes from "../../components/CheckBox/CheckBox";
 import RadioButtonsGroup from "../../components/Radio/Radio";
+import SideDrawer from "../../components/SideDrawer/SideDrawer";
 const Item = () => {
   const { name } = useParams();
   // const {radio}=[value="Male",radioLabel="Male"]
@@ -19,6 +20,7 @@ const Item = () => {
       <RadioButtonsGroup radioLabel="Female" value="Female" />
       {/* <RadioButtonsGroup radio={radio} selected="Male"/> */}
       <h3>requested name his.. {name}</h3>
+      <SideDrawer/>
     </div>
   );
 };
