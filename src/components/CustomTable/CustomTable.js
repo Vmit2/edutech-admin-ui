@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { TableBody, TableContainer, TableHead, TableRow, Paper, Table, TableCell, FormControlLabel, Switch } from '@material-ui/core';
-import { useState } from 'react';
+import { TableBody, TableContainer, TableHead, TableRow, Paper, Table, TableCell } from '@material-ui/core';
+import CustomSwitch from '../CustomSwitch/CustomSwitch';
+import CustomToggleButton from '../CustomToggleButton/CustomToggleButton';
+import { Grid } from '@material-ui/core';
 
-const CustomTable = ({ tableData, headingColumns, switchLabel, }) => {
+const CustomTable = ({ tableData, headingColumns }) => {
     const [dense, setDense] = useState(false);
+    const [selectedItem, setSelectedItem] = useState('Item1')
+    const handleChange = (e, value) => {
+        if (value) {
+            setSelectedItem(value);
+        }
+    }
     const data = tableData.map((row, index) => {
         let rowData = [];
         let i = 0;
@@ -24,6 +32,7 @@ const CustomTable = ({ tableData, headingColumns, switchLabel, }) => {
     const handleChangeDense = (event) => {
         setDense(event.target.checked);
     };
+
     return (
         <div>
             <TableContainer component={Paper}>
@@ -39,20 +48,27 @@ const CustomTable = ({ tableData, headingColumns, switchLabel, }) => {
                         {data}
                     </TableBody>
                 </Table>
-                {/* <TablePagination
-                    rowsPerPageOptions={[5, 10, 25]}
-                    component="div"
-                    count={rows.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onChangePage={handleChangePage}
-                    onChangeRowsPerPage={handleChangeRowsPerPage}
-                /> */}
             </TableContainer>
-            {/* <FormControlLabel
-                control={<Switch checked={dense} onChange={handleChangeDense} />}
-                label={switchLabel}
-            /> */}
+            <Grid container style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Grid item xs={4}>
+                    <CustomSwitch
+                        switchLabel='label'
+                        dense={dense}
+                        handleChangeDense={handleChangeDense}
+                    />
+                </Grid>
+                <Grid item xs={8}>
+                    <CustomToggleButton
+                        handleChange={handleChange}
+                        selectedItem={selectedItem}
+                        btnOne='Item1'
+                        btnTwo='Item2'
+                    />
+                    {selectedItem === 'Item1' ? <h1> Item1 </h1> : <h1>Item2</h1>}
+                </Grid>
+            </Grid>
+
+
         </div>
     );
 }

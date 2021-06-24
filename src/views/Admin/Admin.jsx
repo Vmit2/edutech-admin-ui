@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router";
 import CustomTable from "../../components/CustomTable/CustomTable";
+import CustomToggleButton from "../../components/CustomToggleButton/CustomToggleButton";
 import DashboardPage from "../../layouts/Dashboard/DashboardPage";
 const userData = [
   {
@@ -31,18 +32,13 @@ const Item = () => {
   const { name } = useParams();
   return (
     <div>
-<<<<<<< HEAD
       <h3>requested name is -
-
         <CustomTable
           tableData={userData}
           headingColumns={['Salutation', 'Name', 'Phone', 'Ref Code']}
-          switchLabel='label'
         />
       </h3>
-=======
-      <h3>requested name is {name}</h3>
->>>>>>> fd9ede2b0db427bb201c586aa0dbe41f249f120d
+
     </div>
   );
 };
@@ -51,7 +47,7 @@ const Admin = ({ ...props }) => {
   return (
     <div className="">
       <DashboardPage documentTitle={title} pageTitle={title}>
-        <Item />
+        <Item />       
       </DashboardPage>
     </div>
   );
