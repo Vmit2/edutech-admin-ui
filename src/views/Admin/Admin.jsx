@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { useParams } from "react-router";
 import CustomTable from "../../components/CustomTable/CustomTable";
-import CustomToggleButton from "../../components/CustomToggleButton/CustomToggleButton";
 import DashboardPage from "../../layouts/Dashboard/DashboardPage";
 const userData = [
   {
@@ -38,7 +37,6 @@ const Item = () => {
           headingColumns={['Salutation', 'Name', 'Phone', 'Ref Code']}
         />
       </h3>
-
     </div>
   );
 };
