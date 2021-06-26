@@ -1,21 +1,22 @@
 import React from "react";
 import { useParams } from "react-router";
-import CustomTable from "../../components/CustomTable/CustomTable";
+import TabPanelComponent from "../../components/Tabs/TabPanelComponent";
 import DashboardPage from "../../layouts/Dashboard/DashboardPage";
 const Item = () => {
   const { name } = useParams();
-  return (
-    <div>  
-      <h3>requested name is </h3>
-    </div>
-  );
+  return <div>Hi these is tab view</div>;
 };
 const Admin = ({ ...props }) => {
-  const title = 'Admin'
+  const title = "Admin";
   return (
     <div className="">
       <DashboardPage documentTitle={title} pageTitle={title}>
-        <Item />       
+        <TabPanelComponent
+          tabData={[
+            { title: "KYC Approved", item: <Item/> },
+            { title: "KYC Rejected", item: <Item/> },
+          ]}
+        />
       </DashboardPage>
     </div>
   );
