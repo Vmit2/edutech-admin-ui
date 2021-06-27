@@ -48,8 +48,8 @@ export const lightTheme = {
       primaryHover: '#1b9b88',
       primaryActive: '#128070',
       secondary: '#e9ecf2',
-      tertiary: '#1eb7a1',
-      tertiaryHover: '#e4f6f3',
+      tertiary: '#9d88f7',
+      tertiaryHover: '#ddd7f7',
     },
     module: {
       backgroundLight: '#7658F9',

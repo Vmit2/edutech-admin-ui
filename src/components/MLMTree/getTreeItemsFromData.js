@@ -5,14 +5,14 @@ import TreeNodeCard from "../TreeNodeCard";
 
 const getTreeItemsFromData = (items, selectedId, found) => {
   return items.map((treeItemData) => {
-    const { label, childCount, referral_code } = useDistDetails(treeItemData);
+    const { name, childCount, referral_code } = useDistDetails(treeItemData);
     return (
       <TreeItem
         key={treeItemData.id}
         nodeId={treeItemData.id}
         label={
           <TreeNodeCard
-            label={label}
+            label={name}
             hasChilds={childCount > 0}
             referral_code={referral_code}
             childCount={childCount}
