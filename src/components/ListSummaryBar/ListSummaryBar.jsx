@@ -10,7 +10,7 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: 30,
+    marginTop: 0,
     marginBottom: 30,
   },
   noMarginTop: {
