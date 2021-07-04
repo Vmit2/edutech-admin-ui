@@ -44,12 +44,12 @@ export const lightTheme = {
       background: 'rgba(215,91,60,0.05)',
     },
     button: {
-      primary: '#1eb7a1',
-      primaryHover: '#1b9b88',
-      primaryActive: '#128070',
+      primary: '#7658F9',
+      primaryHover: '#9c87fa',
+      primaryActive: '#9c87fa',
       secondary: '#e9ecf2',
-      tertiary: '#1eb7a1',
-      tertiaryHover: '#e4f6f3',
+      tertiary: '#7658F9',
+      tertiaryHover: '#9c87fa',
     },
     module: {
       backgroundLight: '#7658F9',

@@ -38,7 +38,7 @@ function LoginForm({ onSuccess }) {
               autoFocus
               fullWidth
               errorText={getError('email')}
-              label={t`Email Address`}
+              label="Email Address"
               name="email"
               type="email"
               value={values.email}
@@ -51,7 +51,7 @@ function LoginForm({ onSuccess }) {
             <TextInput
               fullWidth
               errorText={getError('password')}
-              label={t`Password`}
+              label="Password"
               name="password"
               type="password"
               value={values.password}
@@ -67,7 +67,7 @@ function LoginForm({ onSuccess }) {
           fullWidth
           isLoading={isSubmitting}
           type="submit"
-        >{t`Log In`}</PrimaryButton>
+        >"Log In"</PrimaryButton>
       </FormActions>
     </form>
   )

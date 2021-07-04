@@ -7,30 +7,34 @@
     height: 100vh;
     width: 100vw;
     display: flex;
-    .blankCard {
+    .cardStyle {
       width: 50vw;
-      height: 100%;
-      .cardStyle {
-        height: 100% !important;
+      height: 100% !important;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background-image: url("../../assets//images/texture.png");
+      background-repeat: no-repeat;
+      .cardContentStyle {
+        top: 30%;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        text-align: center;
-        background-image: url("../../assets//images/texture.png");
-        background-repeat: no-repeat;
-        .cardContentStyle {
-          top: 30%;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
       }
     }
     .loginContainerStyle {
       padding: 2% 2% 2% 2%;
-      justify-content: center;
-      width: 100%;
+      display: flex !important;
+      flex-direction: row;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100% !important;
+      .loginFormStyle {
+        align-self: center !important;
+        // width: 80% !important;
+      }
     }
   }
 }

@@ -39,7 +39,7 @@ const Login = ({ ...props }) => {
       <div className="loginPageContainerStyle">
         <Grid container className="gridContainer">
           <Hidden mdDown>
-            <Grid item xs={6} className="blankCard">
+            <Grid item xs={6}>
               <div className="cardStyle">
                 <div className="cardContentStyle">
                   <h4 style={{ color: "#FEC42D" }}>
@@ -69,16 +69,19 @@ const Login = ({ ...props }) => {
                     ) : null
                   )}
                 </Grid>
-
-                {fade((style, item) =>
-                  item ? (
-                    <animated.div style={style}>
-                      <LoginForm
-                      //  onSuccess={handleSuccess}
-                      />
-                    </animated.div>
-                  ) : null
-                )}
+                <Grid item xs={12} container justify="center">
+                  {fade((style, item) =>
+                    item ? (
+                      <animated.div style={style}>
+                        <div className="loginFormStyle">
+                          <LoginForm
+                          //  onSuccess={handleSuccess}
+                          />
+                        </div>
+                      </animated.div>
+                    ) : null
+                  )}
+                </Grid>
               </Grid>
             </Grid>
           </Hidden>
@@ -102,11 +105,13 @@ const Login = ({ ...props }) => {
 
                 {fade((style, item) =>
                   item ? (
-                    <animated.div style={style}>
-                      <LoginForm
-                      // onSuccess={handleSuccess}
-                      />
-                    </animated.div>
+                    <div className="loginFormStyle">
+                      <animated.div style={style}>
+                        <LoginForm
+                        // onSuccess={handleSuccess}
+                        />
+                      </animated.div>
+                    </div>
                   ) : null
                 )}
               </Grid>

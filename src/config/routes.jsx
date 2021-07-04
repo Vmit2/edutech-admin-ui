@@ -9,10 +9,12 @@ import DashboardLayout from "../layouts/Dashboard/DashboardLayout";
 //         {/* <BusinessSelectGuard> */}
 
 /* ===== User Profile ===== */
-const Admin = lazy(() => import('../views/Admin/Admin'));
-const LoginView = lazy(() => import('../views/Login/LoginView'));
-const Hierarchy = lazy(() => import('../views/Hierarchy/Hierarchy'));
-const NotFoundView = lazy(() => import('../views/Errors/NotFoundView'));
+const Admin = lazy(() => import("../views/Admin/Admin"));
+const UsersListView = lazy(() => import("../views/UsersView/UserListView"));
+const UserDetailsView = lazy(() => import("../views/UsersView/UserDetailsView"));
+const LoginView = lazy(() => import("../views/Login/LoginView"));
+const Hierarchy = lazy(() => import("../views/Hierarchy/Hierarchy"));
+const NotFoundView = lazy(() => import("../views/Errors/NotFoundView"));
 
 export const routes = [
   {
@@ -43,7 +45,11 @@ export const routes = [
       },
       {
         path: "users",
-        element: <Admin />,
+        element: <UsersListView />,
+      },
+      {
+        path: "users/details",
+        element: <UserDetailsView />,
       },
       {
         path: "hierarchy",

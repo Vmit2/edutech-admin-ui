@@ -58,8 +58,8 @@ async function submitForm({ dispatch, body }) {
   } catch (err) {
     // TODO: Improve 401 api response message
     const apiErrorMessage = err.wallaError
-      ? t`Invalid login credentials`
-      : t`An unexpected error occurred. Please try again.`
+      ? "Invalid login credentials"
+      : "An unexpected error occurred. Please try again."
 
     return {
       error: true,
