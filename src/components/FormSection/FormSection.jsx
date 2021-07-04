@@ -1,15 +1,15 @@
-import { makeStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
-import PropTypes from "prop-types";
-import React from "react";
-import InfoIcon from "../Icons/InfoIcon";
-import TooltipIcon from "../TooltipIcon";
-import FormSectionTitleText from "../Typography/FormSectionTitleText";
+import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
+import PropTypes from 'prop-types';
+import React from 'react';
+import InfoIcon from '../Icons/InfoIcon';
+import TooltipIcon from '../TooltipIcon';
+import FormSectionTitleText from '../Typography/FormSectionTitleText';
 
 const useStyles = makeStyles(() => ({
   root: {
-    display: "flex",
-    alignItems: "center",
+    display: 'flex',
+    alignItems: 'center',
     marginTop: 65,
     marginBottom: 30,
   },
@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
   noMarginBottom: {
     marginBottom: 0,
   },
-}));
+}))
 
 function FormSection({
   noMarginTop,
@@ -31,11 +31,11 @@ function FormSection({
   tooltipTitle,
   children,
 }) {
-  const classes = useStyles();
+  const classes = useStyles()
   const classNames = clsx(classes.root, {
     [classes.noMarginTop]: noMarginTop,
     [classes.noMarginBottom]: noMarginBottom,
-  });
+  })
 
   return (
     <>
@@ -55,7 +55,7 @@ function FormSection({
 
       {children}
     </>
-  );
+  )
 }
 
 FormSection.propTypes = {
@@ -64,6 +64,6 @@ FormSection.propTypes = {
   title: PropTypes.string,
   tooltipTitle: PropTypes.node,
   children: PropTypes.node.isRequired,
-};
+}
 
-export default FormSection;
+export default FormSection

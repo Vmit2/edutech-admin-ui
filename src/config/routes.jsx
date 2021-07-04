@@ -52,6 +52,10 @@ export const routes = [
         element: <UserDetailsView />,
       },
       {
+        path: "users/add",
+        element: <UserDetailsView />,
+      },
+      {
         path: "hierarchy",
         element: <Hierarchy />,
       },

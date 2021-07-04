@@ -4,8 +4,8 @@
  * For valid options:
  * https://formik.org/docs/api/formik
  */
-import { useFormik } from 'formik'
-import startCase from 'lodash/startCase'
+import { useFormik } from 'formik';
+import startCase from 'lodash/startCase';
 
 export function useForm(formikConfig = {}) {
   const formik = useFormik(formikConfig)

@@ -45,8 +45,8 @@ export const lightTheme = {
     },
     button: {
       primary: '#7658F9',
-      primaryHover: '#9c87fa',
-      primaryActive: '#9c87fa',
+      primaryHover: '#9d88f7',
+      primaryActive: '#9d88f7',
       secondary: '#e9ecf2',
       tertiary: '#7658F9',
       tertiaryHover: '#9c87fa',

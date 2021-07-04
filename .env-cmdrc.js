@@ -16,7 +16,7 @@ module.exports = {
 
   prod: {
     ...defaults,
-    REACT_APP_API_BASE_URL: 'TODO',
+    REACT_APP_API_BASE_URL: 'http://demo4065522.mockable.io',
   },
 }
 
