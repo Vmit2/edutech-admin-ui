@@ -1,8 +1,9 @@
 import { Container, Grid, makeStyles } from "@material-ui/core";
-import React from "react";
+import { default as React } from "react";
 import userImg from "../../assets/images/userImg.png";
 import KeyValueContent from "../../components/KeyValueContent/KeyValueContent";
 import DashboardPage from "../../layouts/Dashboard/DashboardPage";
+
 
 const useStyles = makeStyles((theme) => ({
   detailsContainer: {
@@ -19,6 +20,18 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "14px",
     borderColor: theme.palette.module.border,
     backgroundColor: theme.palette.common.green,
+    border: "solid 2px",
+    borderRadius: "14px",
+    borderColor: theme.palette.module.border,
+    padding: 20,
+  },
+  imgStyle: {
+    height: 200,
+    width: 200,
+    borderRadius: "14px",
+    borderColor: theme.palette.module.border,
+    backgroundColor: theme.palette.common.green,
+    border: "solid 1px",
   },
 }));
 const UserDetailsView = ({ ...props }) => {
