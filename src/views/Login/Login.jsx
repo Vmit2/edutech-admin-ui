@@ -125,24 +125,6 @@ const Login = ({ ...props }) => {
                               ></div>
                             </Grid>
                           </Grid>
-
-                          {/* <Grid
-                            item
-                            xs={12}
-                            container
-                            justify="center"
-                            alignItems="center"
-                            spacing={1}
-                          >
-                            <h6
-                              style={{
-                                textAlign: "center",
-                                color: "#4d4f5c",
-                              }}
-                            >
-                              Login via Google
-                            </h6>
-                          </Grid> */}
                         </Grid>
                       </animated.div>
                     ) : null
