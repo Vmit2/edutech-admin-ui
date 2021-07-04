@@ -54,7 +54,7 @@ const Login = ({ ...props }) => {
           <Grid container className="gridContainer">
             <Grid item xs={6} className="blankCard">
               <div className="cardStyle">
-                <img width="100%" height="auto" src={texture} />
+                <img width="100%" height="auto" src={texture} alt="" />
                 <div className="cardContentStyle">
                   <h4 style={{ color: "#FEC42D" }}>
                     Welcome back! Please login to your account.
@@ -80,6 +80,7 @@ const Login = ({ ...props }) => {
                             width={100}
                             height={100}
                             src={eduTechLogo}
+                            alt=""
                           />
                         </animated.div>
                       ) : null
