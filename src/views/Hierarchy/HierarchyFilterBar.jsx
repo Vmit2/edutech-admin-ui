@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import React from "react";
 import FilterBar from "../../components/FilterBar";
 import TextInput from "../../components/TextInput/TextInput";
