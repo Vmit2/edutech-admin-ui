@@ -5,8 +5,10 @@ import {
     TableCell,
     TableContainer,
     TableHead,
-    TableRow
+    TableRow,
+    
 } from "@material-ui/core";
+import {Pagination} from "@material-ui/lab";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -49,6 +51,7 @@ const CustomTable = ({ tableData, headingColumns }) => {
           </TableHead>
           <TableBody align="center">{data}</TableBody>
         </Table>
+        <Pagination count={10}/>
       </TableContainer>
     </div>
   );
