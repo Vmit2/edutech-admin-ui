@@ -10,7 +10,7 @@ import DashboardLayout from "../layouts/Dashboard/DashboardLayout";
 
 /* ===== User Profile ===== */
 const Admin = lazy(() => import('../views/Admin/Admin'));
-const Login = lazy(() => import('../views/Login/Login'));
+const LoginView = lazy(() => import('../views/Login/LoginView'));
 const Hierarchy = lazy(() => import('../views/Hierarchy/Hierarchy'));
 const NotFoundView = lazy(() => import('../views/Errors/NotFoundView'));
 
@@ -19,7 +19,7 @@ export const routes = [
     path: "login",
     element: (
       // <GuestGuard>
-      <Login />
+      <LoginView />
       // </GuestGuard>
     ),
   },
