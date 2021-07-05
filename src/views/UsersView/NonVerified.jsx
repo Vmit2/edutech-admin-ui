@@ -14,7 +14,6 @@ const NonVerified = ({ users }) => {
             <Link component={RouterLink} to="details" underline="none">
               <TertiaryButton
                 onClick={() => {
-                  console.log("clicked a user ", user);
                 }}
                 size="small"
               >

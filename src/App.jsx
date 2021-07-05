@@ -8,6 +8,7 @@ import AppRoutes from "./AppRoutes";
 // import ScrollReset from "./components/ScrollReset";
 import { createTheme } from "./config/theme";
 // import { useSettings } from "./context/SettingsContext";
+import AppInitializer from "./AppInitializer";
 
 const useStyles = makeStyles(() => ({
   "@global": {
@@ -37,9 +38,11 @@ function App() {
       <CssBaseline />
       <AppErrorBoundary>
         <BrowserRouter>
-          {/* <ScrollReset /> */}
-          {/* <CookiesNotification /> */}
-          <AppRoutes />
+          <AppInitializer>
+            {/* <ScrollReset /> */}
+            {/* <CookiesNotification /> */}
+            <AppRoutes />
+          </AppInitializer>
         </BrowserRouter>
       </AppErrorBoundary>
     </ThemeProvider>

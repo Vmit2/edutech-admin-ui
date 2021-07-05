@@ -1,1 +1,2 @@
-export { useAuthState } from './useAuthState'
+export { useAuthState } from './useAuthState';
+export { useUserState } from './useUserState';

@@ -37,11 +37,11 @@ function LoginForm({ onSuccess }) {
             <TextInput
               autoFocus
               fullWidth
-              errorText={getError('email')}
-              label="Email Address"
-              name="email"
-              type="email"
-              value={values.email}
+              errorText={getError('username')}
+              label="User Name"
+              name="username"
+              type="username"
+              value={values.username}
               onBlur={handleBlur}
               onChange={handleChange}
             />

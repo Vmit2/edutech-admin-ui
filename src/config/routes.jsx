@@ -1,20 +1,21 @@
 import React, { lazy } from "react";
 import { Navigate } from "react-router-dom";
 import DashboardLayout from "../layouts/Dashboard/DashboardLayout";
-// {
-//   /* </BusinessSelectGuard> */
-// }
-// // </AuthGuard>
-//  // <AuthGuard>
-//         {/* <BusinessSelectGuard> */}
+import AuthGuard from "../components/Guards/AuthGuard";
 
 /* ===== User Profile ===== */
 const Admin = lazy(() => import("../views/Admin/Admin"));
 const UsersListView = lazy(() => import("../views/UsersView/UserListView"));
-const UserDetailsView = lazy(() => import("../views/UsersView/UserDetailsView"));
+const UserDetailsView = lazy(() =>
+  import("../views/UsersView/UserDetailsView")
+);
 const LoginView = lazy(() => import("../views/Login/LoginView"));
-const DistributersListView = lazy(() => import("../views/DistributersView/DistributersListView"));
-const DistributersDetailsView = lazy(() => import("../views/DistributersView/DistributersDetailsView"));
+const DistributersListView = lazy(() =>
+  import("../views/DistributersView/DistributersListView")
+);
+const DistributersDetailsView = lazy(() =>
+  import("../views/DistributersView/DistributersDetailsView")
+);
 const Hierarchy = lazy(() => import("../views/Hierarchy/Hierarchy"));
 const NotFoundView = lazy(() => import("../views/Errors/NotFoundView"));
 
@@ -29,7 +30,11 @@ export const routes = [
   },
   {
     path: "/",
-    element: <DashboardLayout />,
+    element: (
+      <AuthGuard>
+        <DashboardLayout />
+      </AuthGuard>
+    ),
     children: [
       {
         element: <Navigate replace to="users" />,
