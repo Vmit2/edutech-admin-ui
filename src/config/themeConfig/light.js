@@ -11,7 +11,8 @@ export const lightTheme = {
       orange: '#ff7201',
       yellow: '#f49e00',
       pink: '#fc8ebe',
-      red:'#FC1310'
+      red:'#FC1310',
+      white : "#FFFFFF"
     },
     background: {
       default: '#ffffff',
@@ -56,5 +57,8 @@ export const lightTheme = {
       background: '#f4f6fa',
       border: '#e9ecf2',
     },
+    shadow: {
+      primary : "0px 2px 1px  rgba(0,0,0,0.1)",
+    }
   },
 }
