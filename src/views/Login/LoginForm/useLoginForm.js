@@ -5,7 +5,7 @@ import { login } from '../../../redux/actions/authActions';
 import FormTranslator from './FormTranslator';
 
 export default function useLoginForm({ onSuccess }) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [apiErrorMessage, setApiErrorMessage] = useState(null)
 
   const initialValues = useMemo(() => FormTranslator.apiToForm(), [])
@@ -13,17 +13,16 @@ export default function useLoginForm({ onSuccess }) {
   const onSubmit = async (values) => {
     setApiErrorMessage(null)
 
-    const body = FormTranslator.formToApi(values)
+    const body = FormTranslator.formToApi(values);
 
-    const result = await submitForm({ dispatch, body })
+    const result = await submitForm({ dispatch, body });
 
     if (result.error) {
       setApiErrorMessage(result.apiErrorMessage)
-
       return
     }
 
-    const newFormValues = FormTranslator.apiToForm(result.data)
+    const newFormValues = FormTranslator.apiToForm(result.data);
 
     if (onSuccess) {
       await onSuccess({
@@ -49,15 +48,14 @@ export default function useLoginForm({ onSuccess }) {
 
 async function submitForm({ dispatch, body }) {
   try {
-    const data = await dispatch(login(body.email, body.password))
-
+    const data = await dispatch(login(body.username, body.password));
     return {
       error: false,
       data,
     }
   } catch (err) {
     // TODO: Improve 401 api response message
-    const apiErrorMessage = err.wallaError
+    const apiErrorMessage = err.edutechError
       ? "Invalid login credentials"
       : "An unexpected error occurred. Please try again."
 

@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import produce from 'immer'
+import produce from 'immer';
 import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
@@ -7,7 +7,7 @@ import {
   LOGOUT,
   SESSION_LOADED,
   UPDATE_PROFILE,
-} from '../actions/authActions'
+} from '../actions/authActions';
 
 const initialState = {
   hasLoadedSession: false,

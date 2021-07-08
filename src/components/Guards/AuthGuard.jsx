@@ -1,20 +1,20 @@
-import PropTypes from 'prop-types'
-import React from 'react'
-import {  Redirect } from 'react-router-dom'
-import { useAuthState } from '../../hooks/redux'
+import PropTypes from 'prop-types';
+import React from 'react';
+import {  Navigate } from 'react-router-dom';
+import { useAuthState } from '../../hooks/redux';
 
 function AuthGuard({ children }) {
-  const auth = useAuthState()
+  const auth = useAuthState();
 
   if (!auth.isLoggedIn) {
-    return <Redirect to="/login" />
+    return <Navigate to="/login" />
   }
 
-  return children
+  return children;
 }
 
 AuthGuard.propTypes = {
   children: PropTypes.any,
 }
 
-export default AuthGuard
+export default AuthGuard;

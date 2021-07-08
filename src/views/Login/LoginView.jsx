@@ -2,6 +2,7 @@ import { Grid, Hidden } from "@material-ui/core";
 import { useTransition } from "@react-spring/core";
 import { animated } from "@react-spring/web";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import eduTechLogo from "../../assets/images/eduTechLogo.ico";
 import { AnimatedTree } from "../../components/AnimatedTree/index";
 import LoginForm from "./LoginForm";
@@ -33,6 +34,10 @@ const Login = ({ ...props }) => {
     setLogo(true);
     setShow(true);
   }, []);
+  const navigate = useNavigate();
+  const handleSuccess = async () => {
+    navigate("/");
+  };
 
   return (
     <>
@@ -74,9 +79,7 @@ const Login = ({ ...props }) => {
                     item ? (
                       <animated.div style={style}>
                         <div className="loginFormStyle">
-                          <LoginForm
-                          //  onSuccess={handleSuccess}
-                          />
+                          <LoginForm onSuccess={handleSuccess} />
                         </div>
                       </animated.div>
                     ) : null
@@ -107,9 +110,7 @@ const Login = ({ ...props }) => {
                   item ? (
                     <div className="loginFormStyle">
                       <animated.div style={style}>
-                        <LoginForm
-                        // onSuccess={handleSuccess}
-                        />
+                        <LoginForm onSuccess={handleSuccess} />
                       </animated.div>
                     </div>
                   ) : null

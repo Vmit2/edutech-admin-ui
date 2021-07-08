@@ -2,20 +2,20 @@ import { object, string } from 'yup'
 
 function apiToForm() {
   return {
-    email: '',
+    username: '',
     password: '',
   }
 }
 
 function formToApi(formValues) {
   return {
-    email: formValues.email,
+    username: formValues.username,
     password: formValues.password,
   }
 }
 
 const validationSchema = object().shape({
-  email: string().email().required(),
+  username: string().email().required(),
   password: string().required(),
 })
 

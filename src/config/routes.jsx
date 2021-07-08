@@ -1,20 +1,25 @@
 import React, { lazy } from "react";
 import { Navigate } from "react-router-dom";
 import DashboardLayout from "../layouts/Dashboard/DashboardLayout";
-// {
-//   /* </BusinessSelectGuard> */
-// }
-// // </AuthGuard>
-//  // <AuthGuard>
-//         {/* <BusinessSelectGuard> */}
+import { AuthGuard, PermissionGuard } from "../components/Guards";
+import { ReportsPermissions } from "./permissionsConfig/ReportsPermissions";
+import { UsersPermission } from "./permissionsConfig/UsersPermission";
 
 /* ===== User Profile ===== */
 const Admin = lazy(() => import("../views/Admin/Admin"));
-const UsersListView = lazy(() => import("../views/UsersView/UserListView"));
-const UserDetailsView = lazy(() => import("../views/UsersView/UserDetailsView"));
+const UsersListView = lazy(() =>
+  import("../views/UsersView/usersList/UserListView")
+);
+const UserDetailsView = lazy(() =>
+  import("../views/UsersView/UserDetailsView")
+);
 const LoginView = lazy(() => import("../views/Login/LoginView"));
-const DistributersListView = lazy(() => import("../views/DistributersView/DistributersListView"));
-const DistributersDetailsView = lazy(() => import("../views/DistributersView/DistributersDetailsView"));
+const DistributersListView = lazy(() =>
+  import("../views/DistributersView/distributersList/DistributersListView")
+);
+const DistributersDetailsView = lazy(() =>
+  import("../views/DistributersView/DistributersDetailsView")
+);
 const Hierarchy = lazy(() => import("../views/Hierarchy/Hierarchy"));
 const NotFoundView = lazy(() => import("../views/Errors/NotFoundView"));
 
@@ -29,7 +34,11 @@ export const routes = [
   },
   {
     path: "/",
-    element: <DashboardLayout />,
+    element: (
+      <AuthGuard>
+        <DashboardLayout />
+      </AuthGuard>
+    ),
     children: [
       {
         element: <Navigate replace to="users" />,
@@ -37,20 +46,27 @@ export const routes = [
       {
         path: "reports",
         element: (
-          // <PermissionGuard
-          //   fallback={<NotFoundView />}
-          //   permissions={[PackagePermissions.READ]}
-          // >
-          <Admin />
-          // </PermissionGuard>
+          <PermissionGuard
+            fallback={<NotFoundView />}
+            permissions={[ReportsPermissions.READ, ReportsPermissions.WRITE]}
+          >
+            <Admin />
+          </PermissionGuard>
         ),
       },
       {
         path: "users",
-        element: <UsersListView />,
+        element: (
+          <PermissionGuard
+            fallback={<NotFoundView />}
+            permissions={[UsersPermission.READ, UsersPermission.WRITE]}
+          >
+            <UsersListView />
+          </PermissionGuard>
+        ),
       },
       {
-        path: "users/details",
+        path: "users/:userId",
         element: <UserDetailsView />,
       },
       {
@@ -60,7 +76,7 @@ export const routes = [
         element: <DistributersListView />,
       },
       {
-        path: "distributers/details",
+        path: "distributers/:distributerId",
         element: <DistributersDetailsView />,
       },
       {

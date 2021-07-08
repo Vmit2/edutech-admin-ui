@@ -1,10 +1,10 @@
-// import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux';
 
-// export function useAuthState() {
-//   const auth = useSelector((state) => state.auth)
+export function useAuthState() {
+  const auth = useSelector((state) => state.auth)
 
-//   return {
-//     hasLoadedSession: auth.hasLoadedSession,
-//     isLoggedIn: auth.isLoggedIn,
-//   }
-// }
+  return {
+    hasLoadedSession: auth.hasLoadedSession,
+    isLoggedIn: auth.isLoggedIn,
+  }
+}

@@ -11,12 +11,12 @@ module.exports = {
 
   local: {
     ...defaults,
-    REACT_APP_API_BASE_URL: 'http://demo4065522.mockable.io',
+    REACT_APP_API_BASE_URL: 'http://15.206.125.174:8091',
   },
 
   prod: {
     ...defaults,
-    REACT_APP_API_BASE_URL: 'http://demo4065522.mockable.io',
+    REACT_APP_API_BASE_URL: 'http://15.206.125.174:8091',
   },
 }
 

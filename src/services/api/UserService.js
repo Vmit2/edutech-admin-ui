@@ -1,24 +1,25 @@
-import { getAllPages } from "../api/helpers/getAllPages";
 import { apiClient } from "../apiClient";
 import { translateUser } from "./translators/translateUser";
 
 async function getAll(qParams = {}) {
-  const url = `/users`;
-
+  const url = `/admin/getAllUsers`;
   // const queryFn = (queryParams) => {
   const params = {
     // sort: 'name:asc',
-    // ...qParams,
+    ...qParams,
     // ...queryParams,
   };
 
-  const data = apiClient.get(url, { params });
-  // }
-
-  // const data = await getAllPages({ queryFn })
-
-  // return data.map(translateUser);
-  return data;
+  // const queryFn = (queryParams) => {
+  //   const params = {
+  //     ...qParams,
+  //     ...queryParams,
+  //   };
+  //   return apiClient.get(url, { params });
+  // };
+  // const res = await getAll({ queryFn });
+  const res = apiClient.get(url, { params });
+  return res;
 }
 
 async function getById(userId) {

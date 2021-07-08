@@ -5,13 +5,8 @@ import { navItemGroups } from '../../../config/nav';
 // import { useUserState } from 'src/hooks/redux';
 
 export default function useNavItemGroups() {
-  // const { activeBusiness } = useUserState()
 
   const groups = useMemo(() => {
-    // Returns true if the user has one of the specified permissions
-    // function hasPermission(permissions) {
-    //   return intersection(activeBusiness.permissions, permissions).length > 0
-    // }
 
     function filterGroup(group) {
       // const { permissions } = group
@@ -36,7 +31,7 @@ export default function useNavItemGroups() {
     }
 
     return compact(navItemGroups.map(filterGroup))
-  }, []) //activeBusiness
+  }, [])
 
   return {
     navItemGroups: groups,
