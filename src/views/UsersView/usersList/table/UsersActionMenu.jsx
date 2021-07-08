@@ -23,7 +23,7 @@ function UsersActionMenu({ hasWritePermission, user }) {
       case "view":
         setUserDetails(user.id_user, user);
 
-        // navigate("${user.id_user}");
+        navigate(`${user.id_user}`);
         break;
 
       case "delete":

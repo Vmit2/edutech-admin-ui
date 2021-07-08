@@ -8,6 +8,7 @@ import {
   TablePagination,
   TableRow,
 } from "@material-ui/core";
+import {Pagination} from "@material-ui/lab";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 

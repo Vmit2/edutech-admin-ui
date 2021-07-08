@@ -7,7 +7,10 @@ import PropTypes from "prop-types";
 import React, { useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MoreHorizontalIcon from "../../../../components/Icons/MoreHorizontalIcon";
-import { setDistributerDetails, getDistributerDetails } from "../../../../hooks/api/useDistributerDetails";
+import {
+  setDistributerDetails,
+  getDistributerDetails,
+} from "../../../../hooks/api/useDistributerDetails";
 // import DistributerDeleteDialog from 'src/forms/DistributerForm/DistributerDeleteDialog'
 // import DistributerRetireDialog from 'src/forms/DistributerForm/DistributerRetireDialog'
 // import { setDistributerDetails } from "src/hooks/api/useDistributerDetails";
@@ -23,7 +26,7 @@ function DistributersActionMenu({ hasWritePermission, distributer }) {
       case "view":
         setDistributerDetails(distributer.id_user, distributer);
 
-        // navigate("${distributer.id_user}");
+        navigate(`${distributer.id_user}`);
         break;
 
       case "delete":

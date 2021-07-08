@@ -66,7 +66,7 @@ export const routes = [
         ),
       },
       {
-        path: "users/details",
+        path: "users/:userId",
         element: <UserDetailsView />,
       },
       {
@@ -76,7 +76,7 @@ export const routes = [
         element: <DistributersListView />,
       },
       {
-        path: "distributers/details",
+        path: "distributers/:distributerId",
         element: <DistributersDetailsView />,
       },
       {

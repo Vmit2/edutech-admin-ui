@@ -25,6 +25,9 @@ export function useUserDetails(userId) {
   //   error,
   // };
   // const queryKey = queryCache.find(userId);
+  const queryKey = buildQueryKey(userId);
+  const queryData = queryCache.getQueryData(queryKey);
+  return queryData;
 }
 
 export function getUserDetails(userId) {

@@ -20,7 +20,7 @@ export const defaultTypography = {
   // fontWeightBold: 700,
 
   h1: {
-    fontFamily: ['"ITC Souvenir Std"', 'serif'].join(','),
+    fontFamily: ['"TT Norms Pro"', 'serif'].join(','),
     fontSize: 50,
     fontWeight: 300,
   },

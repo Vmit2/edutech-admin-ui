@@ -24,7 +24,9 @@ export function useDistributerDetails(distributerId) {
   //   data,
   //   error,
   // };
-  // const queryKey = queryCache.find(distributerId);
+  const queryKey = buildQueryKey(distributerId);
+  const queryData = queryCache.getQueryData(queryKey);
+  return queryData;
 }
 
 export function getDistributerDetails(distributerId) {
