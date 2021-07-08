@@ -5,12 +5,12 @@ import { formatUsersDetails } from "./formatUsersDetails";
 import { Link as RouterLink } from "react-router-dom";
 import Link from "@material-ui/core/Link";
 
-const Verified = ({ completeData,...rest }) => {
+const Verified = ({ completeData, ...rest }) => {
   const { data, count, currentPage } = completeData;
   return (
     <div className="">
       <CustomTable
-        tableData={formatUsersDetails(data, (user) => {
+        tableData={formatUsersDetails(data, 1, (user) => {
           return (
             <Link component={RouterLink} to="details" underline="none">
               <TertiaryButton onClick={() => {}} size="small">

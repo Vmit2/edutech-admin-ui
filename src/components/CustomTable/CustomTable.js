@@ -23,12 +23,12 @@ const CustomTable = ({
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(parseInt(currentPage));
-    setUrlParam("limit",event.target.value);
+    setUrlParam("limit", event.target.value);
   };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
-    setUrlParam("page",newPage);
+    setUrlParam("page", newPage + 1);
   };
   const data = tableData.map((row, index) => {
     let rowData = [];
@@ -68,12 +68,10 @@ const CustomTable = ({
           </TableHead>
           <TableBody align="center">{data}</TableBody>
         </Table>
-        {/* <Pagination count={10}/> */}
         <TablePagination
           rowsPerPageOptions={[5, 10]}
           component="div"
-          // count={count && parseInt(count)}
-          count="100"
+          count={count ? parseInt(count):0}
           rowsPerPage={rowsPerPage}
           page={page && parseInt(page)}
           onChangePage={handleChangePage}

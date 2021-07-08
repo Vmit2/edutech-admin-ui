@@ -1,5 +1,7 @@
 import { Link } from "@material-ui/core";
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { PrimaryButton } from "../../components/Buttons";
 import PlusCircleIcon from "../../components/Icons/PlusCircleIcon";
@@ -16,7 +18,7 @@ import Verified from "./Verified";
 
 const UserListView = () => {
   const title = "Users";
-
+  useEffect(()=>{},[])
   const { urlParams, setUrlParam } = useUrlParams({
     parseUrlParams: (searchParams) => ({
       page: parsePage(searchParams),
@@ -54,8 +56,14 @@ const UserListView = () => {
               <Verified completeData={response} setUrlParam={setUrlParam} />
             ),
           },
-          // { title: "Non Verified Users", item: <NonVerified tableData={response} /> },
+          {
+            title: "Non Verified Users",
+            item: (
+              <NonVerified completeData={response} setUrlParam={setUrlParam} />
+            ),
+          },
         ]}
+        
       />
     </DashboardPage>
   );

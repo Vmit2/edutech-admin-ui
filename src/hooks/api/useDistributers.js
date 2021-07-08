@@ -1,16 +1,16 @@
 import { queryCache, useQuery } from "react-query";
 import { QUERY_STALE_TIME, QueryKeys } from "../../config/query";
-import UserService from "../../services/api/UserService";
+import DistributerService from "../../services/api/DistributerService";
 
 function queryFn(_,{ params }) {
-  return UserService.getAll(params);
+  return DistributerService.getAll(params);
 }
 
 function buildQueryKey(params) {
   return [QueryKeys.ALL_USERS, { params }];
 }
 
-export function useUsers({ enabled = true, params } = {}) {
+export function useDistributers({ enabled = true, params } = {}) {
   const queryKey = buildQueryKey(params);
 
   const config = {
@@ -30,7 +30,7 @@ export function useUsers({ enabled = true, params } = {}) {
   };
 }
 
-export function invalidateUsers(opts = {}) {
+export function invalidateDistributers(opts = {}) {
   const { refetchActive } = opts;
 
   return queryCache.invalidateQueries(QueryKeys.ALL_USERS, {

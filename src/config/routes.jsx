@@ -1,17 +1,21 @@
 import React, { lazy } from "react";
 import { Navigate } from "react-router-dom";
 import DashboardLayout from "../layouts/Dashboard/DashboardLayout";
-import AuthGuard from "../components/Guards/AuthGuard";
+import { AuthGuard, PermissionGuard } from "../components/Guards";
+import { ReportsPermissions } from "./permissionsConfig/ReportsPermissions";
+import { UsersPermission } from "./permissionsConfig/UsersPermission";
 
 /* ===== User Profile ===== */
 const Admin = lazy(() => import("../views/Admin/Admin"));
-const UsersListView = lazy(() => import("../views/UsersView/UserListView"));
+const UsersListView = lazy(() =>
+  import("../views/UsersView/usersList/UserListView")
+);
 const UserDetailsView = lazy(() =>
   import("../views/UsersView/UserDetailsView")
 );
 const LoginView = lazy(() => import("../views/Login/LoginView"));
 const DistributersListView = lazy(() =>
-  import("../views/DistributersView/DistributersListView")
+  import("../views/DistributersView/distributersList/DistributersListView")
 );
 const DistributersDetailsView = lazy(() =>
   import("../views/DistributersView/DistributersDetailsView")
@@ -42,17 +46,24 @@ export const routes = [
       {
         path: "reports",
         element: (
-          // <PermissionGuard
-          //   fallback={<NotFoundView />}
-          //   permissions={[PackagePermissions.READ]}
-          // >
-          <Admin />
-          // </PermissionGuard>
+          <PermissionGuard
+            fallback={<NotFoundView />}
+            permissions={[ReportsPermissions.READ, ReportsPermissions.WRITE]}
+          >
+            <Admin />
+          </PermissionGuard>
         ),
       },
       {
         path: "users",
-        element: <UsersListView />,
+        element: (
+          <PermissionGuard
+            fallback={<NotFoundView />}
+            permissions={[UsersPermission.READ, UsersPermission.WRITE]}
+          >
+            <UsersListView />
+          </PermissionGuard>
+        ),
       },
       {
         path: "users/details",

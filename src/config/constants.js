@@ -90,8 +90,8 @@ Object.freeze(InstanceType)
 
 export const ActiveStatus = {
   BOTH: 'both',
-  ACTIVE: 'active',
-  INACTIVE: 'inactive',
+  COMPLETED: 'completed',
+  NOT_COMPLETED: 'not_completed',
 }
 export const ActiveStatusValues = Object.values(ActiveStatus)
 Object.freeze(ActiveStatus);

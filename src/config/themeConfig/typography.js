@@ -32,7 +32,7 @@ export const defaultTypography = {
   },
 
   h3: {
-    fontFamily: ['"ITC Souvenir Std"', 'serif'].join(','),
+    fontFamily: ['"ITC Souvenir Std"'].join(','),
     fontSize: 30,
     fontWeight: 500,
   },

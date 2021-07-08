@@ -2,7 +2,7 @@ import { apiClient } from "../apiClient";
 import { translateUser } from "./translators/translateUser";
 
 async function getAll(qParams = {}) {
-  const url = `/admin/getAllUsers`;
+  const url = `/admin/getAllDistributors`;
   // const queryFn = (queryParams) => {
   const params = {
     // sort: 'name:asc',

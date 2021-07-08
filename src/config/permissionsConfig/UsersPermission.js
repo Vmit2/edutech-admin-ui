@@ -1,6 +1,6 @@
 export const UsersPermission = {
-  READ: 'class_read',
-  WRITE: 'class_write',
+  READ: 'users_read',
+  WRITE: 'users_write',
 }
 
 export const usersPermission = [
