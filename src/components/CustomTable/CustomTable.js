@@ -1,18 +1,36 @@
 import {
-    Paper,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
 } from "@material-ui/core";
 import {Pagination} from "@material-ui/lab";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 
-const CustomTable = ({ tableData, headingColumns }) => {
+const CustomTable = ({
+  tableData,
+  headingColumns,
+  count,
+  currentPage,
+  setUrlParam,
+}) => {
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [page, setPage] = useState(0);
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(parseInt(currentPage));
+    setUrlParam("limit", event.target.value);
+  };
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+    setUrlParam("page", newPage + 1);
+  };
   const data = tableData.map((row, index) => {
     let rowData = [];
     let i = 0;
@@ -51,7 +69,15 @@ const CustomTable = ({ tableData, headingColumns }) => {
           </TableHead>
           <TableBody align="center">{data}</TableBody>
         </Table>
-        <Pagination count={10}/>
+        <TablePagination
+          rowsPerPageOptions={[5, 10]}
+          component="div"
+          count={count ? parseInt(count):0}
+          rowsPerPage={rowsPerPage}
+          page={page && parseInt(page)}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+        />
       </TableContainer>
     </div>
   );

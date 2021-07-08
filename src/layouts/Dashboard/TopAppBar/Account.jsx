@@ -1,4 +1,7 @@
 // import { t } from '@lingui/macro'
+// import { useUserDetails } from "src/hooks/api/useUserDetails";
+// import { logout } from "src/redux/actions/authActions";
+import { Typography } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import Box from "@material-ui/core/Box";
 import ButtonBase from "@material-ui/core/ButtonBase";
@@ -8,11 +11,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { makeStyles } from "@material-ui/core/styles";
 // import { useSnackbar } from "notistack";
 import React, { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
-// import { useUserDetails } from "src/hooks/api/useUserDetails";
-// import { logout } from "src/redux/actions/authActions";
-
+import { useUserState } from "../../../hooks/redux";
+import { formatAdminDetails } from "../../../services/formatting/formatAdminDetails";
 const useStyles = makeStyles((theme) => ({
   avatar: {
     height: 40,
@@ -32,7 +33,8 @@ function Account() {
   // const navigate = useNavigate();
   // const { enqueueSnackbar } = useSnackbar();
   const [isOpen, setOpen] = useState(false);
-  // const userDetails = useUserDetails();
+  const { details } = useUserState();
+  const userDetails = formatAdminDetails(details);
 
   const handleOpen = () => {
     setOpen(true);
@@ -45,9 +47,7 @@ function Account() {
   const handleLogout = async () => {
     // try {
     //   handleClose();
-
     //   await dispatch(logout());
-
     //   navigate("/");
     // } catch (err) {
     //   enqueueSnackbar("Unable to logout", {
@@ -63,7 +63,6 @@ function Account() {
   // if (userDetails.error) {
   //   return null;
   // }
-
   return (
     <>
       <Box
@@ -73,14 +72,9 @@ function Account() {
         ref={ref}
         onClick={handleOpen}
       >
-        <Avatar
-          alt="User avatar"
-          className={classes.avatar}
-          // src={userDetails.data.avatar_url}
-        />
+        <Avatar alt={userDetails.First_Name} className={classes.avatar} src={userDetails.photo} />
         <Hidden smDown>
-          {/* <Typography>{userDetails.data.name}</Typography> */}
-          Vimit Athawale
+          <Typography>{userDetails.Name}</Typography>
         </Hidden>
       </Box>
 

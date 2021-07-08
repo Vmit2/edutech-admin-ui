@@ -1,6 +1,8 @@
 import { Card, Container, makeStyles } from "@material-ui/core";
 import React from "react";
+import { useParams } from "react-router-dom";
 import FormInfoText from "../../components/Typography/FormInfoText/FormInfoText";
+import { useDistributerDetails } from "../../hooks/api/useDistributerDetails";
 import DashboardPage from "../../layouts/Dashboard/DashboardPage";
 
 const useStyles = makeStyles((theme) => ({
@@ -15,6 +17,10 @@ const useStyles = makeStyles((theme) => ({
 const DistributersDetailsView = ({ ...props }) => {
   const title = "Distributers";
   const classes = useStyles();
+  const { distributerId } = useParams();
+  const distributerDetails = useDistributerDetails(distributerId);
+
+  console.log(" distributerDetails ", distributerDetails);
   return (
     <div className="">
       <DashboardPage documentTitle={title} pageTitle={title}>

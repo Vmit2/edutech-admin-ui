@@ -1,0 +1,1 @@
+export { usePermissionGuard } from './usePermissionGuard'

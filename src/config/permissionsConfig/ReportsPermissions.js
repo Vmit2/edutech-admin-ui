@@ -1,6 +1,6 @@
 export const ReportsPermissions = {
-  READ: 'class_read',
-  WRITE: 'class_write',
+  READ: 'reports_read',
+  WRITE: 'reports_write',
 }
 
 export const reportsPermissions = [

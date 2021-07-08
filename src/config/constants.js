@@ -7,7 +7,10 @@ export const SIDE_DRAWER_WIDTH_DESKTOP = 256
 export const SIDE_DRAWER_WIDTH_MOBILE = 256
 export const MAX_DESCRIPTION_LENGTH = 1000
 
-export const DEFAULT_LOCATION_PHOTO = '/static/images/essex.png'
+export const DEFAULT_LOCATION_PHOTO = '/static/images/essex.png';
+
+// redux action constants
+export const SET_ACTIVE_USER = 'SET_ACTIVE_USER';
 
 export const Themes = {
   LIGHT: 'LIGHT',
@@ -87,14 +90,8 @@ Object.freeze(InstanceType)
 
 export const ActiveStatus = {
   BOTH: 'both',
-  ACTIVE: 'active',
-  INACTIVE: 'inactive',
+  COMPLETED: 'completed',
+  NOT_COMPLETED: 'not_completed',
 }
 export const ActiveStatusValues = Object.values(ActiveStatus)
-Object.freeze(ActiveStatus)
-
-export const OnlineBooking = {
-  EVERYONE: 'everyone',
-  MEMBERS_ONLY: 'members_only',
-  NOBODY: 'nobody',
-}
+Object.freeze(ActiveStatus);
