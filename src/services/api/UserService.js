@@ -36,12 +36,12 @@ async function create(body) {
   return translateUser(res.data);
 }
 
-async function update(userId, body) {
-  const url = `/users/${userId}`;
+async function updateKyc(userId) {
+  const url = `/admin/userKycApproval/${userId}`;
 
-  const res = await apiClient.put(url, body);
+  const res = await apiClient.put(url);
 
-  return translateUser(res.data);
+  return res;
 }
 
 export default {
@@ -49,5 +49,5 @@ export default {
   getAllByKyc,
   getById,
   create,
-  update,
+  updateKyc,
 };

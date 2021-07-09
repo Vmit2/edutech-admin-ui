@@ -15,7 +15,7 @@ import DashboardPage from "../../layouts/Dashboard/DashboardPage";
 import PublishIcon from "@material-ui/icons/Publish";
 import CloseIcon from "@material-ui/icons/Close";
 import { unset } from "lodash";
-import { useUserDetails } from "../../hooks/api/useUserDetails";
+import { updateKyc, useUserDetails } from "../../hooks/api/useUserDetails";
 import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -233,6 +233,10 @@ const UserDetailsView = ({ ...props }) => {
     setOpen(false);
   };
 
+  const onSubmitKyc = () => {
+    updateKyc(userId);
+  };
+
   return (
     <div className="">
       <DashboardPage documentTitle={title} pageTitle={title}>
@@ -411,7 +415,7 @@ const UserDetailsView = ({ ...props }) => {
                     </CardContent>
                   </Grid>
                 </Grid>
-                <Button className={classes.approveButton}>
+                <Button onClick={onSubmitKyc} className={classes.approveButton}>
                   Click to Approve
                 </Button>
               </Grid>
