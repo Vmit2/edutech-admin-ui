@@ -8,10 +8,10 @@ import { UsersPermission } from "./permissionsConfig/UsersPermission";
 /* ===== User Profile ===== */
 const Admin = lazy(() => import("../views/Admin/Admin"));
 const UsersListView = lazy(() =>
-  import("../views/UsersView/usersList/UserListView")
+  import("../views/UsersView/UsersList/UserListView")
 );
 const UserDetailsView = lazy(() =>
-  import("../views/UsersView/UserDetailsView")
+  import("../views/UsersView/userDetails/UserDetailsView")
 );
 const LoginView = lazy(() => import("../views/Login/LoginView"));
 const DistributersListView = lazy(() =>

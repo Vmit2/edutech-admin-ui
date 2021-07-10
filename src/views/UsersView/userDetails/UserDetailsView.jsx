@@ -1,3 +1,4 @@
+import React,{ useMemo, useRef, useState } from "react";
 import {
   Typography,
   Card,
@@ -6,219 +7,41 @@ import {
   Checkbox,
   Modal,
   Button,
+  Container, 
+  Grid
 } from "@material-ui/core";
-import { Container, Grid, makeStyles } from "@material-ui/core";
-import React from "react";
-import userImg from "../../assets/images/userImg.png";
-import someImage from "../../assets/images/ref1.png";
-import DashboardPage from "../../layouts/Dashboard/DashboardPage";
+import userImg from "../../../assets/images/userImg.png";
+import someImage from "../../../assets/images/ref1.png";
+import DashboardPage from "../../../layouts/Dashboard/DashboardPage";
 import PublishIcon from "@material-ui/icons/Publish";
 import CloseIcon from "@material-ui/icons/Close";
-import { unset } from "lodash";
-import { useUserDetails } from "../../hooks/api/useUserDetails";
+import { useUserDetails } from "../../../hooks/api/useUserDetails";
 import { useParams } from "react-router-dom";
+import useStyles from "./UserDetailsView.style";
+import { formateUserDetails, getformatedDate } from "./utilitizes/utils";
+import LabelValue from "./utilitizes/LabelValue";
+import { setApprove } from "../../../hooks/api/useApprove";
 
-const useStyles = makeStyles((theme) => ({
-  profileConatiner: {
-    display: "flex",
-    justifyContent: "center",
-    backgroundColor: theme.palette.module.backgroundLight,
-    flexDirection: "column",
-    width: "100%",
-    boxShadow: theme.palette.shadow.primary,
-    padding: "20px 40px 8rem",
-    marginBottom: "2rem",
-    borderRadius: "10px 10px 10px 10px",
-  },
-  imageContainer: {
-    alignSelf: "center",
-    marginTop: "-5rem",
-    position: "relative",
-    color: theme.palette.common.white,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  fullName: {
-    marginTop: "10px",
-  },
-  basicDetailsContainer: {
-    position: "relative",
-    marginTop: "10px",
-    color: theme.palette.common.white,
-  },
-  basicDetailsTitle: {
-    color: theme.palette.common.white,
-    marginBottom: 10,
-  },
-  detailsContainer: {
-    backgroundColor: theme.palette.background.paper,
-    width: "100%",
-    padding: 0,
-  },
-  imgStyle: {
-    height: 110,
-    width: 110,
-    borderRadius: "50%",
-    borderColor: theme.palette.common.white,
-    border: "10px solid",
-    backgroundColor: theme.palette.common.green,
-  },
-  moreDetailsConatiner: {
-    display: "flex",
-    justifyContent: "center",
-    backgroundColor: theme.palette.background.paper,
-    flexDirection: "column",
-    width: "98%",
-    boxShadow: theme.palette.shadow.primary,
-    padding: "20px 40px 20px",
-    margin: "-8rem auto 0",
-    borderRadius: "10px 10px 10px 10px",
-  },
-  moreDetailsTitle: {
-    color: theme.palette.common.black,
-    marginBottom: 10,
-  },
-  labelValueConatiner: {
-    display: "flex",
-    marginBottom: "10px",
-  },
-  label: {
-    fontWeight: "600",
-  },
-  value: {
-    fontWeight: "200",
-  },
-  cardWrapper: {
-    position: "relative",
-  },
-  cardImageConatiner: {
-    width: "200px",
-    height: "150px",
-    marginBottom: "10px",
-    position: "relative",
-  },
-  cardImage: {
-    position: "relative",
-    width: "100%",
-    height: "100%",
-    cursor: "pointer",
-    "&:before": {
-      position: "absolute",
-      content: '""',
-      top: 0,
-      left: 0,
-      width: "200px",
-      height: "150px",
-      background: "#00000069",
-    },
-  },
-  overlayContainer: {
-    position: "absolute",
-    left: 0,
-    bottom: 0,
-    display: "flex",
-    justifyContent: "space-between",
-    width: "200px",
-    padding: "5px 20px",
-    color: "#FFF",
-    background: "#FFFFFF47",
-  },
-  kycDetailsConatiner: {
-    marginTop: "30px",
-  },
-  approveButton: {
-    marginTop: "30px",
-    background: theme.palette.module.backgroundLight,
-    color: theme.palette.common.white,
-    "&:hover": {
-      background: theme.palette.module.backgroundLight,
-    },
-  },
-  checkboxStyle: {
-    padding: "unset",
-  },
-  button: {
-    color: "#fff",
-  },
-  previewImageWrapper: {
-    justifyContent: "center",
-    flexDirection: "column",
-    padding: "3rem",
-  },
-  previewImage: {
-    justifyContent: "center",
-  },
-  closeConatiner: {
-    alignSelf: "flex-end",
-    cursor: "pointer",
-  },
-  closeIcon: {
-    fontSize: "40px",
-    color: theme.palette.common.white,
-  },
-  modal: {
-    height: "100vh",
-  },
-}));
 
-const detailsData = {
-  idUser: 26,
-  salutation: "Mr",
-  firstName: "Test",
-  middleName: "Demo",
-  lastName: "TestLast",
-  email: "mayurkharat03@gmail.com",
-  password: "1234567890",
-  phoneNumber: "13345",
-  gender: 1,
-  billingAddress: "Testing",
-  shippingAddress: "Testing",
-  dateOfBirth: "1991-09-03T00:00:00.000Z",
-  aadhaarCard: "1234",
-  panCard: "1234",
-  photo: "Testing",
-  aadhaarFront: null,
-  aadhaarBack: null,
-  pancardPhoto: null,
-  referredBy: 1,
-  createdDate: "2021-05-07T05:27:08.000Z",
-  updatedDate: "2021-05-07T05:27:08.000Z",
-};
 
-const getformatedDate = (dateValue) => {
-  const date = new Date(dateValue);
-  const year = date.getFullYear();
-  const month = date.getMonth();
-  const currentDate = date.getDate();
-  return currentDate + "-" + month + "-" + year;
-};
-
-const LabelValue = ({ label, value }) => {
-  const classes = useStyles();
-  return (
-    <Grid item className={classes.labelValueConatiner}>
-      <Typography className={classes.label}>{label}</Typography>&nbsp;
-      <Typography className={classes.value}>{value}</Typography>
-    </Grid>
-  );
-};
-
-const UserDetailsView = ({ ...props }) => {
+function UserDetailsView ({ ...props }){
   const title = "Details";
   const classes = useStyles();
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     panCard: false,
     addharCard: false,
   });
-  const [open, setOpen] = React.useState(false);
-  const [prevImage, setPrevImage] = React.useState();
+  const [open, setOpen] = useState(false);
+  const [prevImage, setPrevImage] = useState();
 
   const { userId } = useParams();
   const userDetails = useUserDetails(userId);
 
-  console.log(" userDetails ", userDetails);
+  const detailsData = formateUserDetails(userDetails)
+
+  const handleApprove = async(panCard,addharCard) =>{
+    setApprove(userId,{panCard,addharCard})
+  }
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -233,6 +56,9 @@ const UserDetailsView = ({ ...props }) => {
     setOpen(false);
   };
 
+  if(!detailsData){
+    return 
+  }
   return (
     <div className="">
       <DashboardPage documentTitle={title} pageTitle={title}>
@@ -259,28 +85,28 @@ const UserDetailsView = ({ ...props }) => {
                   Basic Details:
                 </Typography>
                 <Grid container>
-                  <Grid container xs={12} sm={6} md={6}>
+                  <Grid container item xs={12} sm={6} md={6}>
                     <LabelValue
                       label="First Name:"
                       value={detailsData.firstName}
                     />
                   </Grid>
-                  <Grid container xs={12} sm={6} md={6}>
+                  <Grid container item xs={12} sm={6} md={6}>
                     <LabelValue
                       label="Middle Name:"
                       value={detailsData.middleName}
                     />
                   </Grid>
-                  <Grid container xs={12} sm={6} md={6}>
+                  <Grid container item xs={12} sm={6} md={6}>
                     <LabelValue
                       label="Last Name:"
                       value={detailsData.lastName}
                     />
                   </Grid>
-                  <Grid container xs={12} sm={6} md={6}>
+                  <Grid container item xs={12} sm={6} md={6}>
                     <LabelValue label="Gender:" value={detailsData.gender} />
                   </Grid>
-                  <Grid container xs={12} sm={6} md={6}>
+                  <Grid container item xs={12} sm={6} md={6}>
                     <LabelValue
                       label="Date of Birth : "
                       value={getformatedDate(detailsData.dateOfBirth)}
@@ -411,7 +237,7 @@ const UserDetailsView = ({ ...props }) => {
                     </CardContent>
                   </Grid>
                 </Grid>
-                <Button className={classes.approveButton}>
+                <Button className={classes.approveButton} onClick={()=>handleApprove(state.panCard,state.addharCard)}>
                   Click to Approve
                 </Button>
               </Grid>
