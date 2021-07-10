@@ -4,6 +4,7 @@ import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import FilledCircleCount from "../FilledCircleCount/FilledCircleCount";
+import TreeNodeLabel from "../Typography/TreeNodeLabel/TreeNodeLabel";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -11,12 +12,14 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
     ...theme.typography.body1,
     fontWeight: 700,
-    backgroundColor: "white",
+    backgroundColor: theme.palette.background.default,
+    border: "solid 0.2rem",
+    borderColor: theme.palette.background.default,
     "&:hover": {
       border: "solid 0.2rem",
       borderColor: theme.palette.primary.main,
       textDecoration: "none",
-      backgroundColor: "white",
+      backgroundColor: theme.palette.background.default,
     },
   },
   activeCard: {
@@ -92,19 +95,24 @@ function TreeNodeCard({
       }
       title={
         <Box className={classes.titleContainer}>
-          {label} Name
+          <TreeNodeLabel title={label} value={label} />
           {hasChilds && (
             <>
               <FilledCircleCount
                 circleClassName={classes.circle}
-                value={"Count -> " + childCount}
+                value={"Count: " + "  " + childCount}
                 variant="blue"
               />
             </>
           )}
         </Box>
       }
-      subheader={`(${referral_code}) [UID - ${nodeId}]`}
+      subheader={
+        <TreeNodeLabel
+          title={referral_code}
+          value={"Ref Id " + referral_code + " [ User Id  -  " + nodeId + " ]"}
+        />
+      }
     />
   );
 }

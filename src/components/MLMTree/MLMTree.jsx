@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   },
 });
 
-const MLMTree = ({ treeItems, selected,found, ...props }) => {
+const MLMTree = ({ treeItems, selected, found, showChild, ...props }) => {
   const classes = useStyles();
   return (
     <TreeView
@@ -23,7 +23,7 @@ const MLMTree = ({ treeItems, selected,found, ...props }) => {
       defaultExpandIcon={<ChevronRightIcon />}
       {...props}
     >
-      {getTreeItemsFromData(treeItems, selected, found)}
+      {getTreeItemsFromData(treeItems, selected, found, showChild)}
     </TreeView>
   );
 };

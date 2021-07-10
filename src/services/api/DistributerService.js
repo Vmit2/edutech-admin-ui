@@ -1,7 +1,7 @@
 import { apiClient } from "../apiClient";
 import { translateUser } from "./translators/translateUser";
 
-async function getAll(qParams = {}) {
+async function getRoot(qParams = {}) {
   const url = `/admin/getAllDistributors`;
   const params = {
     ...qParams,
@@ -17,6 +17,12 @@ async function getAllByKyc(qParams = {}, kycFlag) {
     page: qParams.page,
   };
   const res = apiClient.get(url, { params });
+  return res;
+}
+
+async function getChildsById(userId) {
+  const url = `/admin/getDistributorTreeById/${userId}`;
+  const res = apiClient.get(url);
   return res;
 }
 
@@ -45,9 +51,10 @@ async function update(userId, body) {
 }
 
 export default {
-  getAll,
+  getRoot,
   getAllByKyc,
   getById,
+  getChildsById,
   create,
   update,
 };

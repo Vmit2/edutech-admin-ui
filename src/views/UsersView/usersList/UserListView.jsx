@@ -9,12 +9,6 @@ import HorizontalTabs from "../../../components/HorizontalTabs";
 import PlusCircleIcon from "../../../components/Icons/PlusCircleIcon";
 import { ActiveStatus } from "../../../config/constants";
 import { useUsers } from "../../../hooks/api/useUsers";
-// import { ActiveStatus } from "src/config/constants";
-// import { EquipmentPermissions } from "src/config/permissionsConfig/equipmentPermissions";
-// import { useAllLocations } from "src/hooks/api/useAllLocations";
-// import { useUser } from "../../../hooks/api/useUser";
-// import { usePermissionGuard } from "src/hooks/guards";
-// import { useUserState } from "src/hooks/redux";
 import DashboardPage from "../../../layouts/Dashboard/DashboardPage";
 import UserTable from "./table/UserTable";
 import { urlParamsToApi } from "./urlParamsToApi";
@@ -23,16 +17,11 @@ import { useUrlParams } from "./useUrlParams";
 function UsersListView() {
   const title = "Manage Users";
 
-  // const { activeBusiness } = useUserState();
-  // const locations = useAllLocations(activeBusiness.id);
   const { urlParams, setUrlParams } = useUrlParams();
 
   const userDetails = useUsers({
     params: urlParamsToApi(urlParams),
   });
-  // const { hasPermission: hasWritePermission } = usePermissionGuard(
-  //   EquipmentPermissions.WRITE
-  // );
 
   const isLoading =
     userDetails.status === "idle" || userDetails.status === "loading";

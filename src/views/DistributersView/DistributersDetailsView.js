@@ -20,7 +20,6 @@ const DistributersDetailsView = ({ ...props }) => {
   const { distributerId } = useParams();
   const distributerDetails = useDistributerDetails(distributerId);
 
-  console.log(" distributerDetails ", distributerDetails);
   return (
     <div className="">
       <DashboardPage documentTitle={title} pageTitle={title}>

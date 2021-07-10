@@ -218,8 +218,6 @@ const UserDetailsView = ({ ...props }) => {
   const { userId } = useParams();
   const userDetails = useUserDetails(userId);
 
-  console.log(" userDetails ", userDetails);
-
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
   };

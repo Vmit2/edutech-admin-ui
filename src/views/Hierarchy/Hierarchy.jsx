@@ -2,9 +2,17 @@ import React, { useState } from "react";
 import FilledCircleCount from "../../components/FilledCircleCount/FilledCircleCount";
 import ListSummaryBar from "../../components/ListSummaryBar/ListSummaryBar";
 import MLMTree from "../../components/MLMTree";
+import { useDistributersRootList } from "../../hooks/api/useDistributersRootList";
 import { search } from "../../hooks/useSearchDist";
 import DashboardPage from "../../layouts/Dashboard/DashboardPage";
 import HierarchyFilterBar from "./HierarchyFilterBar";
+import { urlParamsToApi } from "./urlParamsToApi";
+import { useUrlParams } from "./useUrlParams";
+import ListPagination from "../../components/ListPagination";
+import { parsePage, parsePageSize } from "../../utils/url/parsePage";
+import { urlParamsToApiForChildTree } from "./ChildTree/urlParamsToApiForChildTree";
+import { useUrlParamsForChildTree } from "./ChildTree/useUrlParamsForChildTree";
+import { useDistributersChildList } from "../../hooks/api/useDistributersChildList";
 
 const users = [
   {
@@ -302,15 +310,36 @@ const users = [
 const Hierarchy = ({ ...props }) => {
   const title = "Distributers Hierarchy";
   const [searchValue, setValue] = useState("initial text");
-  const [expanded, setExpanded] = useState([]);
+  const [expanded, setExpanded] = useState([26]);
   const [selected, setSelected] = useState([]);
   const [found, setFound] = useState(-1);
 
+  // const distributersHierarchy = useHierarchy({
+  //   params: urlParamsToApi(urlParams),
+  // });
+  // const { urlParams, setUrlParam } = useUrlParams();
+
+  const { urlParams, setUrlParam } = useUrlParams({
+    parseUrlParams: (searchParams) => ({
+      page: parsePage(searchParams),
+      size: parsePageSize(searchParams),
+    }),
+  });
+
+  const distributersDetails = useDistributersRootList({
+    params: urlParamsToApi(urlParams),
+  });
+
+  const { urlParamsForChild, setUrlParamForChild } = useUrlParamsForChildTree();
+  const childTreeList = useDistributersChildList({
+    params: urlParamsToApiForChildTree(urlParamsForChild),
+  });
+
   const handleToggle = (event, nodeIds) => {
+    setUrlParamForChild("id", nodeIds[0]);
     setExpanded(nodeIds);
     setFound("");
   };
-
   const handleSelect = (event, nodeIds) => {
     setSelected(nodeIds);
     setFound("");
@@ -332,7 +361,7 @@ const Hierarchy = ({ ...props }) => {
       setFound("");
     }
   };
-
+  setUrlParam("size", 10);
   return (
     <div className="">
       <DashboardPage documentTitle={title} pageTitle={title}>
@@ -342,16 +371,7 @@ const Hierarchy = ({ ...props }) => {
           onChange={onChange}
         />
         <ListSummaryBar
-          // action={
-          //   hasWritePermission ? (
-          //     <Link component={RouterLink} to="add" underline="none">
-          //       <PrimaryButton component="div" startIcon={<PlusCircleIcon />}>
-          //         {t`Add New user`}
-          //       </PrimaryButton>
-          //     </Link>
-          //   ) : null
-          // }
-          count={2}
+          count={1} //{distributersDetails.currentPage}
           legend={
             <>
               <FilledCircleCount
@@ -362,15 +382,23 @@ const Hierarchy = ({ ...props }) => {
               <FilledCircleCount label="User" size="small" variant="red" />
             </>
           }
-          totalCount={20}
+          totalCount={1} //{distributersDetails.count}
         />
         <MLMTree
           onNodeToggle={handleToggle}
           onNodeSelect={handleSelect}
           expanded={expanded}
           selected={selected}
-          treeItems={users}
+          // treeItems={users}
+          treeItems={distributersDetails.data ? distributersDetails.data : []}
           found={found}
+          showChild = {{"id":expanded[0],"childs":childTreeList.data}}
+        />
+
+        <ListPagination
+          currentPage={1} //{urlParams.page}
+          totalPages={1} //{distributersDetails.totalPages}
+          onChange={(_, newPage) => setUrlParam("page", newPage)}
         />
       </DashboardPage>
     </div>

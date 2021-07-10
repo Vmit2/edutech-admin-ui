@@ -1,14 +1,15 @@
 import { CssBaseline } from "@material-ui/core";
 import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
+import { SnackbarProvider } from "notistack";
 import PropTypes from "prop-types";
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import AppErrorBoundary from "./AppErrorBoundary";
+// import { useSettings } from "./context/SettingsContext";
+import AppInitializer from "./AppInitializer";
 import AppRoutes from "./AppRoutes";
 // import ScrollReset from "./components/ScrollReset";
 import { createTheme } from "./config/theme";
-// import { useSettings } from "./context/SettingsContext";
-import AppInitializer from "./AppInitializer";
 
 const useStyles = makeStyles(() => ({
   "@global": {
@@ -35,16 +36,18 @@ function App() {
   // const { settings } = useSettings();
   return (
     <ThemeProvider theme={createTheme({})}>
-      <CssBaseline />
-      <AppErrorBoundary>
-        <BrowserRouter>
-          <AppInitializer>
-            {/* <ScrollReset /> */}
-            {/* <CookiesNotification /> */}
-            <AppRoutes />
-          </AppInitializer>
-        </BrowserRouter>
-      </AppErrorBoundary>
+      <SnackbarProvider maxSnack={1}>
+        <CssBaseline />
+        <AppErrorBoundary>
+          <BrowserRouter>
+            <AppInitializer>
+              {/* <ScrollReset /> */}
+              {/* <CookiesNotification /> */}
+              <AppRoutes />
+            </AppInitializer>
+          </BrowserRouter>
+        </AppErrorBoundary>
+      </SnackbarProvider>
     </ThemeProvider>
   );
 }

@@ -1,6 +1,4 @@
-// import { t } from '@lingui/macro'
-// import { useUserDetails } from "src/hooks/api/useUserDetails";
-// import { logout } from "src/redux/actions/authActions";
+import { logout } from "../../../redux/actions/authActions";
 import { Typography } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import Box from "@material-ui/core/Box";
@@ -9,9 +7,10 @@ import Hidden from "@material-ui/core/Hidden";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { makeStyles } from "@material-ui/core/styles";
-// import { useSnackbar } from "notistack";
+import { useSnackbar } from "notistack";
 import React, { useRef, useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useUserState } from "../../../hooks/redux";
 import { formatAdminDetails } from "../../../services/formatting/formatAdminDetails";
 const useStyles = makeStyles((theme) => ({
@@ -29,9 +28,9 @@ function Account() {
   const classes = useStyles();
 
   const ref = useRef(null);
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
-  // const { enqueueSnackbar } = useSnackbar();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
   const [isOpen, setOpen] = useState(false);
   const { details } = useUserState();
   const userDetails = formatAdminDetails(details);
@@ -45,15 +44,18 @@ function Account() {
   };
 
   const handleLogout = async () => {
-    // try {
-    //   handleClose();
-    //   await dispatch(logout());
-    //   navigate("/");
-    // } catch (err) {
-    //   enqueueSnackbar("Unable to logout", {
-    //     variant: "error",
-    //   });
-    // }
+    try {
+      handleClose();
+      await dispatch(logout());
+      enqueueSnackbar("Logout successfully", {
+        variant: "success",
+      });
+      navigate("/");
+    } catch (err) {
+      enqueueSnackbar("Unable to logout", {
+        variant: "error",
+      });
+    }
   };
 
   // if (userDetails.status === "loading") {
@@ -72,7 +74,11 @@ function Account() {
         ref={ref}
         onClick={handleOpen}
       >
-        <Avatar alt={userDetails.First_Name} className={classes.avatar} src={userDetails.photo} />
+        <Avatar
+          alt={userDetails.First_Name}
+          className={classes.avatar}
+          src={userDetails.photo}
+        />
         <Hidden smDown>
           <Typography>{userDetails.Name}</Typography>
         </Hidden>
