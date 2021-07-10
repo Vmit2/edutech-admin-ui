@@ -50,6 +50,15 @@ async function update(userId, body) {
   return translateUser(res.data);
 }
 
+async function updateKyc(distributerId) {
+  const url = `/admin/distributorKycApproval/${distributerId}`;
+
+  const res = await apiClient.put(url);
+
+  return res;
+}
+
+
 export default {
   getRoot,
   getAllByKyc,
@@ -57,4 +66,5 @@ export default {
   getChildsById,
   create,
   update,
+  updateKyc
 };

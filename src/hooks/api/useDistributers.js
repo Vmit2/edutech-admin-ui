@@ -39,3 +39,23 @@ export function invalidateDistributers(opts = {}) {
     refetchActive,
   });
 }
+
+export async function updateKyc(distributerId) {
+  try {
+    const data = await DistributerService.updateKyc(distributerId);
+
+    return {
+      error: false,
+      data,
+    };
+  } catch (err) {
+    const apiErrorMessage = err.edutechError
+      ? err.error.response.data.message
+      : "An unexpected error occurred. Please try again.";
+
+    return {
+      error: true,
+      apiErrorMessage,
+    };
+  }
+}

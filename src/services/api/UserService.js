@@ -44,10 +44,19 @@ async function updateKyc(userId) {
   return res;
 }
 
+async function getPackageById(userId) {
+  const url = `/package/getPackageByUserId/${userId}`;
+
+  const res = await apiClient.get(url);
+
+  return res;
+}
+
 export default {
   getAll,
   getAllByKyc,
   getById,
   create,
   updateKyc,
+  getPackageById
 };
