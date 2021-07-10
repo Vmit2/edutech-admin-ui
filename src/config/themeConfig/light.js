@@ -59,6 +59,7 @@ export const lightTheme = {
     },
     shadow: {
       primary : "0px 2px 1px  rgba(0,0,0,0.1)",
+      secondary : "0px 4px 4px 3px rgb(0 0 0 / 10%)",
     }
   },
 }
