@@ -42,8 +42,8 @@ const useStyles = makeStyles((theme) => ({
     borderColor: theme.palette.text.distributer,
   },
   circle: {
-    width: 30,
-    transform: "scale(0.7)",
+    // width: 30,
+    // transform: "scale(0.7)",
   },
   titleContainer: {
     width: "100%",
@@ -92,13 +92,15 @@ function TreeNodeCard({
       }
       title={
         <Box className={classes.titleContainer}>
-          {label}
+          {label} Name
           {hasChilds && (
-            <FilledCircleCount
-              circleClassName={classes.circle}
-              value={childCount}
-              variant="blue"
-            />
+            <>
+              <FilledCircleCount
+                circleClassName={classes.circle}
+                value={"Count -> " + childCount}
+                variant="blue"
+              />
+            </>
           )}
         </Box>
       }

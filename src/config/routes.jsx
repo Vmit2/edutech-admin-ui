@@ -18,7 +18,7 @@ const DistributersListView = lazy(() =>
   import("../views/DistributersView/distributersList/DistributersListView")
 );
 const DistributersDetailsView = lazy(() =>
-  import("../views/DistributersView/DistributersDetailsView")
+  import("../views/DistributersView/distributersDetailsView/DistributersDetailsView")
 );
 const Hierarchy = lazy(() => import("../views/Hierarchy/Hierarchy"));
 const NotFoundView = lazy(() => import("../views/Errors/NotFoundView"));

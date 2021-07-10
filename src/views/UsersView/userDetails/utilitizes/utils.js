@@ -21,6 +21,7 @@ export const formateUserDetails=(userDetails)=>{
         aadhaarFront: userDetails.aadhaar_front,
         aadhaarBack: userDetails.aadhaar_back,
         pancardPhoto: userDetails.pancard_photo,
+        kycCompleted :userDetails.kyc_completed === 0 ? true : false,
       }
 }
 

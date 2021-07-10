@@ -3,21 +3,19 @@ import { translateUser } from "./translators/translateUser";
 
 async function getAll(qParams = {}) {
   const url = `/admin/getAllUsers`;
-  // const queryFn = (queryParams) => {
   const params = {
-    // sort: 'name:asc',
     ...qParams,
-    // ...queryParams,
   };
+  const res = apiClient.get(url, { params });
+  return res;
+}
 
-  // const queryFn = (queryParams) => {
-  //   const params = {
-  //     ...qParams,
-  //     ...queryParams,
-  //   };
-  //   return apiClient.get(url, { params });
-  // };
-  // const res = await getAll({ queryFn });
+async function getAllByKyc(qParams = {}, kycFlag) {
+  const url = `/admin/getAllUsersByKyc/${kycFlag}`;
+  const params = {
+    limit: qParams.limit,
+    page: qParams.page,
+  };
   const res = apiClient.get(url, { params });
   return res;
 }
@@ -38,17 +36,18 @@ async function create(body) {
   return translateUser(res.data);
 }
 
-async function update(userId, body) {
-  const url = `/users/${userId}`;
+async function updateKyc(userId) {
+  const url = `/admin/userKycApproval/${userId}`;
 
-  const res = await apiClient.put(url, body);
+  const res = await apiClient.put(url);
 
-  return translateUser(res.data);
+  return res;
 }
 
 export default {
   getAll,
+  getAllByKyc,
   getById,
   create,
-  update,
+  updateKyc,
 };

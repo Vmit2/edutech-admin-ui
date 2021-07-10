@@ -1,9 +1,16 @@
 import React from 'react';
 import {
     Typography,
-    Grid
+    Grid,
+    makeStyles
   } from "@material-ui/core";
-import useStyles from '../UserDetailsView.style';
+
+const useStyles = makeStyles((theme) => ({
+    labelValueConatiner: {
+        display: "flex",
+        marginBottom: "10px",
+      },
+}))
 
 function LabelValue({ label, value }) {
     const classes = useStyles();

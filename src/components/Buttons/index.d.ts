@@ -1,6 +1,6 @@
 import React, { ButtonHTMLAttributes, ReactElement, ReactNode } from 'react'
 
-interface WallaButtonClasses {
+interface EdutechButtonClasses {
   root: {}
   startIcon: {}
   endIcon: {}
@@ -10,9 +10,9 @@ interface WallaButtonClasses {
   full: {}
 }
 
-interface WallaButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface EdutechButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   component?: 'button' | 'div'
-  classes?: WallaButtonClasses
+  classes?: EdutechButtonClasses
   disabled?: boolean
   fullWidth?: boolean
   endIcon?: ReactElement
@@ -23,8 +23,8 @@ interface WallaButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode
 }
 
-declare const PrimaryButton: React.FunctionComponent<WallaButtonProps>
-declare const SecondaryThemeButton: React.FunctionComponent<WallaButtonProps>
-declare const SecondaryButton: React.FunctionComponent<WallaButtonProps>
-declare const TertiaryButton: React.FunctionComponent<WallaButtonProps>
-declare const TertiaryErrorButton: React.FunctionComponent<WallaButtonProps>
+declare const PrimaryButton: React.FunctionComponent<EdutechButtonProps>
+declare const SecondaryThemeButton: React.FunctionComponent<EdutechButtonProps>
+declare const SecondaryButton: React.FunctionComponent<EdutechButtonProps>
+declare const TertiaryButton: React.FunctionComponent<EdutechButtonProps>
+declare const TertiaryErrorButton: React.FunctionComponent<EdutechButtonProps>

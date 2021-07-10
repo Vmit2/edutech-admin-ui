@@ -1,9 +1,11 @@
 import { queryCache, useQuery } from "react-query";
+import { ActiveStatus } from "../../config/constants";
 import { QUERY_STALE_TIME, QueryKeys } from "../../config/query";
 import DistributerService from "../../services/api/DistributerService";
 
 function queryFn(_,{ params }) {
-  return DistributerService.getAll(params);
+  const kycFlag = params && params.kyc === ActiveStatus.COMPLETED ? 1 : 0;
+  return DistributerService.getAllByKyc(params, kycFlag);
 }
 
 function buildQueryKey(params) {
@@ -23,7 +25,7 @@ export function useDistributers({ enabled = true, params } = {}) {
     status,
     data: data && data.data.results,
     error,
-    count: data && data.data.pagination && data.data.pagination.totalPages,
+    count: data && data.data.pagination && data.data.pagination.totalDocs,
     currentPage: data && data.data.pagination && data.data.pagination.current,
     nextPage: data && data.data.pagination && data.data.pagination.next,
     previousPage: data && data.data.pagination && data.data.pagination.previous,

@@ -8,37 +8,33 @@ import {
   Modal,
   Button,
   Container, 
-  Grid
+  Grid,
 } from "@material-ui/core";
-import userImg from "../../../assets/images/userImg.png";
-import someImage from "../../../assets/images/ref1.png";
+import { useParams } from "react-router-dom";
+import FormInfoText from "../../../components/Typography/FormInfoText/FormInfoText";
+import { useDistributerDetails } from "../../../hooks/api/useDistributerDetails";
 import DashboardPage from "../../../layouts/Dashboard/DashboardPage";
+import useStyles from "./DistributersDetailsView.style";
 import PublishIcon from "@material-ui/icons/Publish";
 import CloseIcon from "@material-ui/icons/Close";
-import { useParams } from "react-router-dom";
-import useStyles from "./UserDetailsView.style";
-import { formateUserDetails, getformatedDate } from "./utilitizes/utils";
 import LabelValue from "../../shared/LabelValue";
-import { updateKyc, useUserDetails } from "../../../hooks/api/useUserDetails";
+import userImg from "../../../assets/images/userImg.png";
+import someImage from "../../../assets/images/ref1.png";
+import { formateDistributerDetails,getformatedDate } from "./utilitizes/utils";
 
-
-
-function UserDetailsView ({ ...props }){
-  const title = "Details";
+const DistributersDetailsView = ({ ...props }) => {
+  const title = "Distributers";
   const classes = useStyles();
+  const { distributerId } = useParams();
+  const distributerDetails = useDistributerDetails(distributerId);
+  const detailsData = formateDistributerDetails(distributerDetails);
+
   const [state, setState] = useState({
     panCard: false,
     addharCard: false,
   });
   const [open, setOpen] = useState(false);
   const [prevImage, setPrevImage] = useState();
-
-  const { userId } = useParams();
-  const userDetails = useUserDetails(userId);
-  console.log('====================================');
-  console.log(userDetails);
-  console.log('====================================');
-  const detailsData = formateUserDetails(userDetails)
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -55,11 +51,12 @@ function UserDetailsView ({ ...props }){
 
   
   const onSubmitKyc = () => {
-    updateKyc(userId);
+    // updateKyc(userId);
   };
   if(!detailsData){
     return 
   }
+
   return (
     <div className="">
       <DashboardPage documentTitle={title} pageTitle={title}>
@@ -74,7 +71,8 @@ function UserDetailsView ({ ...props }){
                   src={userImg}
                 />
                 <Typography variant="h5" className={classes.fullName}>
-                {detailsData.salutation && detailsData.salutation+"." }{detailsData.firstName && detailsData.firstName}&nbsp;{detailsData.lastName && detailsData.lastName}
+                {detailsData.salutation && detailsData.salutation+"."}{detailsData.firstName && detailsData.firstName}&nbsp;{detailsData.lastName && detailsData.lastName}
+
                 </Typography>
               </Grid>
               <Grid item className={classes.basicDetailsContainer}>
@@ -288,7 +286,7 @@ function UserDetailsView ({ ...props }){
                     </CardContent>
                   </Grid>
                 </Grid>
-                <Button onClick={onSubmitKyc} className={classes.approveButton} disabled={!state.addharCard}>
+                <Button onClick={onSubmitKyc} className={classes.approveButton} disabled={!state.panCard}>
                   Click to Approve
                 </Button>
               </Grid>
@@ -320,4 +318,4 @@ function UserDetailsView ({ ...props }){
   );
 };
 
-export default UserDetailsView;
+export default DistributersDetailsView;

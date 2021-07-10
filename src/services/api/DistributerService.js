@@ -3,21 +3,19 @@ import { translateUser } from "./translators/translateUser";
 
 async function getAll(qParams = {}) {
   const url = `/admin/getAllDistributors`;
-  // const queryFn = (queryParams) => {
   const params = {
-    // sort: 'name:asc',
     ...qParams,
-    // ...queryParams,
   };
+  const res = apiClient.get(url, { params });
+  return res;
+}
 
-  // const queryFn = (queryParams) => {
-  //   const params = {
-  //     ...qParams,
-  //     ...queryParams,
-  //   };
-  //   return apiClient.get(url, { params });
-  // };
-  // const res = await getAll({ queryFn });
+async function getAllByKyc(qParams = {}, kycFlag) {
+  const url = `/admin/getAllDistributorsByKyc/${kycFlag}`;
+  const params = {
+    limit: qParams.limit,
+    page: qParams.page,
+  };
   const res = apiClient.get(url, { params });
   return res;
 }
@@ -48,6 +46,7 @@ async function update(userId, body) {
 
 export default {
   getAll,
+  getAllByKyc,
   getById,
   create,
   update,

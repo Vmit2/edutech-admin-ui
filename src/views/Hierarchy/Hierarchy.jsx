@@ -346,7 +346,7 @@ const Hierarchy = ({ ...props }) => {
           //   hasWritePermission ? (
           //     <Link component={RouterLink} to="add" underline="none">
           //       <PrimaryButton component="div" startIcon={<PlusCircleIcon />}>
-          //         {t`Add New Staff`}
+          //         {t`Add New user`}
           //       </PrimaryButton>
           //     </Link>
           //   ) : null
