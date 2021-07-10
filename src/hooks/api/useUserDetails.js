@@ -36,7 +36,7 @@ export function setUserDetails(userId, data, opts = {}) {
 export async function updateKyc(userId) {
   try {
     const data = await UserService.updateKyc(userId);
-
+    console.log(data);
     return {
       error: false,
       data,

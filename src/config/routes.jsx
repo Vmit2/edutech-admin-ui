@@ -20,6 +20,7 @@ const DistributersListView = lazy(() =>
 const DistributersDetailsView = lazy(() =>
   import("../views/DistributersView/distributersDetailsView/DistributersDetailsView")
 );
+const WithDrawRequestListView = lazy(()=> import("../views/WithDrawRequest/RequestList/WithDrawRequestListView"))
 const Hierarchy = lazy(() => import("../views/Hierarchy/Hierarchy"));
 const NotFoundView = lazy(() => import("../views/Errors/NotFoundView"));
 
@@ -78,6 +79,10 @@ export const routes = [
       {
         path: "distributers/:distributerId",
         element: <DistributersDetailsView />,
+      },
+      {
+        path: "withdraw-requests",
+        element: <WithDrawRequestListView />,
       },
       {
         path: "hierarchy",

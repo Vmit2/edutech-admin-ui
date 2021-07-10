@@ -99,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
     overlayContainer: {
       position: "absolute",
       left: 0,
-      bottom: 0,
+      bottom: 30,
       display: "flex",
       justifyContent: "space-around",
       width: "200px",
@@ -110,6 +110,9 @@ const useStyles = makeStyles((theme) => ({
     kycDetailsConatiner: {
       marginTop: "30px",
     },
+    buttonContainer:{
+      
+    },
     approveButton: {
       marginTop: "30px",
       background: theme.palette.module.backgroundLight,
@@ -117,6 +120,23 @@ const useStyles = makeStyles((theme) => ({
       "&:hover": {
         background: theme.palette.module.backgroundLight,
       },
+      "&:disabled" : {
+        color: theme.palette.common.white,
+        opacity : 0.5,
+      }
+    },
+    updateButton : {
+      marginTop: "30px",
+      background:  theme.palette.common.white,
+      border : "1px solid " + theme.palette.module.backgroundLight,
+      color: theme.palette.module.backgroundLight,
+      "&:hover": {
+        color: theme.palette.module.backgroundLight,
+      },
+      "&:disabled" : {
+        color:theme.palette.module.backgroundLight,
+        opacity : 0.5,
+      }
     },
     checkboxStyle: {
       padding: "unset",
@@ -143,6 +163,17 @@ const useStyles = makeStyles((theme) => ({
     modal: {
       height: "100vh",
     },
+    packageConatinerWrapper:{
+      flexDirection : "column",
+      marginTop : '30px',
+    },
+    packageCardWrapper:{
+      display: 'grid',
+      gridTemplateColumns: "1fr 1fr 1fr",
+      gap: "1rem",
+    },
+    packageCard : {
+    }
   }));
 
   export default useStyles;
