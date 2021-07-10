@@ -8,18 +8,19 @@ import { UsersPermission } from "./permissionsConfig/UsersPermission";
 /* ===== User Profile ===== */
 const Admin = lazy(() => import("../views/Admin/Admin"));
 const UsersListView = lazy(() =>
-  import("../views/UsersView/usersList/UserListView")
+  import("../views/UsersView/UsersList/UserListView")
 );
 const UserDetailsView = lazy(() =>
-  import("../views/UsersView/UserDetailsView")
+  import("../views/UsersView/userDetails/UserDetailsView")
 );
 const LoginView = lazy(() => import("../views/Login/LoginView"));
 const DistributersListView = lazy(() =>
   import("../views/DistributersView/distributersList/DistributersListView")
 );
 const DistributersDetailsView = lazy(() =>
-  import("../views/DistributersView/DistributersDetailsView")
+  import("../views/DistributersView/distributersDetailsView/DistributersDetailsView")
 );
+const WithDrawRequestListView = lazy(()=> import("../views/WithDrawRequest/RequestList/WithDrawRequestListView"))
 const Hierarchy = lazy(() => import("../views/Hierarchy/Hierarchy"));
 const NotFoundView = lazy(() => import("../views/Errors/NotFoundView"));
 
@@ -78,6 +79,10 @@ export const routes = [
       {
         path: "distributers/:distributerId",
         element: <DistributersDetailsView />,
+      },
+      {
+        path: "withdraw-requests",
+        element: <WithDrawRequestListView />,
       },
       {
         path: "hierarchy",

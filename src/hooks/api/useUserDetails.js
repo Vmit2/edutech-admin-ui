@@ -1,9 +1,9 @@
 import { queryCache, useQuery } from "react-query";
 import { QUERY_STALE_TIME, QueryKeys } from "../../config/query";
-// import UserService from 'src/services/api/UserService'
+import UserService from "../../services/api/UserService";
 
 function queryFn(_, { userId }) {
-  // return UserService.getDetails(userId);
+  // return UserService.updateKyc(userId);
 }
 
 function buildQueryKey(id) {
@@ -13,18 +13,6 @@ function buildQueryKey(id) {
 }
 
 export function useUserDetails(userId) {
-  // kept for later user
-  // const queryKey = buildQueryKey(userId);
-  // const config = {
-  //   staleTime: QUERY_STALE_TIME,
-  // };
-  // const { status, data, error } = useQuery({ queryKey, queryFn, config });
-  // return {
-  //   status,
-  //   data,
-  //   error,
-  // };
-  // const queryKey = queryCache.find(userId);
   const queryKey = buildQueryKey(userId);
   const queryData = queryCache.getQueryData(queryKey);
   return queryData;
@@ -43,6 +31,26 @@ export function setUserDetails(userId, data, opts = {}) {
   };
 
   queryCache.setQueryData(queryKey, data, config);
+}
+
+export async function updateKyc(userId) {
+  try {
+    const data = await UserService.updateKyc(userId);
+    console.log(data);
+    return {
+      error: false,
+      data,
+    };
+  } catch (err) {
+    const apiErrorMessage = err.edutechError
+      ? err.error.response.data.message
+      : "An unexpected error occurred. Please try again.";
+
+    return {
+      error: true,
+      apiErrorMessage,
+    };
+  }
 }
 
 export function removeUserDetails(userId) {
