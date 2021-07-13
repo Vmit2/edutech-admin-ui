@@ -4,7 +4,6 @@ import DashboardLayout from "../layouts/Dashboard/DashboardLayout";
 import { AuthGuard, PermissionGuard } from "../components/Guards";
 import { ReportsPermissions } from "./permissionsConfig/ReportsPermissions";
 import { UsersPermission } from "./permissionsConfig/UsersPermission";
-
 /* ===== User Profile ===== */
 const Admin = lazy(() => import("../views/Admin/Admin"));
 const UsersListView = lazy(() =>

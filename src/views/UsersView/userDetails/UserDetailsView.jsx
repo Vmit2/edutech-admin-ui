@@ -21,7 +21,7 @@ import { formatePageaDeatails, formateUserDetails, getformatedDate } from "./uti
 import LabelValue from "../../shared/LabelValue";
 import { updateKyc, useUserDetails } from "../../../hooks/api/useUserDetails";
 import { uploadAddharFront, uploadPancard, uploadAddharBack } from "../../../hooks/api/useFileUpload";
-import { getPackageById } from "../../../hooks/api/usePackageDetails";
+import { usePackagesList } from "../../../hooks/api/usePackageDetails";
 
 
 
@@ -40,12 +40,12 @@ function UserDetailsView({ ...props }) {
 
   const { userId } = useParams();
   const userDetails = useUserDetails(userId);
+  const packageDetailsFromApi = usePackagesList(userId);
   const detailsData = formateUserDetails(userDetails);
-  // const packageDetails = getPackageById(userId)
   const packageDetails = formatePageaDeatails();
-  console.log('====================================');
-  console.log(packageDetails);
-  console.log('====================================');
+  console.log('=' ,userId,packageDetailsFromApi);
+  // console.log(packageDetails);
+  // console.log('====================================');
   const navigate = useNavigate();
 
   const handleChange = (event) => {
@@ -84,6 +84,14 @@ function UserDetailsView({ ...props }) {
       isUpdate: false
     })
   }
+
+  const getImageSrc = (image) => {
+    if (image) {
+      return URL.createObjectURL(image);
+    } else {
+      return someImage;
+    }
+  };
 
   if (!detailsData) {
     return navigate('/users')
@@ -211,9 +219,9 @@ function UserDetailsView({ ...props }) {
                     <Card className={classes.cardImageConatiner}>
                       <CardMedia
                         className={classes.cardImage}
-                        image={someImage}
+                        image={getImageSrc(state.panCardImage)}//{someImage}
                         title="PanCard"
-                        onClick={(event) => handleOpen(someImage)}
+                        onClick={(event) => handleOpen(getImageSrc(state.panCardImage))}
                       />
                     </Card>
                     <CardContent className={classes.overlayContainer}>
@@ -259,9 +267,9 @@ function UserDetailsView({ ...props }) {
                     <Card className={classes.cardImageConatiner}>
                       <CardMedia
                         className={classes.cardImage}
-                        image={userImg}
+                        image={getImageSrc(state.addharCardFrontImage)}//{userImg}
                         title="Addhar Card"
-                        onClick={(event) => handleOpen(userImg)}
+                        onClick={(event) => handleOpen(getImageSrc(state.addharCardFrontImage))}
                       />
                     </Card>
                     <CardContent className={classes.overlayContainer}>
@@ -307,9 +315,9 @@ function UserDetailsView({ ...props }) {
                     <Card className={classes.cardImageConatiner}>
                       <CardMedia
                         className={classes.cardImage}
-                        image={userImg}
+                        image={getImageSrc(state.addharCardBackImage)}//{userImg}
                         title="Addhar Card"
-                        onClick={(event) => handleOpen(userImg)}
+                        onClick={(event) => handleOpen(getImageSrc(state.addharCardBackImage))}
                       />
                     </Card>
                     <CardContent className={classes.overlayContainer}>

@@ -61,7 +61,7 @@ function DistributersTable({
               data &&
               data.map((distributer) => (
                 <TableRow key={distributer.id_user}>
-                  <TableCell>{distributer.first_name}</TableCell>
+                  <TableCell>{distributer.salutaion} {distributer.first_name} {distributer.middle_name} {distributer.last_name}</TableCell>
                   <TableCell>{distributer.gender === 1 ? "Male" : "Female"}</TableCell>
                   <TableCell>{distributer.phone_number}</TableCell>
                   <TableCell>{distributer.email}</TableCell>

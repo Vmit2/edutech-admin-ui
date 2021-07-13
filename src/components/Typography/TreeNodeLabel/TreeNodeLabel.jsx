@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.distributer,
     fontWeight: 700,
     "&:hover": {
-      color: theme.palette.primary.main,
+      // color: theme.palette.primary.main,
       textDecoration: "none",
     },
   },
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.user,
     fontWeight: 700,
     "&:hover": {
-      color: theme.palette.primary.main,
+      // color: theme.palette.primary.main,
       textDecoration: "none",
     },
   },

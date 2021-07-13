@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   Typography,
   Card,
@@ -19,8 +19,16 @@ import CloseIcon from "@material-ui/icons/Close";
 import LabelValue from "../../shared/LabelValue";
 import userImg from "../../../assets/images/userImg.png";
 import someImage from "../../../assets/images/ref1.png";
-import { formateDistributerDetails, formateWalletDetails, getformatedDate } from "./utilitizes/utils";
-import { uploadAddharBack, uploadAddharFront, uploadPancard } from "../../../hooks/api/useFileUpload";
+import {
+  formateDistributerDetails,
+  formateWalletDetails,
+  getformatedDate,
+} from "./utilitizes/utils";
+import {
+  uploadAddharBack,
+  uploadAddharFront,
+  uploadPancard,
+} from "../../../hooks/api/useFileUpload";
 import { updateKyc } from "../../../hooks/api/useDistributers";
 
 const DistributersDetailsView = ({ ...props }) => {
@@ -31,16 +39,24 @@ const DistributersDetailsView = ({ ...props }) => {
   const detailsData = formateDistributerDetails(distributerDetails);
   const walletDetails = formateWalletDetails();
   const navigate = useNavigate();
-
   const [state, setState] = useState({
     panCard: false,
     addharCard: false,
-    addharCardFrontImage: '',
-    addharCardBackImage: '',
-    panCardImage: '',
+    addharCardFrontImage:  null,
+    addharCardBackImage: null,
+    panCardImage: null,
   });
   const [open, setOpen] = useState(false);
   const [prevImage, setPrevImage] = useState();
+
+  // Component Will Unmount
+  useEffect(() => {
+    if(!detailsData)
+    navigate('/distributers');
+    // return () => {
+    //  navigate('/distributers');
+    // }
+  }, [detailsData]);
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -57,7 +73,7 @@ const DistributersDetailsView = ({ ...props }) => {
 
   const onSubmitKyc = () => {
     updateKyc(distributerId).then(() => {
-      navigate('/users');
+      navigate("/users");
     });
   };
 
@@ -65,22 +81,32 @@ const DistributersDetailsView = ({ ...props }) => {
     setState({
       ...state,
       [event.target.name]: event.target.files[0],
-      isUpdate: true
-    })
-  }
+      isUpdate: true,
+    });
+  };
 
   const onUpdate = () => {
     state.panCardImage && uploadPancard(distributerId, state.panCardImage);
-    state.addharCardFrontImage && uploadAddharFront(distributerId, state.addharCardFrontImage);
-    state.addharCardBackImage && uploadAddharBack(distributerId, state.addharCardBackImage);
+    state.addharCardFrontImage &&
+      uploadAddharFront(distributerId, state.addharCardFrontImage);
+    state.addharCardBackImage &&
+      uploadAddharBack(distributerId, state.addharCardBackImage);
     return setState({
-      isUpdate: false
-    })
-  }
+      isUpdate: false,
+    });
+  };
 
   if (!detailsData) {
-    return navigate('/users')
+    return navigate("/users");
   }
+
+  const getImageSrc = (image) => {
+    if (image) {
+      return URL.createObjectURL(image);
+    } else {
+      return someImage;
+    }
+  };
 
   return (
     <div className="">
@@ -96,8 +122,9 @@ const DistributersDetailsView = ({ ...props }) => {
                   src={userImg}
                 />
                 <Typography variant="h5" className={classes.fullName}>
-                  {detailsData.salutation && detailsData.salutation + "."}{detailsData.firstName && detailsData.firstName}&nbsp;{detailsData.lastName && detailsData.lastName}
-
+                  {detailsData.salutation && detailsData.salutation + "."}
+                  {detailsData.firstName && detailsData.firstName}&nbsp;
+                  {detailsData.lastName && detailsData.lastName}
                 </Typography>
               </Grid>
               <Grid item className={classes.basicDetailsContainer}>
@@ -124,10 +151,7 @@ const DistributersDetailsView = ({ ...props }) => {
                     />
                   </Grid>
                   <Grid container item xs={12} sm={6} md={6}>
-                    <LabelValue
-                      label="Email:"
-                      value={detailsData.email}
-                    />
+                    <LabelValue label="Email:" value={detailsData.email} />
                   </Grid>
                   <Grid container item xs={12} sm={6} md={6}>
                     <LabelValue label="Gender:" value={detailsData.gender} />
@@ -170,17 +194,30 @@ const DistributersDetailsView = ({ ...props }) => {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid container >
-                <Grid item container className={classes.packageConatinerWrapper}>
+              <Grid container>
+                <Grid
+                  item
+                  container
+                  className={classes.packageConatinerWrapper}
+                >
                   <Typography variant="h4" className={classes.moreDetailsTitle}>
-                    Wallete:
+                    Wallet:
                   </Typography>
                   <Grid container className={classes.packageCardWrapper}>
                     <Card xs={12} sm={3} md={3} className={classes.packageCard}>
                       <CardContent item className={classes.packageCardContent}>
-                        <LabelValue label={"Wallet Amount:"} value={walletDetails.walletAmount} />
-                        <LabelValue label={"Total Earning"} value={walletDetails.totalEarning} />
-                        <LabelValue label={"Immediate Referral Count:"} value={walletDetails.immediateReferralCount} />
+                        <LabelValue
+                          label={"Wallet Amount:"}
+                          value={walletDetails.walletAmount}
+                        />
+                        <LabelValue
+                          label={"Total Earning"}
+                          value={walletDetails.totalEarning}
+                        />
+                        <LabelValue
+                          label={"Immediate Referral Count:"}
+                          value={walletDetails.immediateReferralCount}
+                        />
                       </CardContent>
                     </Card>
                   </Grid>
@@ -201,9 +238,9 @@ const DistributersDetailsView = ({ ...props }) => {
                     <Card className={classes.cardImageConatiner}>
                       <CardMedia
                         className={classes.cardImage}
-                        image={someImage}
+                        image={getImageSrc(state.panCardImage)} //{someImage}
                         title="PanCard"
-                        onClick={(event) => handleOpen(someImage)}
+                        onClick={(event) => handleOpen(getImageSrc(state.panCardImage))}
                       />
                     </Card>
                     <CardContent className={classes.overlayContainer}>
@@ -227,15 +264,17 @@ const DistributersDetailsView = ({ ...props }) => {
                           </Button>
                         </label>
                       </div>
-                      {detailsData.kycCompleted && <Checkbox
-                        name={"panCard"}
-                        className={classes.checkboxStyle}
-                        checked={state.panCard}
-                        onChange={handleChange}
-                        inputProps={{
-                          "aria-label": "checkbox with default color",
-                        }}
-                      />}
+                      {detailsData.kycCompleted && (
+                        <Checkbox
+                          name={"panCard"}
+                          className={classes.checkboxStyle}
+                          checked={state.panCard}
+                          onChange={handleChange}
+                          inputProps={{
+                            "aria-label": "checkbox with default color",
+                          }}
+                        />
+                      )}
                     </CardContent>
                     <label>Pan card</label>
                   </Grid>
@@ -249,9 +288,9 @@ const DistributersDetailsView = ({ ...props }) => {
                     <Card className={classes.cardImageConatiner}>
                       <CardMedia
                         className={classes.cardImage}
-                        image={userImg}
+                        image={getImageSrc(state.addharCardFrontImage)}//{userImg}
                         title="Addhar Card"
-                        onClick={(event) => handleOpen(userImg)}
+                        onClick={(event) => handleOpen(getImageSrc(state.addharCardFrontImage))}
                       />
                     </Card>
                     <CardContent className={classes.overlayContainer}>
@@ -275,15 +314,17 @@ const DistributersDetailsView = ({ ...props }) => {
                           </Button>
                         </label>
                       </div>
-                      {detailsData.kycCompleted && <Checkbox
-                        name={"addharCard"}
-                        checked={state.addharCard}
-                        onChange={handleChange}
-                        className={classes.checkboxStyle}
-                        inputProps={{
-                          "aria-label": "checkbox with default color",
-                        }}
-                      />}
+                      {detailsData.kycCompleted && (
+                        <Checkbox
+                          name={"addharCard"}
+                          checked={state.addharCard}
+                          onChange={handleChange}
+                          className={classes.checkboxStyle}
+                          inputProps={{
+                            "aria-label": "checkbox with default color",
+                          }}
+                        />
+                      )}
                     </CardContent>
                     <label>Addhar Front Image</label>
                   </Grid>
@@ -297,9 +338,9 @@ const DistributersDetailsView = ({ ...props }) => {
                     <Card className={classes.cardImageConatiner}>
                       <CardMedia
                         className={classes.cardImage}
-                        image={userImg}
+                        image={getImageSrc(state.addharCardBackImage)}//{userImg}
                         title="Addhar Card"
-                        onClick={(event) => handleOpen(userImg)}
+                        onClick={(event) => handleOpen(getImageSrc(state.addharCardBackImage))}
                       />
                     </Card>
                     <CardContent className={classes.overlayContainer}>
@@ -323,29 +364,41 @@ const DistributersDetailsView = ({ ...props }) => {
                           </Button>
                         </label>
                       </div>
-                      {detailsData.kycCompleted && <Checkbox
-                        name={"addharCard"}
-                        checked={state.addharCard}
-                        onChange={handleChange}
-                        className={classes.checkboxStyle}
-                        inputProps={{
-                          "aria-label": "checkbox with default color",
-                        }}
-                      />}
+                      {detailsData.kycCompleted && (
+                        <Checkbox
+                          name={"addharCard"}
+                          checked={state.addharCard}
+                          onChange={handleChange}
+                          className={classes.checkboxStyle}
+                          inputProps={{
+                            "aria-label": "checkbox with default color",
+                          }}
+                        />
+                      )}
                     </CardContent>
                     <label>Addhar Back Image</label>
                   </Grid>
                 </Grid>
                 <Grid container className={classes.buttonContainer}>
                   <Grid items xs={12} sm={3} md={3}>
-                    <Button onClick={onUpdate} className={classes.updateButton} disabled={!state.isUpdate}>
+                    <Button
+                      onClick={onUpdate}
+                      className={classes.updateButton}
+                      disabled={!state.isUpdate}
+                    >
                       Update Documents
                     </Button>
                   </Grid>
                   <Grid items xs={12} sm={3} md={3}>
-                    {detailsData.kycCompleted && <Button onClick={onSubmitKyc} className={classes.approveButton} disabled={!state.panCard}>
-                      Click to Approve
-                    </Button>}
+                    {detailsData.kycCompleted && (
+                      <Button
+                        onClick={onSubmitKyc}
+                        className={classes.approveButton}
+                        disabled={!state.panCard}
+                      >
+                        Click to Approve
+                      </Button>
+                    )}
                   </Grid>
                 </Grid>
               </Grid>

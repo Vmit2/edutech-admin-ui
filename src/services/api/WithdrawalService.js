@@ -2,7 +2,7 @@ import { apiClient } from "../apiClient";
 import { translateUser } from "./translators/translateUser";
 
 async function getAll(qParams = {}) {
-  const url = `/admin/getAllUsers`;
+  const url = `/wallet/getAllWalletRequestForAdmin`;
   const params = {
     ...qParams,
   };
@@ -16,14 +16,6 @@ async function getAllByKyc(qParams = {}, kycFlag) {
     limit: qParams.limit,
     page: qParams.page,
   };
-  const res = apiClient.get(url, { params });
-  return res;
-}
-
-async function searchAll(qParams = {}) {
-  const search = qParams.search;
-  const url = `/admin/searchAllUsers?searchKey=${search}`;
-  const params = {};
   const res = apiClient.get(url, { params });
   return res;
 }
@@ -75,6 +67,5 @@ export default {
   create,
   updateKyc,
   getPackageById,
-  deleteUser,
-  searchAll,
+  deleteUser
 };

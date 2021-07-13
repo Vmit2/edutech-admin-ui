@@ -1,11 +1,19 @@
 import { apiClient } from "../apiClient";
 import { translateUser } from "./translators/translateUser";
 
-async function getAll(qParams = {}) {
+async function getRoot(qParams = {}) {
   const url = `/admin/getAllDistributors`;
   const params = {
     ...qParams,
   };
+  const res = apiClient.get(url, { params });
+  return res;
+}
+
+async function searchAll(qParams = {}) {
+  const search = qParams.search;
+  const url = `/admin/searchAllDistributors?searchKey=${search}`;
+  const params = {};
   const res = apiClient.get(url, { params });
   return res;
 }
@@ -17,6 +25,12 @@ async function getAllByKyc(qParams = {}, kycFlag) {
     page: qParams.page,
   };
   const res = apiClient.get(url, { params });
+  return res;
+}
+
+async function getChildsById(userId) {
+  const url = `/admin/getDistributorTreeById/${userId}`;
+  const res = apiClient.get(url);
   return res;
 }
 
@@ -54,10 +68,12 @@ async function updateKyc(distributerId) {
 
 
 export default {
-  getAll,
+  getRoot,
   getAllByKyc,
   getById,
+  getChildsById,
   create,
   update,
-  updateKyc
+  updateKyc,
+  searchAll
 };

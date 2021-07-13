@@ -36,7 +36,25 @@ export function setUserDetails(userId, data, opts = {}) {
 export async function updateKyc(userId) {
   try {
     const data = await UserService.updateKyc(userId);
-    console.log(data);
+    return {
+      error: false,
+      data,
+    };
+  } catch (err) {
+    const apiErrorMessage = err.edutechError
+      ? err.error.response.data.message
+      : "An unexpected error occurred. Please try again.";
+
+    return {
+      error: true,
+      apiErrorMessage,
+    };
+  }
+}
+
+async function deleteUserApi(userId){
+  try {
+    const data = await UserService.deleteUser(userId);
     return {
       error: false,
       data,
@@ -57,4 +75,8 @@ export function removeUserDetails(userId) {
   const queryKey = buildQueryKey(userId);
 
   queryCache.removeQueries(queryKey);
+}
+
+export{
+  deleteUserApi
 }
