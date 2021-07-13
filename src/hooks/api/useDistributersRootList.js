@@ -1,41 +1,48 @@
-import { queryCache, useQuery } from "react-query";
-import { ActiveStatus } from "../../config/constants";
-import { QUERY_STALE_TIME, QueryKeys } from "../../config/query";
+import { useDispatch } from "react-redux";
+import { addTreeNode } from "../../redux/actions/treeActions";
 import DistributerService from "../../services/api/DistributerService";
 
-function queryFn(_, { params }) {
-  return DistributerService.getRoot(params);
+export async function useRootDistributers() {
+  const dispatch = useDispatch();
+  try {
+    const data = await DistributerService.getRoot();
+    dispatch(addTreeNode(data.data.results, true));
+    return {
+      error: false,
+      data,
+    };
+  } catch (err) {
+    const apiErrorMessage = err.edutechError
+      ? err.error.response.data.message
+      : "An unexpected error occurred. Please try again.";
+
+    return {
+      error: true,
+      apiErrorMessage,
+    };
+  }
 }
 
-function buildQueryKey(params) {
-  return [QueryKeys.ROOT_DISTRIBUTER, { params }];
-}
+export async function useChildDistributers({ userId }) {
+  const dispatch = useDispatch();
+  if (!userId) {
+    return null;
+  }
+  try {
+    const data = await DistributerService.getChildsById(userId);
+    dispatch(addTreeNode(data.data.result, false , userId));
+    return {
+      error: false,
+      data,
+    };
+  } catch (err) {
+    const apiErrorMessage = err.edutechError
+      ? err.error.response.data.message
+      : "An unexpected error occurred. Please try again.";
 
-export function useDistributersRootList({ enabled = true, params } = {}) {
-  const queryKey = buildQueryKey(params);
-
-  const config = {
-    enabled,
-    staleTime: QUERY_STALE_TIME,
-  };
-
-  const { status, data, error } = useQuery({ queryKey, queryFn, config });
-  return {
-    status,
-    data: data && [data.data.results[0]],
-    error,
-    count: data && data.data.pagination && data.data.pagination.totalDocs,
-    totalPages: data && data.data.pagination && data.data.pagination.totalPages,
-    currentPage: data && data.data.pagination && data.data.pagination.current,
-    nextPage: data && data.data.pagination && data.data.pagination.next,
-    previousPage: data && data.data.pagination && data.data.pagination.previous,
-  };
-}
-
-export function invalidateDistributers(opts = {}) {
-  const { refetchActive } = opts;
-
-  return queryCache.invalidateQueries(QueryKeys.ALL_USERS, {
-    refetchActive,
-  });
+    return {
+      error: true,
+      apiErrorMessage,
+    };
+  }
 }

@@ -1,11 +1,9 @@
 import pickBy from "lodash/pickBy";
 
 export function urlParamsToApi(urlParams) {
-  const { page, size } = urlParams;
-
+  const { id } = urlParams;
   const apiParams = {
-    page,
-    limit: size,
+    userId:id,
   };
 
   return pickBy(apiParams, (p) => !!p);

@@ -2,35 +2,29 @@ import TreeItem from "@material-ui/lab/TreeItem";
 import React from "react";
 import TreeNodeCard from "../TreeNodeCard";
 
-const getTreeItemsFromData = (showChild, selectedId, found, matched) => {
-  console.log("showChild", showChild);
+const getTreeItemsFromData = (treeItemData, selectedId, found) => {
   return (
     <>
-      {matched && showChild && showChild.childs ? (
-        showChild.childs.map((treeItemData) => {
+      {treeItemData ? (
+        treeItemData.map((item) => {
           return (
             <TreeItem
-              key={treeItemData && treeItemData.id_user}
-              nodeId={treeItemData && treeItemData.id_user}
+              key={item && item.id_user}
+              nodeId={item && item.id_user}
               label={
                 <TreeNodeCard
-                  label={treeItemData ? `${treeItemData["first_name"]}` : " "}
-                  hasChilds={true}
-                  childCount={60}
-                  selected={
-                    treeItemData && selectedId === treeItemData["id_user"]
-                  }
-                  nodeId={treeItemData && treeItemData["id_user"]}
-                  // found={found}
+                  label={item ? `${item["first_name"]}` : " "}
+                  hasChilds={item.childCount > 0}
+                  childCount={item && item.childCount}
+                  selected={item && selectedId === item["id_user"]}
+                  nodeId={item && item["id_user"]}
+                  found={found}
                 />
               }
             >
-              {getTreeItemsFromData(
-                showChild,
-                selectedId,
-                found,
-                treeItemData["id_user"] === showChild["id_user"]
-              )}
+              {item.childs &&
+                item.childs.length > 0 &&
+                getTreeItemsFromData(item.childs, selectedId, found)}
             </TreeItem>
           );
         })

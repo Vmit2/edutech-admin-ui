@@ -3,14 +3,14 @@ import { QueryKeys, QUERY_STALE_TIME } from "../../config/query";
 import DistributerService from "../../services/api/DistributerService";
 
 function queryFn(_, { params }) {
-  return DistributerService.getChildsById(params.id);
+  return DistributerService.getRoot(params);
 }
 
 function buildQueryKey(params) {
-  return [QueryKeys.CHILD_LIST, { params }];
+  return [QueryKeys.ROOT_DISTRIBUTER, { params }];
 }
 
-export function useDistributersChildList({ enabled = true, params } = {}) {
+export function useDistributersHierarchy({ enabled = true, params } = {}) {
   const queryKey = buildQueryKey(params);
 
   const config = {
@@ -21,7 +21,7 @@ export function useDistributersChildList({ enabled = true, params } = {}) {
   const { status, data, error } = useQuery({ queryKey, queryFn, config });
   return {
     status,
-    data: data && data.data.result,
+    data: data && [data.data.results[0]],
     error,
   };
 }
