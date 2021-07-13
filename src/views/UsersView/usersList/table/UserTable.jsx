@@ -63,7 +63,7 @@ function UserTable({
               data &&
               data.map((user) => (
                 <TableRow key={user.id_user}>
-                  <TableCell>{user.first_name}</TableCell>
+                  <TableCell>{user.salutaion} {user.first_name} {user.middle_name} {user.last_name}</TableCell>
                   <TableCell>{user.gender === 1 ? "Male" : "Female"}</TableCell>
                   <TableCell>{user.phone_number}</TableCell>
                   <TableCell>{user.email}</TableCell>

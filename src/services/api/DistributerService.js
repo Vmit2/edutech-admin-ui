@@ -10,6 +10,14 @@ async function getRoot(qParams = {}) {
   return res;
 }
 
+async function searchAll(qParams = {}) {
+  const search = qParams.search;
+  const url = `/admin/searchAllDistributors?searchKey=${search}`;
+  const params = {};
+  const res = apiClient.get(url, { params });
+  return res;
+}
+
 async function getAllByKyc(qParams = {}, kycFlag) {
   const url = `/admin/getAllDistributorsByKyc/${kycFlag}`;
   const params = {
@@ -66,5 +74,6 @@ export default {
   getChildsById,
   create,
   update,
-  updateKyc
+  updateKyc,
+  searchAll
 };

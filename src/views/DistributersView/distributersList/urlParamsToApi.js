@@ -1,13 +1,13 @@
 import pickBy from "lodash/pickBy";
 
 export function urlParamsToApi(urlParams) {
-  const { page, size, kyc } = urlParams;
+  const { page, size, kyc,q } = urlParams;
 
   const apiParams = {
     page,
     limit: size,
     kyc,
-    // search: q,
+    search: q,
     // sort: buildSort(),
   };
 

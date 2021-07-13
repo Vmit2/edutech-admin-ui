@@ -4,8 +4,12 @@ import { QUERY_STALE_TIME, QueryKeys } from "../../config/query";
 import DistributerService from "../../services/api/DistributerService";
 
 function queryFn(_,{ params }) {
-  const kycFlag = params && params.kyc === ActiveStatus.COMPLETED ? 1 : 0;
-  return DistributerService.getAllByKyc(params, kycFlag);
+  if (params.search && params.search.length > 0) {
+    return DistributerService.searchAll(params);
+  } else {
+    const kycFlag = params && params.kyc === ActiveStatus.COMPLETED ? 1 : 0;
+    return DistributerService.getAllByKyc(params, kycFlag);
+  }
 }
 
 function buildQueryKey(params) {

@@ -110,7 +110,7 @@ function TreeNodeCard({
       subheader={
         <TreeNodeLabel
           title={referral_code}
-          value={"Ref Id " + referral_code + " [ User Id  -  " + nodeId + " ]"}
+          value={" [ User Id  -  " + nodeId + " ]"}
         />
       }
     />

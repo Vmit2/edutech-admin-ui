@@ -310,7 +310,7 @@ const users = [
 const Hierarchy = ({ ...props }) => {
   const title = "Distributers Hierarchy";
   const [searchValue, setValue] = useState("initial text");
-  const [expanded, setExpanded] = useState([26]);
+  const [expanded, setExpanded] = useState(['26']);
   const [selected, setSelected] = useState([]);
   const [found, setFound] = useState(-1);
 
@@ -330,15 +330,12 @@ const Hierarchy = ({ ...props }) => {
     params: urlParamsToApi(urlParams),
   });
 
-  const { urlParamsForChild, setUrlParamForChild } = useUrlParamsForChildTree();
-  const childTreeList = useDistributersChildList({
-    params: urlParamsToApiForChildTree(urlParamsForChild),
-  });
-
   const handleToggle = (event, nodeIds) => {
-    setUrlParamForChild("id", nodeIds[0]);
     setExpanded(nodeIds);
     setFound("");
+    // if(nodeIds[0] !== 26){
+      // setUrlParamForChild("id", nodeIds[0]);
+    // }
   };
   const handleSelect = (event, nodeIds) => {
     setSelected(nodeIds);
@@ -391,8 +388,9 @@ const Hierarchy = ({ ...props }) => {
           selected={selected}
           // treeItems={users}
           treeItems={distributersDetails.data ? distributersDetails.data : []}
+          first_item = {distributersDetails.data ? distributersDetails.data : []}
           found={found}
-          showChild = {{"id":expanded[0],"childs":childTreeList.data}}
+          // showChild = {{"id":expanded[0],"childs":childTreeList.data}}
         />
 
         <ListPagination

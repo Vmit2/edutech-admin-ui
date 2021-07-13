@@ -7,16 +7,15 @@ import PropTypes from "prop-types";
 import React, { useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MoreHorizontalIcon from "../../../../components/Icons/MoreHorizontalIcon";
-import { setUserDetails, getUserDetails } from "../../../../hooks/api/useUserDetails";
-// import UserDeleteDialog from 'src/forms/UserForm/UserDeleteDialog'
-// import UserRetireDialog from 'src/forms/UserForm/UserRetireDialog'
-// import { setUserDetails } from "src/hooks/api/useUserDetails";
-
+import { deleteUser, deleteUserApi, setUserDetails } from "../../../../hooks/api/useUserDetails";
+import CustomDialog from "../../../../components/CustomDialog";
+import TertiaryButton from "../../../../components/Buttons/TertiaryButton";
+import PrimaryButton from "../../../../components/Buttons/PrimaryButton";
 function UsersActionMenu({ hasWritePermission, user }) {
   const menuButtonRef = useRef();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const [activeDialog, setActiveDialog] = useState("");
+  const [activeDialog, setActiveDialog] = useState(false);
 
   const handleActionClick = async (key) => {
     switch (key) {
@@ -28,18 +27,23 @@ function UsersActionMenu({ hasWritePermission, user }) {
 
       case "delete":
         // setUserDetails(user.id_user, user);
-        getUserDetails(user.id_user);
+        // deleteUser(user.id_user);
         // navigate("${user.id}/edi");
+        setActiveDialog(true);
         break;
 
       default:
         setIsOpen(false);
-        setActiveDialog(key);
+      // setActiveDialog(key);
     }
   };
 
   const handleCloseDialog = () => {
-    setActiveDialog("");
+    setActiveDialog(false);
+  };
+
+  const onSubmitDelete = () => {
+    deleteUserApi(user.id_user);
   };
 
   const actions = useMemo(() => {
@@ -82,16 +86,34 @@ function UsersActionMenu({ hasWritePermission, user }) {
         })}
       </Menu>
 
-      {/* <UserRetireDialog
+      <CustomDialog
         userId={user.id}
-        isOpen={activeDialog === 'retire'}
+        isOpen={activeDialog}
         onClose={handleCloseDialog}
+        title="Delete User"
+        content={`Do you really want to delete  ${user.salutation} ${user.first_name} ${user.middle_name} ${user.last_name} ?`}
+        actionItems={
+          <>
+            <TertiaryButton
+              style={{
+                width: "8rem",
+                height: "2.5rem",
+                marginRight: "2rem",
+                border: "1px solid ",
+              }}
+              onClick={handleCloseDialog}
+            >
+              Cancle
+            </TertiaryButton>
+            <PrimaryButton
+              onClick={onSubmitDelete}
+              style={{ width: "8rem", height: "2.5rem" }}
+            >
+              Sure
+            </PrimaryButton>
+          </>
+        }
       />
-      <UserDeleteDialog
-        userId={user.id}
-        isOpen={activeDialog === 'delete'}
-        onClose={handleCloseDialog}
-      /> */}
     </>
   ) : (
     <Button onClick={() => handleActionClick("view")}>{"View"}</Button>
