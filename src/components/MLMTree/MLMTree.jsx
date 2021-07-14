@@ -3,12 +3,8 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import TreeView from "@material-ui/lab/TreeView";
 import React from "react";
+import { useTreeState } from "../../hooks/redux/useTreeState";
 import getTreeItemsFromData from "./getTreeItemsFromData";
-import TreeItem from "@material-ui/lab/TreeItem";
-import TreeNodeCard from "../TreeNodeCard";
-import { useUrlParamsForChildTree } from "../../views/Hierarchy/ChildTree/useUrlParamsForChildTree";
-import { useDistributersChildList } from "../../hooks/api/useDistributersChildList";
-import { urlParamsToApiForChildTree } from "../../views/Hierarchy/ChildTree/urlParamsToApiForChildTree";
 
 const useStyles = makeStyles({
   root: {
@@ -19,47 +15,18 @@ const useStyles = makeStyles({
   },
 });
 
-const MLMTree = ({ first_item, selected, found, showChild, ...props }) => {
+const MLMTree = ({ first_item, selected, found, ...props }) => {
   const classes = useStyles();
-  const { urlParamsForChild, setUrlParamForChild } = useUrlParamsForChildTree();
-  const childTreeList = useDistributersChildList({
-    params: urlParamsToApiForChildTree(urlParamsForChild),
-  });
-  // const item = first_item[0] ? first_item[0] : null;
+  const { tree, expanded } = useTreeState();
   return (
     <TreeView
       className={classes.root}
       defaultCollapseIcon={<ExpandMoreIcon />}
       defaultExpandIcon={<ChevronRightIcon />}
+      // expanded={expanded}
       {...props}
     >
-      <TreeItem
-        key={first_item && first_item.id_user}
-        nodeId={first_item && first_item.id_user}
-        // label={
-        //   first_item &&
-        //   `${first_item["first_name"]}`
-        // }
-        label={
-          first_item ? (
-            <TreeNodeCard
-              label={first_item ? `${first_item["first_name"]}` : " "}
-              hasChilds={true}
-              childCount={60}
-              selected={first_item && selected === first_item["id_user"]}
-              nodeId={first_item && first_item["id_user"]}
-              // found={found}
-            />
-          ) : null
-        }
-      >
-        {getTreeItemsFromData(
-          showChild,
-          selected,
-          found,
-          first_item["id_user"] === showChild["id_user"]
-        )}
-      </TreeItem>
+      {getTreeItemsFromData(tree, selected, found)}
     </TreeView>
   );
 };

@@ -40,16 +40,8 @@ function UserTable({
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell
-              // sortDirection={brandSortState.direction}
-              >
-                <TableSortLabel
-                // active={brandSortState.isActive}
-                // direction={brandSortState.direction}
-                // onClick={() => handleSortChange(EquipmentSorts.BRAND_MODEL)}
-                >
-                  Name
-                </TableSortLabel>
+              <TableCell>
+                <TableSortLabel>Name</TableSortLabel>
               </TableCell>
               <TableCell>Gender</TableCell>
               <TableCell>Mobile</TableCell>
@@ -63,15 +55,15 @@ function UserTable({
               data &&
               data.map((user) => (
                 <TableRow key={user.id_user}>
-                  <TableCell>{user.salutaion} {user.first_name} {user.middle_name} {user.last_name}</TableCell>
+                  <TableCell>
+                    {user.salutaion} {user.first_name} {user.middle_name}{" "}
+                    {user.last_name}
+                  </TableCell>
                   <TableCell>{user.gender === 1 ? "Male" : "Female"}</TableCell>
                   <TableCell>{user.phone_number}</TableCell>
                   <TableCell>{user.email}</TableCell>
                   <TableCell align="center">
-                    <UsersActionMenu
-                      user={user}
-                      hasWritePermission={true}
-                    />
+                    <UsersActionMenu user={user} hasWritePermission={true} />
                   </TableCell>
                 </TableRow>
               ))}

@@ -2,8 +2,9 @@ import pickBy from "lodash/pickBy";
 
 export function urlParamsToApi(urlParams) {
   const { id } = urlParams;
+
   const apiParams = {
-    userId:id,
+    id: id,
   };
 
   return pickBy(apiParams, (p) => !!p);

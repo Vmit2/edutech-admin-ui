@@ -1,37 +1,38 @@
-import CircularProgress from "@material-ui/core/CircularProgress";
 import TreeItem from "@material-ui/lab/TreeItem";
 import React from "react";
+import LoadingProgress from "../LoadingProgress";
 import TreeNodeCard from "../TreeNodeCard";
 
-const getTreeItemsFromData = (showChild, selectedId, found, matched) => {
-  console.log("showChild", showChild);
+const getTreeItemsFromData = (treeItemData, selectedId, found) => {
   return (
     <>
-      {matched && showChild && showChild.childs ? (
-        showChild.childs.map((treeItemData) => {
+      {treeItemData ? (
+        treeItemData.map((item) => {
           return (
             <TreeItem
-              key={treeItemData && treeItemData.id_user}
-              nodeId={treeItemData && treeItemData.id_user}
+              key={item && item.id_user}
+              nodeId={item && item.id_user}
               label={
                 <TreeNodeCard
-                  label={treeItemData ? `${treeItemData["first_name"]}` : " "}
-                  hasChilds={true}
-                  childCount={60}
-                  selected={
-                    treeItemData && selectedId === treeItemData["id_user"]
-                  }
-                  nodeId={treeItemData && treeItemData["id_user"]}
-                  // found={found}
+                  label={item ? `${item["first_name"]}` : " "}
+                  hasChilds={item.childCount > 0}
+                  childCount={item && item.childCount}
+                  selected={item && selectedId === item["id_user"]}
+                  nodeId={item && item["id_user"]}
+                  id_referral_code={item && item["id_referral_code"]}
+                  found={found}
                 />
               }
             >
-              {getTreeItemsFromData(
-                showChild,
-                selectedId,
-                found,
-                treeItemData["id_user"] === showChild["id_user"]
-              )}
+              {item.childs && item.childs.length > 0 ? (
+                getTreeItemsFromData(item.childs, selectedId, found)
+              ) : item.childCount > 0 ? (
+                <TreeItem
+                  key={"loading_child" + item["id_user"]}
+                  nodeId={"loading_child" + item["id_user"]}
+                  label={<LoadingProgress p={2} />}
+                ></TreeItem>
+              ) : null}
             </TreeItem>
           );
         })
@@ -43,6 +44,16 @@ const getTreeItemsFromData = (showChild, selectedId, found, matched) => {
 };
 
 export default getTreeItemsFromData;
+
+// {item.childCount !== 0 &&
+//   !item.childs &&
+//   !item.childs.length > 0 ? (
+// <TreeItem
+//   key={"loading_child" + item["id_user"]}
+//   nodeId={"loading_child" + item["id_user"]}
+//   label={<LoadingProgress p={2} />}
+// ></TreeItem>
+//   ) : null}
 
 // treeItemData.childs && treeItemData.childs.length > 0 ? (
 //   getTreeItemsFromData(treeItemData.childs, selectedId, found)

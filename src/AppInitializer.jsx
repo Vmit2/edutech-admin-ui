@@ -1,17 +1,14 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import SplashScreen from './components/SplashScreen';
-import {
-  useSessionInitializer,
-} from './hooks/initializers';
+import PropTypes from "prop-types";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import SplashScreen from "./components/SplashScreen";
+import { useSessionInitializer } from "./hooks/initializers";
 
 function AppInitializer({ children }) {
   const { hasLoadedSession } = useSessionInitializer();
-
   const isLoading = !hasLoadedSession;
-
   if (isLoading) {
-    return <SplashScreen />
+    return <SplashScreen />;
   }
 
   return children;
@@ -19,6 +16,6 @@ function AppInitializer({ children }) {
 
 AppInitializer.propTypes = {
   children: PropTypes.any,
-}
+};
 
 export default AppInitializer;

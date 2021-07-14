@@ -1,19 +1,20 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import FilledCircleCount from "../../components/FilledCircleCount/FilledCircleCount";
+import ListPagination from "../../components/ListPagination";
 import ListSummaryBar from "../../components/ListSummaryBar/ListSummaryBar";
 import MLMTree from "../../components/MLMTree";
-import { useDistributersRootList } from "../../hooks/api/useDistributersRootList";
 import { search } from "../../hooks/useSearchDist";
 import DashboardPage from "../../layouts/Dashboard/DashboardPage";
 import HierarchyFilterBar from "./HierarchyFilterBar";
+import {
+  useChildDistributers,
+  useRootDistributers,
+} from "../../hooks/api/useDistributersRootList";
+import { useEffect } from "react";
 import { urlParamsToApi } from "./urlParamsToApi";
 import { useUrlParams } from "./useUrlParams";
-import ListPagination from "../../components/ListPagination";
-import { parsePage, parsePageSize } from "../../utils/url/parsePage";
-import { urlParamsToApiForChildTree } from "./ChildTree/urlParamsToApiForChildTree";
-import { useUrlParamsForChildTree } from "./ChildTree/useUrlParamsForChildTree";
-import { useDistributersChildList } from "../../hooks/api/useDistributersChildList";
-
+import { useDispatch } from "react-redux";
+import { expandTreeNode } from "../../redux/actions/treeActions";
 const users = [
   {
     id: "1",
@@ -310,28 +311,35 @@ const users = [
 const Hierarchy = ({ ...props }) => {
   const title = "Distributers Hierarchy";
   const [searchValue, setValue] = useState("initial text");
-  const [expanded, setExpanded] = useState(['26']);
+  const [expanded, setExpanded] = useState([]);
   const [selected, setSelected] = useState([]);
   const [found, setFound] = useState(-1);
+  const dispatch = useDispatch();
+  useRootDistributers();
 
-  // const distributersHierarchy = useHierarchy({
-  //   params: urlParamsToApi(urlParams),
-  // });
-  // const { urlParams, setUrlParam } = useUrlParams();
+  const { urlParams, setUrlParams } = useUrlParams();
+  useChildDistributers(urlParamsToApi(urlParams));
 
-  const { urlParams, setUrlParam } = useUrlParams({
-    parseUrlParams: (searchParams) => ({
-      page: parsePage(searchParams),
-      size: parsePageSize(searchParams),
-    }),
-  });
+  const setUrlParam = (key, value) => {
+    if (urlParams[key] === value) {
+      return;
+    }
 
-  const distributersDetails = useDistributersRootList({
-    params: urlParamsToApi(urlParams),
-  });
+    setUrlParams({
+      [key]: value,
+    });
+  };
 
   const handleToggle = (event, nodeIds) => {
-    useUrlParamsForChildTree.setUrlParamForChild("id", nodeIds[0]);
+    // if (expanded && expanded.includes(nodeIds)) {
+    //   const temp = expanded.filter((id) => id !== nodeIds);
+    //   setExpanded(temp);
+    //   dispatch(expandTreeNode(temp));
+    // } else {
+    //   let temp = [nodeIds, ...expanded];
+    //   setExpanded(temp);
+    //   dispatch(expandTreeNode(temp));
+    // }
     setExpanded(nodeIds);
     setFound("");
     // if(nodeIds[0] !== 26){
@@ -339,6 +347,7 @@ const Hierarchy = ({ ...props }) => {
     // }
   };
   const handleSelect = (event, nodeIds) => {
+    setUrlParam("id", nodeIds);
     setSelected(nodeIds);
     setFound("");
   };
@@ -359,7 +368,7 @@ const Hierarchy = ({ ...props }) => {
       setFound("");
     }
   };
-  setUrlParam("size", 10);
+
   return (
     <div className="">
       <DashboardPage documentTitle={title} pageTitle={title}>
@@ -380,25 +389,21 @@ const Hierarchy = ({ ...props }) => {
               <FilledCircleCount label="User" size="small" variant="red" />
             </>
           }
-          totalCount={1} //{distributersDetails.count}
+          totalCount={1}
         />
         <MLMTree
           onNodeToggle={handleToggle}
           onNodeSelect={handleSelect}
           expanded={expanded}
           selected={selected}
-          // treeItems={users}
-          treeItems={distributersDetails.data ? distributersDetails.data : []}
-          first_item = {distributersDetails.data ? distributersDetails.data : []}
           found={found}
-          // showChild = {{"id":expanded[0],"childs":childTreeList.data}}
         />
 
-        <ListPagination
+        {/* <ListPagination
           currentPage={1} //{urlParams.page}
           totalPages={1} //{distributersDetails.totalPages}
-          onChange={(_, newPage) => setUrlParam("page", newPage)}
-        />
+          // onChange={(_, newPage) => setUrlParam("page", newPage)}
+        /> */}
       </DashboardPage>
     </div>
   );

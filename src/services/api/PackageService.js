@@ -1,5 +1,4 @@
 import { apiClient } from "../apiClient";
-import { translateUser } from "./translators/translateUser";
 
 async function getPackageById(userId) {
   const url = `/package/getPackageByUserId/${userId}`;
