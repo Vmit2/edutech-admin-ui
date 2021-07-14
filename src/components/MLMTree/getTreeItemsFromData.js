@@ -18,6 +18,7 @@ const getTreeItemsFromData = (treeItemData, selectedId, found) => {
                   childCount={item && item.childCount}
                   selected={item && selectedId === item["id_user"]}
                   nodeId={item && item["id_user"]}
+                  id_referral_code={item && item["id_referral_code"]}
                   found={found}
                 />
               }

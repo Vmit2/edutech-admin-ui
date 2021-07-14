@@ -7,7 +7,8 @@ const useStyles = makeStyles((theme) => ({
   distributer: {
     cursor: "pointer",
     ...theme.typography.body1,
-    color: theme.palette.text.distributer,
+    color: theme.palette.background.default,
+    borderRadius:50,
     fontWeight: 700,
     "&:hover": {
       // color: theme.palette.primary.main,
@@ -17,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   user: {
     cursor: "pointer",
     ...theme.typography.body1,
-    color: theme.palette.text.user,
+    color: theme.palette.background.default,
     fontWeight: 700,
     "&:hover": {
       // color: theme.palette.primary.main,
