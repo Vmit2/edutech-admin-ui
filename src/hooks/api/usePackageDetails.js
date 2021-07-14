@@ -3,7 +3,7 @@ import { QUERY_STALE_TIME, QueryKeys } from "../../config/query";
 import PackageService from "../../services/api/PackageService";
 
 function queryFn(_,{ params }) {
-  return PackageService.getPackageById(params.params.id);
+  return PackageService.getPackageById(params.id);
 }
 
 function buildQueryKey(params) {

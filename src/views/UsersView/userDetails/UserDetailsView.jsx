@@ -52,7 +52,7 @@ function UserDetailsView({ ...props }) {
   });
   
   const data = useMemo(() => {
-    if (userDetailsNew.error) {
+    if (userDetailsNew.status !== 'success') {
       return [];
     }
     return userDetailsNew;
