@@ -30,6 +30,7 @@ import {
   uploadPancard,
 } from "../../../hooks/api/useFileUpload";
 import { updateKyc } from "../../../hooks/api/useDistributers";
+import SucessModel from "../../shared/SucessModel";
 
 const DistributersDetailsView = ({ ...props }) => {
   const title = "Distributers";
@@ -45,6 +46,7 @@ const DistributersDetailsView = ({ ...props }) => {
     addharCardFrontImage:  null,
     addharCardBackImage: null,
     panCardImage: null,
+    sucess : false,
   });
   const [open, setOpen] = useState(false);
   const [prevImage, setPrevImage] = useState();
@@ -73,7 +75,7 @@ const DistributersDetailsView = ({ ...props }) => {
 
   const onSubmitKyc = () => {
     updateKyc(distributerId).then(() => {
-      navigate("/users");
+      navigate("/distributers");
     });
   };
 
@@ -116,6 +118,12 @@ const DistributersDetailsView = ({ ...props }) => {
     else {
       return someImage;
     }
+  }
+
+  const closeSuccessPopup = () =>{
+    setState({
+      sucess : false
+    })
   }
 
   return (
@@ -414,7 +422,7 @@ const DistributersDetailsView = ({ ...props }) => {
                     </Button>
                   </Grid>
                   <Grid items xs={12} sm={3} md={3}>
-                    {detailsData.kycCompleted && <Button onClick={onSubmitKyc} className={classes.approveButton} disabled={!state.panCard}>
+                    {detailsData.kycCompleted && <Button onClick={() => setState({sucess : true})} className={classes.approveButton} disabled={!state.panCard}>
                       Click to Approve
                     </Button>}
                   </Grid>
@@ -442,6 +450,7 @@ const DistributersDetailsView = ({ ...props }) => {
               </Grid>
             </Grid>
           </Modal>
+          <SucessModel open={state.sucess} content={'You are sure you want to approve KYC'} onSubmit= {onSubmitKyc} handleClose={closeSuccessPopup}/>
         </Container>
       </DashboardPage>
     </div>

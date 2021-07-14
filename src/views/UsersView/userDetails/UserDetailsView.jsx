@@ -22,6 +22,8 @@ import LabelValue from "../../shared/LabelValue";
 import { updateKyc, useUserDetails } from "../../../hooks/api/useUserDetails";
 import { uploadAddharFront, uploadPancard, uploadAddharBack } from "../../../hooks/api/useFileUpload";
 import { usePackagesList } from "../../../hooks/api/usePackageDetails";
+import PakageService from "../../../services/api/PakageService";
+import SucessModel from "../../shared/SucessModel";
 
 
 
@@ -31,16 +33,17 @@ function UserDetailsView({ ...props }) {
   const [state, setState] = useState({
     panCard: false,
     addharCard: false,
-    addharCardFrontImage: '',
-    addharCardBackImage: '',
-    panCardImage: '',
+    addharCardFrontImage: null,
+    addharCardBackImage: null,
+    panCardImage: null,
+    sucess : false,
   });
   const [open, setOpen] = useState(false);
   const [prevImage, setPrevImage] = useState();
 
   const { userId } = useParams();
   const userDetails = useUserDetails(userId);
-  const packageDetailsFromApi = usePackagesList(userId);
+  const packageDetailsFromApi = PakageService.getPackageById(userId);
   const detailsData = formateUserDetails(userDetails);
   const packageDetails = formatePageaDeatails();
   console.log('=' ,userId,packageDetailsFromApi);
@@ -101,6 +104,12 @@ function UserDetailsView({ ...props }) {
     else {
       return someImage;
     }
+  }
+
+  const closeSuccessPopup = () =>{
+    setState({
+      sucess : false
+    })
   }
 
   if (!detailsData) {
@@ -395,7 +404,7 @@ function UserDetailsView({ ...props }) {
                     </Button>
                   </Grid>
                   <Grid items xs={12} sm={3} md={3}>
-                    {detailsData.kycCompleted && <Button onClick={onSubmitKyc} className={classes.approveButton} disabled={!state.addharCard}>
+                    {detailsData.kycCompleted && <Button onClick={()=> setState({ sucess : true })} className={classes.approveButton} disabled={!state.addharCard}>
                       Click to Approve
                     </Button>}
                   </Grid>
@@ -424,6 +433,7 @@ function UserDetailsView({ ...props }) {
               </Grid>
             </Grid>
           </Modal>
+          <SucessModel open={state.sucess} content={'You are sure you want to approve KYC'} onSubmit= {onSubmitKyc} handleClose={closeSuccessPopup}/>
         </Container>
       </DashboardPage>
     </div>
