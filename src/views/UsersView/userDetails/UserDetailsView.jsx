@@ -93,6 +93,16 @@ function UserDetailsView({ ...props }) {
     }
   };
 
+  const getImageFromApi = (image) =>{
+    if(image){
+      const baseURL = 'https://edutech-mlm.s3.ap-south-1.amazonaws.com/'
+      return baseURL + image; 
+    }
+    else {
+      return someImage;
+    }
+  }
+
   if (!detailsData) {
     return navigate('/users')
   }
@@ -217,12 +227,20 @@ function UserDetailsView({ ...props }) {
                     className={classes.cardWrapper}
                   >
                     <Card className={classes.cardImageConatiner}>
-                      <CardMedia
+                      {state.panCardImage ? <CardMedia
                         className={classes.cardImage}
                         image={getImageSrc(state.panCardImage)}//{someImage}
                         title="PanCard"
                         onClick={(event) => handleOpen(getImageSrc(state.panCardImage))}
                       />
+                      :
+                      <CardMedia
+                        className={classes.cardImage}
+                        image={getImageFromApi(detailsData.pancardPhoto)}//{someImage}
+                        title="PanCard"
+                        onClick={(event) => handleOpen(getImageFromApi(detailsData.pancardPhoto))}
+                      />
+                      }
                     </Card>
                     <CardContent className={classes.overlayContainer}>
                       <div>
@@ -265,12 +283,20 @@ function UserDetailsView({ ...props }) {
                     className={classes.cardWrapper}
                   >
                     <Card className={classes.cardImageConatiner}>
-                      <CardMedia
+                      {state.addharCardFrontImage ? <CardMedia
                         className={classes.cardImage}
                         image={getImageSrc(state.addharCardFrontImage)}//{userImg}
                         title="Addhar Card"
                         onClick={(event) => handleOpen(getImageSrc(state.addharCardFrontImage))}
                       />
+                      :
+                      <CardMedia
+                        className={classes.cardImage}
+                        image={getImageFromApi(detailsData.aadhaarFront)}//{userImg}
+                        title="Addhar Card"
+                        onClick={(event) => handleOpen(getImageFromApi(detailsData.aadhaarFront))}
+                      />
+                      }
                     </Card>
                     <CardContent className={classes.overlayContainer}>
                       <div>
@@ -313,12 +339,20 @@ function UserDetailsView({ ...props }) {
                     className={classes.cardWrapper}
                   >
                     <Card className={classes.cardImageConatiner}>
-                      <CardMedia
+                      {state.addharCardBackImage ? <CardMedia
                         className={classes.cardImage}
                         image={getImageSrc(state.addharCardBackImage)}//{userImg}
                         title="Addhar Card"
                         onClick={(event) => handleOpen(getImageSrc(state.addharCardBackImage))}
                       />
+                      :
+                      <CardMedia
+                        className={classes.cardImage}
+                        image={getImageFromApi(detailsData.aadhaarFront)}//{userImg}
+                        title="Addhar Card"
+                        onClick={(event) => handleOpen(getImageFromApi(detailsData.aadhaarFront))}
+                      />
+                      }
                     </Card>
                     <CardContent className={classes.overlayContainer}>
                       <div>
