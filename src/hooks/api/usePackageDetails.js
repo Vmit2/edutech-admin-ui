@@ -1,24 +1,24 @@
 import { queryCache, useQuery } from "react-query";
 import { QUERY_STALE_TIME, QueryKeys } from "../../config/query";
-import PakageService from "../../services/api/PakageService";
+import PackageService from "../../services/api/PackageService";
 
 function queryFn(_,{ params }) {
-  return PakageService.getPackageById(params);
+  return PackageService.getPackageById(params.params.id);
 }
 
 function buildQueryKey(params) {
   return [QueryKeys.PACKAGES_LIST, { params }];
 }
 
-export async function usePackagesList(params) {
+export function usePackagesList({ enabled = true, params } = {}) {
   const queryKey = buildQueryKey(params);
-  const enabled = true ;
   const config = {
     enabled,
     staleTime: QUERY_STALE_TIME,
   };
 
   const { status, data, error } =  useQuery({ queryKey, queryFn, config });
+
   return {
     status,
     data: data,
@@ -36,3 +36,24 @@ export function invalidateDistributers(opts = {}) {
 
 
 
+export async function usePackageDetails(userId) {
+  try {
+    const data = await PackageService.getPackageById(userId);
+    data.then((res) => {
+      return res;
+    });
+    // return {
+    //   error: false,
+    //   data,
+    // };
+  } catch (err) {
+    const apiErrorMessage = err.edutechError
+      ? err.error.response.data.message
+      : "An unexpected error occurred. Please try again.";
+
+    return {
+      error: true,
+      apiErrorMessage,
+    };
+  }
+}

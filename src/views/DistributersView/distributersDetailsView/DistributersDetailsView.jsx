@@ -256,14 +256,14 @@ const DistributersDetailsView = ({ ...props }) => {
                     <Card className={classes.cardImageConatiner}>
                       {state.panCardImage ? <CardMedia
                         className={classes.cardImage}
-                        image={getImageSrc(state.panCardImage)}//{someImage}
+                        image={getImageSrc(state.panCardImage)}
                         title="PanCard"
                         onClick={(event) => handleOpen(getImageSrc(state.panCardImage))}
                       />
                       :
                       <CardMedia
                         className={classes.cardImage}
-                        image={getImageFromApi(detailsData.pancardPhoto)}//{someImage}
+                        image={getImageFromApi(detailsData.pancardPhoto)}
                         title="PanCard"
                         onClick={(event) => handleOpen(getImageFromApi(detailsData.pancardPhoto))}
                       />
