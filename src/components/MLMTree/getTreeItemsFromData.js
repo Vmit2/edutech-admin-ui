@@ -1,5 +1,6 @@
 import TreeItem from "@material-ui/lab/TreeItem";
 import React from "react";
+import LoadingProgress from "../LoadingProgress";
 import TreeNodeCard from "../TreeNodeCard";
 
 const getTreeItemsFromData = (treeItemData, selectedId, found) => {
@@ -23,9 +24,15 @@ const getTreeItemsFromData = (treeItemData, selectedId, found) => {
                 />
               }
             >
-              {item.childs &&
-                item.childs.length > 0 &&
-                getTreeItemsFromData(item.childs, selectedId, found)}
+              {item.childs && item.childs.length > 0 ? (
+                getTreeItemsFromData(item.childs, selectedId, found)
+              ) : item.childCount > 0 ? (
+                <TreeItem
+                  key={"loading_child" + item["id_user"]}
+                  nodeId={"loading_child" + item["id_user"]}
+                  label={<LoadingProgress p={2} />}
+                ></TreeItem>
+              ) : null}
             </TreeItem>
           );
         })
@@ -37,6 +44,16 @@ const getTreeItemsFromData = (treeItemData, selectedId, found) => {
 };
 
 export default getTreeItemsFromData;
+
+// {item.childCount !== 0 &&
+//   !item.childs &&
+//   !item.childs.length > 0 ? (
+// <TreeItem
+//   key={"loading_child" + item["id_user"]}
+//   nodeId={"loading_child" + item["id_user"]}
+//   label={<LoadingProgress p={2} />}
+// ></TreeItem>
+//   ) : null}
 
 // treeItemData.childs && treeItemData.childs.length > 0 ? (
 //   getTreeItemsFromData(treeItemData.childs, selectedId, found)

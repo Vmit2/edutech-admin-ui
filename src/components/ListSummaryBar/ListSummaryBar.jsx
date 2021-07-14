@@ -43,11 +43,11 @@ function ListSummaryBar({
       <div>
         {!isEmpty(count) && !isEmpty(totalCount) && (
           <>
-            <SummaryResultsText
+            {/* <SummaryResultsText
               noMarginBottom
               noMarginTop
               value={`Showing ${count} of ${totalCount} results`}
-            />
+            /> */}
 
             {legend && <div className={classes.legend}>{legend}</div>}
           </>

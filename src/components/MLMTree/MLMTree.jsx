@@ -1,11 +1,9 @@
 import { makeStyles } from "@material-ui/core/styles";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import TreeItem from "@material-ui/lab/TreeItem";
 import TreeView from "@material-ui/lab/TreeView";
 import React from "react";
 import { useTreeState } from "../../hooks/redux/useTreeState";
-import TreeNodeCard from "../TreeNodeCard";
 import getTreeItemsFromData from "./getTreeItemsFromData";
 
 const useStyles = makeStyles({

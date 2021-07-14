@@ -342,6 +342,9 @@ const Hierarchy = ({ ...props }) => {
     // }
     setExpanded(nodeIds);
     setFound("");
+    // if(nodeIds[0] !== 26){
+      // setUrlParamForChild("id", nodeIds[0]);
+    // }
   };
   const handleSelect = (event, nodeIds) => {
     setUrlParam("id", nodeIds);
@@ -396,11 +399,11 @@ const Hierarchy = ({ ...props }) => {
           found={found}
         />
 
-        <ListPagination
+        {/* <ListPagination
           currentPage={1} //{urlParams.page}
           totalPages={1} //{distributersDetails.totalPages}
           // onChange={(_, newPage) => setUrlParam("page", newPage)}
-        />
+        /> */}
       </DashboardPage>
     </div>
   );
