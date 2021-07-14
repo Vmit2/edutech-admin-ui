@@ -117,6 +117,7 @@ const useStyles = makeStyles((theme) => ({
       marginTop: "30px",
       background: theme.palette.module.backgroundLight,
       color: theme.palette.common.white,
+      padding: '6px 15px',
       "&:hover": {
         background: theme.palette.module.backgroundLight,
       },
@@ -130,6 +131,7 @@ const useStyles = makeStyles((theme) => ({
       background:  theme.palette.common.white,
       border : "1px solid " + theme.palette.module.backgroundLight,
       color: theme.palette.module.backgroundLight,
+      padding: '6px 15px',
       "&:hover": {
         color: theme.palette.module.backgroundLight,
       },

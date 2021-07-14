@@ -81,20 +81,9 @@ function WithDrawRequestListView() {
       pageTitle={title}
     >
       <Card>
-        <HorizontalTabs
-          items={[
-            { value: ActiveStatus.COMPLETED, label: "Request Pending" },
-            { value: ActiveStatus.NOT_COMPLETED, label: "Request Approved" },
-            ,
-          ]}
-          value={urlParams.kyc}
-          onChange={(event, value) => setUrlParam("kyc", value)}
-        />
-        <Divider />
-
         <WithDrawTable
           count={userDetails.count}
-          data={userDetails.data}
+          data={[]}
           isLoading={isLoading}
           page={urlParams.page}
           pageSize={urlParams.size}

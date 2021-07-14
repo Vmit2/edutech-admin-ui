@@ -30,6 +30,7 @@ import {
   uploadPancard,
 } from "../../../hooks/api/useFileUpload";
 import { updateKyc } from "../../../hooks/api/useDistributers";
+import SucessModel from "../../shared/SucessModel";
 
 const DistributersDetailsView = ({ ...props }) => {
   const title = "Distributers";
@@ -45,6 +46,7 @@ const DistributersDetailsView = ({ ...props }) => {
     addharCardFrontImage:  null,
     addharCardBackImage: null,
     panCardImage: null,
+    sucess : false,
   });
   const [open, setOpen] = useState(false);
   const [prevImage, setPrevImage] = useState();
@@ -73,7 +75,7 @@ const DistributersDetailsView = ({ ...props }) => {
 
   const onSubmitKyc = () => {
     updateKyc(distributerId).then(() => {
-      navigate("/users");
+      navigate("/distributers");
     });
   };
 
@@ -107,6 +109,22 @@ const DistributersDetailsView = ({ ...props }) => {
       return someImage;
     }
   };
+
+  const getImageFromApi = (image) =>{
+    if(image){
+      const baseURL = 'https://edutech-mlm.s3.ap-south-1.amazonaws.com/'
+      return baseURL + image; 
+    }
+    else {
+      return someImage;
+    }
+  }
+
+  const closeSuccessPopup = () =>{
+    setState({
+      sucess : false
+    })
+  }
 
   return (
     <div className="">
@@ -236,12 +254,20 @@ const DistributersDetailsView = ({ ...props }) => {
                     className={classes.cardWrapper}
                   >
                     <Card className={classes.cardImageConatiner}>
-                      <CardMedia
+                      {state.panCardImage ? <CardMedia
                         className={classes.cardImage}
-                        image={getImageSrc(state.panCardImage)} //{someImage}
+                        image={getImageSrc(state.panCardImage)}//{someImage}
                         title="PanCard"
                         onClick={(event) => handleOpen(getImageSrc(state.panCardImage))}
                       />
+                      :
+                      <CardMedia
+                        className={classes.cardImage}
+                        image={getImageFromApi(detailsData.pancardPhoto)}//{someImage}
+                        title="PanCard"
+                        onClick={(event) => handleOpen(getImageFromApi(detailsData.pancardPhoto))}
+                      />
+                      }
                     </Card>
                     <CardContent className={classes.overlayContainer}>
                       <div>
@@ -264,17 +290,15 @@ const DistributersDetailsView = ({ ...props }) => {
                           </Button>
                         </label>
                       </div>
-                      {detailsData.kycCompleted && (
-                        <Checkbox
-                          name={"panCard"}
-                          className={classes.checkboxStyle}
-                          checked={state.panCard}
-                          onChange={handleChange}
-                          inputProps={{
-                            "aria-label": "checkbox with default color",
-                          }}
-                        />
-                      )}
+                      {detailsData.kycCompleted && <Checkbox
+                        name={"panCard"}
+                        className={classes.checkboxStyle}
+                        checked={state.panCard}
+                        onChange={handleChange}
+                        inputProps={{
+                          "aria-label": "checkbox with default color",
+                        }}
+                      />}
                     </CardContent>
                     <label>Pan card</label>
                   </Grid>
@@ -286,12 +310,20 @@ const DistributersDetailsView = ({ ...props }) => {
                     className={classes.cardWrapper}
                   >
                     <Card className={classes.cardImageConatiner}>
-                      <CardMedia
+                      {state.addharCardFrontImage ? <CardMedia
                         className={classes.cardImage}
                         image={getImageSrc(state.addharCardFrontImage)}//{userImg}
                         title="Addhar Card"
                         onClick={(event) => handleOpen(getImageSrc(state.addharCardFrontImage))}
                       />
+                      :
+                      <CardMedia
+                        className={classes.cardImage}
+                        image={getImageFromApi(detailsData.aadhaarFront)}//{userImg}
+                        title="Addhar Card"
+                        onClick={(event) => handleOpen(getImageFromApi(detailsData.aadhaarFront))}
+                      />
+                      }
                     </Card>
                     <CardContent className={classes.overlayContainer}>
                       <div>
@@ -314,17 +346,15 @@ const DistributersDetailsView = ({ ...props }) => {
                           </Button>
                         </label>
                       </div>
-                      {detailsData.kycCompleted && (
-                        <Checkbox
-                          name={"addharCard"}
-                          checked={state.addharCard}
-                          onChange={handleChange}
-                          className={classes.checkboxStyle}
-                          inputProps={{
-                            "aria-label": "checkbox with default color",
-                          }}
-                        />
-                      )}
+                      {detailsData.kycCompleted && <Checkbox
+                        name={"addharCard"}
+                        checked={state.addharCard}
+                        onChange={handleChange}
+                        className={classes.checkboxStyle}
+                        inputProps={{
+                          "aria-label": "checkbox with default color",
+                        }}
+                      />}
                     </CardContent>
                     <label>Addhar Front Image</label>
                   </Grid>
@@ -336,12 +366,20 @@ const DistributersDetailsView = ({ ...props }) => {
                     className={classes.cardWrapper}
                   >
                     <Card className={classes.cardImageConatiner}>
-                      <CardMedia
+                      {state.addharCardBackImage ? <CardMedia
                         className={classes.cardImage}
                         image={getImageSrc(state.addharCardBackImage)}//{userImg}
                         title="Addhar Card"
                         onClick={(event) => handleOpen(getImageSrc(state.addharCardBackImage))}
                       />
+                      :
+                      <CardMedia
+                        className={classes.cardImage}
+                        image={getImageFromApi(detailsData.aadhaarFront)}//{userImg}
+                        title="Addhar Card"
+                        onClick={(event) => handleOpen(getImageFromApi(detailsData.aadhaarFront))}
+                      />
+                      }
                     </Card>
                     <CardContent className={classes.overlayContainer}>
                       <div>
@@ -364,41 +402,29 @@ const DistributersDetailsView = ({ ...props }) => {
                           </Button>
                         </label>
                       </div>
-                      {detailsData.kycCompleted && (
-                        <Checkbox
-                          name={"addharCard"}
-                          checked={state.addharCard}
-                          onChange={handleChange}
-                          className={classes.checkboxStyle}
-                          inputProps={{
-                            "aria-label": "checkbox with default color",
-                          }}
-                        />
-                      )}
+                      {detailsData.kycCompleted && <Checkbox
+                        name={"addharCard"}
+                        checked={state.addharCard}
+                        onChange={handleChange}
+                        className={classes.checkboxStyle}
+                        inputProps={{
+                          "aria-label": "checkbox with default color",
+                        }}
+                      />}
                     </CardContent>
                     <label>Addhar Back Image</label>
                   </Grid>
                 </Grid>
                 <Grid container className={classes.buttonContainer}>
                   <Grid items xs={12} sm={3} md={3}>
-                    <Button
-                      onClick={onUpdate}
-                      className={classes.updateButton}
-                      disabled={!state.isUpdate}
-                    >
+                    <Button onClick={onUpdate} className={classes.updateButton} disabled={!state.isUpdate}>
                       Update Documents
                     </Button>
                   </Grid>
                   <Grid items xs={12} sm={3} md={3}>
-                    {detailsData.kycCompleted && (
-                      <Button
-                        onClick={onSubmitKyc}
-                        className={classes.approveButton}
-                        disabled={!state.panCard}
-                      >
-                        Click to Approve
-                      </Button>
-                    )}
+                    {detailsData.kycCompleted && <Button onClick={() => setState({sucess : true})} className={classes.approveButton} disabled={!state.panCard}>
+                      Click to Approve
+                    </Button>}
                   </Grid>
                 </Grid>
               </Grid>
@@ -424,6 +450,7 @@ const DistributersDetailsView = ({ ...props }) => {
               </Grid>
             </Grid>
           </Modal>
+          <SucessModel open={state.sucess} content={'You are sure you want to approve KYC'} onSubmit= {onSubmitKyc} handleClose={closeSuccessPopup}/>
         </Container>
       </DashboardPage>
     </div>

@@ -1,3 +1,4 @@
+import { Button } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -11,7 +12,6 @@ import React from "react";
 import LoadingProgress from "../../../../components/LoadingProgress";
 import { useUserState } from "../../../../hooks/redux";
 import { PAGE_SIZE_STEPS } from "../../../../utils/url/parsePage";
-import WithDrawActionMenu from "./WithDrawActionMenu";
 
 function UserTable({
   isLoading,
@@ -51,10 +51,12 @@ function UserTable({
                   Name
                 </TableSortLabel>
               </TableCell>
-              <TableCell>Gender</TableCell>
+              <TableCell>Beneficiary Type</TableCell>
               <TableCell>Mobile</TableCell>
               <TableCell>Email</TableCell>
-              <TableCell></TableCell>
+              <TableCell>Payment Mode</TableCell>
+              <TableCell>Amount</TableCell>
+              <TableCell>Request</TableCell>
             </TableRow>
           </TableHead>
 
@@ -68,10 +70,7 @@ function UserTable({
                   <TableCell>{user.phone_number}</TableCell>
                   <TableCell>{user.email}</TableCell>
                   <TableCell align="center">
-                    <WithDrawActionMenu
-                      user={user}
-                      hasWritePermission={true}
-                    />
+                    <Button>Click to Approve</Button>
                   </TableCell>
                 </TableRow>
               ))}
