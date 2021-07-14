@@ -7,4 +7,6 @@ export const QueryKeys = {
   USER_DETAILS:"user_details",
   CHILD_LIST:"child_list",
   ROOT_DISTRIBUTER:"root_distributer",
+  PACKAGES_LIST:"packages_list",
+  WITHDRAWAL_REQUESTS_LIST:"withdraw_requests_list",
 }

@@ -9,6 +9,7 @@ import HorizontalTabs from "../../../components/HorizontalTabs";
 import PlusCircleIcon from "../../../components/Icons/PlusCircleIcon";
 import { ActiveStatus } from "../../../config/constants";
 import { useUsers } from "../../../hooks/api/useUsers";
+import { useWithdrawalRequests } from "../../../hooks/api/useWithdrawalRequests";
 // import { ActiveStatus } from "src/config/constants";
 // import { EquipmentPermissions } from "src/config/permissionsConfig/equipmentPermissions";
 // import { useAllLocations } from "src/hooks/api/useAllLocations";
@@ -21,18 +22,15 @@ import { urlParamsToApi } from "./urlParamsToApi";
 import { useUrlParams } from "./useUrlParams";
 
 function WithDrawRequestListView() {
-  const title = "Request";
+  const title = "Withdraw Requests";
 
-  // const { activeBusiness } = useUserState();
-  // const locations = useAllLocations(activeBusiness.id);
   const { urlParams, setUrlParams } = useUrlParams();
 
   const userDetails = useUsers({
     params: urlParamsToApi(urlParams),
   });
-  // const { hasPermission: hasWritePermission } = usePermissionGuard(
-  //   EquipmentPermissions.WRITE
-  // );
+  const { status, data, error } = useWithdrawalRequests();
+  console.log("withdrawal requests ", data);
 
   const isLoading =
     userDetails.status === "idle" || userDetails.status === "loading";
@@ -86,7 +84,8 @@ function WithDrawRequestListView() {
         <HorizontalTabs
           items={[
             { value: ActiveStatus.COMPLETED, label: "Request Pending" },
-            { value: ActiveStatus.NOT_COMPLETED, label: "Request Approved" },,
+            { value: ActiveStatus.NOT_COMPLETED, label: "Request Approved" },
+            ,
           ]}
           value={urlParams.kyc}
           onChange={(event, value) => setUrlParam("kyc", value)}

@@ -21,7 +21,7 @@ import { formatePageaDeatails, formateUserDetails, getformatedDate } from "./uti
 import LabelValue from "../../shared/LabelValue";
 import { updateKyc, useUserDetails } from "../../../hooks/api/useUserDetails";
 import { uploadAddharFront, uploadPancard, uploadAddharBack } from "../../../hooks/api/useFileUpload";
-import { getPackageById } from "../../../hooks/api/usePackageDetails";
+import { usePackagesList } from "../../../hooks/api/usePackageDetails";
 
 
 
@@ -40,12 +40,12 @@ function UserDetailsView({ ...props }) {
 
   const { userId } = useParams();
   const userDetails = useUserDetails(userId);
+  const packageDetailsFromApi = usePackagesList(userId);
   const detailsData = formateUserDetails(userDetails);
-  // const packageDetails = getPackageById(userId)
   const packageDetails = formatePageaDeatails();
-  console.log('====================================');
-  console.log(packageDetails);
-  console.log('====================================');
+  console.log('=' ,userId,packageDetailsFromApi);
+  // console.log(packageDetails);
+  // console.log('====================================');
   const navigate = useNavigate();
 
   const handleChange = (event) => {

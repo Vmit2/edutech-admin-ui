@@ -3,9 +3,13 @@ import { ActiveStatus } from "../../config/constants";
 import { QUERY_STALE_TIME, QueryKeys } from "../../config/query";
 import UserService from "../../services/api/UserService";
 
-function queryFn(_,{ params }) {
-  const kycFlag = params && params.kyc === ActiveStatus.COMPLETED ? 1 : 0;
-  return UserService.getAllByKyc(params,kycFlag);
+function queryFn(_, { params }) {
+  if (params.search && params.search.length > 0) {
+    return UserService.searchAll(params);
+  } else {
+    const kycFlag = params && params.kyc === ActiveStatus.COMPLETED ? 1 : 0;
+    return UserService.getAllByKyc(params, kycFlag);
+  }
 }
 
 function buildQueryKey(params) {
@@ -35,7 +39,7 @@ export function useUsers({ enabled = true, params } = {}) {
 export function invalidateUsers(opts = {}) {
   const { refetchActive } = opts;
 
-  return queryCache.invalidateQueries(QueryKeys.ALL_USERS, {
+  return queryCache.invalidateQueries(QueryKeys.ALL_USERS_BY_KYC, {
     refetchActive,
   });
 }
