@@ -1,6 +1,13 @@
 import {
-  Button, Card, CardContent, CardMedia, Checkbox, Container,
-  Grid, Modal, Typography
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  Checkbox,
+  Container,
+  Grid,
+  Modal,
+  Typography,
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import PublishIcon from "@material-ui/icons/Publish";
@@ -9,8 +16,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import someImage from "../../../assets/images/ref1.png";
 import userImg from "../../../assets/images/userImg.png";
 import {
-  uploadAddharBack, uploadAddharFront,
-  uploadPancard
+  uploadAddharBack,
+  uploadAddharFront,
+  uploadPancard,
 } from "../../../hooks/api/useFileUpload";
 import { usePackagesList } from "../../../hooks/api/usePackageDetails";
 import { updateKyc, useUserDetails } from "../../../hooks/api/useUserDetails";
@@ -23,10 +31,10 @@ import { useUrlParams } from "./useUrlParams";
 import {
   formatePageaDeatails,
   formateUserDetails,
-  getformatedDate
+  getformatedDate,
 } from "./utilitizes/utils";
 
-function UserDetailsView({ ...props }) {
+function UserDetailsView() {
   const title = "Details";
   const classes = useStyles();
   const [state, setState] = useState({
@@ -50,9 +58,9 @@ function UserDetailsView({ ...props }) {
   const userDetailsNew = usePackagesList({
     params: urlParamsToApi(urlParams),
   });
-  
+
   const data = useMemo(() => {
-    if (userDetailsNew.status !== 'success') {
+    if (userDetailsNew.status !== "success") {
       return [];
     }
     return userDetailsNew;
@@ -121,7 +129,8 @@ function UserDetailsView({ ...props }) {
   };
 
   if (!detailsData) {
-    return navigate("/users");
+    navigate("/users");
+    return null;
   }
   return (
     <div className="">
@@ -221,9 +230,10 @@ function UserDetailsView({ ...props }) {
                   </Typography>
                   <Grid container className={classes.packageCardWrapper}>
                     {packageDetails &&
-                      packageDetails.map((detials) => {
+                      packageDetails.map((detials, i) => {
                         return (
                           <Card
+                            key={i + "card"}
                             xs={12}
                             sm={3}
                             md={3}
@@ -463,7 +473,7 @@ function UserDetailsView({ ...props }) {
                       Update Documents
                     </Button>
                   </Grid>
-                  <Grid items xs={12} sm={3} md={3}>
+                  <Grid item xs={12} sm={3} md={3}>
                     {detailsData.kycCompleted && (
                       <Button
                         onClick={() => setState({ sucess: true })}
