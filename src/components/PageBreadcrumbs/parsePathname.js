@@ -22,7 +22,7 @@ export function parsePathname(pathname) {
 
   if (crumbs && crumbs[0].href !== '/dashboard') {
     crumbs.unshift({
-      isLink: true,
+      isLink: false,
       title: 'Dashboard',
       href: '/dashboard',
     })

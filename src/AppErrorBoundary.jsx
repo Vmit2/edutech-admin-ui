@@ -27,7 +27,7 @@ export default class AppErrorBoundary extends React.Component {
     if (this.state.hasError) {
       return (
         <div>
-          <h2>Something went wrong.</h2>
+          <h2>Something went wrong..</h2>
         </div>
       )
     }

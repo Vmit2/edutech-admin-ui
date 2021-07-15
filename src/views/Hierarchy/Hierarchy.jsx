@@ -1,20 +1,17 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import FilledCircleCount from "../../components/FilledCircleCount/FilledCircleCount";
-import ListPagination from "../../components/ListPagination";
 import ListSummaryBar from "../../components/ListSummaryBar/ListSummaryBar";
 import MLMTree from "../../components/MLMTree";
+import {
+  useChildDistributers,
+  useRootDistributers
+} from "../../hooks/api/useDistributersRootList";
 import { search } from "../../hooks/useSearchDist";
 import DashboardPage from "../../layouts/Dashboard/DashboardPage";
 import HierarchyFilterBar from "./HierarchyFilterBar";
-import {
-  useChildDistributers,
-  useRootDistributers,
-} from "../../hooks/api/useDistributersRootList";
-import { useEffect } from "react";
 import { urlParamsToApi } from "./urlParamsToApi";
 import { useUrlParams } from "./useUrlParams";
-import { useDispatch } from "react-redux";
-import { expandTreeNode } from "../../redux/actions/treeActions";
 const users = [
   {
     id: "1",
