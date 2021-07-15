@@ -2,37 +2,22 @@ import { queryCache, useQuery } from "react-query";
 import { QUERY_STALE_TIME, QueryKeys } from "../../config/query";
 import WalletService from "../../services/api/WalletService";
 
-function queryFn(_,) {
-  return WalletService.getWallet();
+
+function queryFn(_,{ params }) {
+  return WalletService.getWalletById(params.id);
 }
 
 function buildQueryKey(params) {
   return [QueryKeys.PACKAGES_LIST, { params }];
 }
 
-export async function useWalletList() {
-  const queryKey = buildQueryKey();
-  const enabled = true ;
+export function useWalletList({ enabled = true, params } = {}) {
+  const queryKey = buildQueryKey(params);
   const config = {
     enabled,
     staleTime: QUERY_STALE_TIME,
   };
-
-  const { status, data, error } =  useQuery({ queryKey, queryFn, config });
-  return {
-    status,
-    data: data,
-    error,
-  };
+  const {data} =  useQuery({ queryKey, queryFn, config });
+  return data
 }
-
-export function invalidateDistributers(opts = {}) {
-  const { refetchActive } = opts;
-
-  return queryCache.invalidateQueries(QueryKeys.ALL_USERS, {
-    refetchActive,
-  });
-}
-
-
 

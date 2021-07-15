@@ -31,6 +31,9 @@ import {
 } from "../../../hooks/api/useFileUpload";
 import { updateKyc } from "../../../hooks/api/useDistributers";
 import SucessModel from "../../shared/SucessModel";
+import { useWalletList } from "../../../hooks/api/useWalletDetails";
+import { useUrlParams } from "../../UsersView/userDetails/useUrlParams";
+import { urlParamsToApi } from "../../UsersView/userDetails/urlParamsToApi";
 
 const DistributersDetailsView = ({ ...props }) => {
   const title = "Distributers";
@@ -38,7 +41,12 @@ const DistributersDetailsView = ({ ...props }) => {
   const { distributerId } = useParams();
   const distributerDetails = useDistributerDetails(distributerId);
   const detailsData = formateDistributerDetails(distributerDetails);
-  const walletDetails = formateWalletDetails();
+  const { urlParams } = useUrlParams();
+  
+  const walletDetailsApi = useWalletList({
+    params: {id:distributerId},
+  });
+  const walletDetails = walletDetailsApi && walletDetailsApi.result ? formateWalletDetails(walletDetailsApi.result) : null;
   const navigate = useNavigate();
   const [state, setState] = useState({
     panCard: false,
@@ -221,24 +229,24 @@ const DistributersDetailsView = ({ ...props }) => {
                   <Typography variant="h4" className={classes.moreDetailsTitle}>
                     Wallet:
                   </Typography>
-                  <Grid container className={classes.packageCardWrapper}>
+                  {walletDetails && <Grid container className={classes.packageCardWrapper}>
                     <Card xs={12} sm={3} md={3} className={classes.packageCard}>
                       <CardContent item className={classes.packageCardContent}>
                         <LabelValue
                           label={"Wallet Amount:"}
-                          value={walletDetails.walletAmount}
+                          value={walletDetails.walletAmount ? walletDetails.walletAmount : ''}
                         />
                         <LabelValue
-                          label={"Total Earning"}
-                          value={walletDetails.totalEarning}
+                          label={"Total Earning:"}
+                          value={walletDetails.totalEarning ? walletDetails.totalEarning :''}
                         />
                         <LabelValue
                           label={"Immediate Referral Count:"}
-                          value={walletDetails.immediateReferralCount}
+                          value={walletDetails.immediateReferralCount ? walletDetails.immediateReferralCount :''}
                         />
                       </CardContent>
                     </Card>
-                  </Grid>
+                  </Grid>}
                 </Grid>
               </Grid>
               <Grid item container className={classes.kycDetailsConatiner}>

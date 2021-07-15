@@ -25,18 +25,18 @@ export const formateDistributerDetails = (details) => {
     }
 }
 
-export const formateWalletDetails = () => {
+export const formateWalletDetails = (details) => {
     return {
-        idReferralCode: 7,
-        code: "TE0000002624",
-        userId: 26,
-        status: 0,
-        kycCompleted: 1,
-        walletAmount: "0",
-        totalEarning: "0",
-        createdDate: "2021-05-07T06:08:28.000Z",
-        updatedDate: "2021-05-07T06:08:28.000Z",
-        immediateReferralCount: 60
+        idReferralCode: details.id_referralCode,
+        code: details.code,
+        userId: details.user_id,
+        status: details.status,
+        kycCompleted: details.kyc_completed,
+        walletAmount: details.wallet_amount,
+        totalEarning: details.total_earning,
+        createdDate: details.created_date,
+        updatedDate: details.updated_date,
+        immediateReferralCount: details.immediate_referral_count
     }
 }
 
