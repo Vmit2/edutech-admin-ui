@@ -145,7 +145,7 @@ const DistributersDetailsView = ({ ...props }) => {
                   className={classes.imgStyle}
                   height="100"
                   width="100"
-                  src={userImg}
+                  src={getImageFromApi(detailsData.photo)}
                 />
                 <Typography variant="h5" className={classes.fullName}>
                   {detailsData.salutation && detailsData.salutation + "."}
@@ -217,6 +217,9 @@ const DistributersDetailsView = ({ ...props }) => {
                   </Grid>
                   <Grid item xs={12} sm={6} md={6}>
                     <LabelValue label="Pancard:" value={detailsData.panCard} />
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={6}>
+                    <LabelValue label="Referral code:" value={detailsData.code} />
                   </Grid>
                 </Grid>
               </Grid>

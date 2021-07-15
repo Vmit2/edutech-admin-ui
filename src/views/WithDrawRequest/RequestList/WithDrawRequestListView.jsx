@@ -83,7 +83,7 @@ function WithDrawRequestListView() {
       <Card>
         <WithDrawTable
           count={userDetails.count}
-          data={[]}
+          data={data}
           isLoading={isLoading}
           page={urlParams.page}
           pageSize={urlParams.size}

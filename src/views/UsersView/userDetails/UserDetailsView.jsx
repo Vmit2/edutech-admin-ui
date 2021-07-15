@@ -120,6 +120,9 @@ function UserDetailsView({ ...props }) {
     });
   };
 
+  console.log('====================================');
+  console.log(detailsData);
+  console.log('====================================');
   if (!detailsData) {
     return navigate("/users");
   }
@@ -134,7 +137,7 @@ function UserDetailsView({ ...props }) {
                   className={classes.imgStyle}
                   height="100"
                   width="100"
-                  src={userImg}
+                  src={getImageFromApi(detailsData.photo)}
                 />
                 <Typography variant="h5" className={classes.fullName}>
                   {detailsData.salutation && detailsData.salutation + "."}
