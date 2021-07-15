@@ -60,7 +60,7 @@ function UserDetailsView() {
   });
 
   const data = useMemo(() => {
-    if (userDetailsNew.status !== "success") {
+    if (userDetailsNew.status !== 'success') {
       return [];
     }
     return userDetailsNew;
