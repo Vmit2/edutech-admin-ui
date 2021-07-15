@@ -14,13 +14,14 @@ const getTreeItemsFromData = (treeItemData, selectedId, found) => {
               nodeId={item && item.id_user}
               label={
                 <TreeNodeCard
-                  label={item ? `${item["first_name"]}` : " "}
+                  label={item ? `${item.first_name} ${item.middle_name} ${item.last_name}` : " "}
                   hasChilds={item.childCount > 0}
                   childCount={item && item.childCount}
-                  selected={item && selectedId === item["id_user"]}
-                  nodeId={item && item["id_user"]}
-                  id_referral_code={item && item["id_referral_code"]}
+                  selected={item && selectedId === item.id_user}
+                  nodeId={item && item.id_user}
+                  id_referral_code={item && item.code}
                   found={found}
+                  image={item && item.photo}
                 />
               }
             >

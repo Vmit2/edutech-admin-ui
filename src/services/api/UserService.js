@@ -20,6 +20,12 @@ async function getAllByKyc(qParams = {}, kycFlag) {
   return res;
 }
 
+async function getUserById(id) {
+  const url = `/admin/getUserById/${id}`;
+  const res = apiClient.get(url);
+  return res;
+}
+
 async function searchAll(qParams = {}) {
   const search = qParams.search;
   const url = `/admin/searchAllUsers?searchKey=${search}`;
@@ -28,13 +34,13 @@ async function searchAll(qParams = {}) {
   return res;
 }
 
-async function getById(userId) {
-  const url = `/users/${userId}`;
+// async function getById(userId) {
+//   const url = `/users/${userId}`;
 
-  const res = await apiClient.get(url);
+//   const res = await apiClient.get(url);
 
-  return translateUser(res.data);
-}
+//   return translateUser(res.data);
+// }
 
 async function create(body) {
   const url = `/users`;
@@ -55,7 +61,7 @@ async function updateKyc(userId) {
 async function deleteUser(userId) {
   const url = `/admin/deleteUser?userId=${userId}`;
 
-  const res = await apiClient.delete(url);
+  const res = await apiClient.put(url);
 
   return res;
 }
@@ -71,10 +77,11 @@ async function getPackageById(userId) {
 export default {
   getAll,
   getAllByKyc,
-  getById,
+  // getById,
   create,
   updateKyc,
   getPackageById,
   deleteUser,
   searchAll,
+  getUserById
 };

@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   },
 });
 
-const MLMTree = ({ first_item, selected, found, ...props }) => {
+const MLMTree = ({ selected, found, ...props }) => {
   const classes = useStyles();
   const { tree, expanded } = useTreeState();
   return (

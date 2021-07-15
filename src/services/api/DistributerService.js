@@ -34,12 +34,12 @@ async function getChildsById(userId) {
   return res;
 }
 
-async function getById(userId) {
-  const url = `/users/${userId}`;
+async function getDistributerById(userId) {
+  const url = `/admin/getDistributorById/${userId}`;
 
   const res = await apiClient.get(url);
 
-  return translateUser(res.data);
+  return res;
 }
 
 async function create(body) {
@@ -66,14 +66,13 @@ async function updateKyc(distributerId) {
   return res;
 }
 
-
 export default {
   getRoot,
   getAllByKyc,
-  getById,
+  getDistributerById,
   getChildsById,
   create,
   update,
   updateKyc,
-  searchAll
+  searchAll,
 };

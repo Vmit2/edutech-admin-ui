@@ -1,64 +1,115 @@
-import { Avatar, Box, CardHeader } from "@material-ui/core";
+import {
+  Avatar,
+  Box,
+  Card,
+  CardContent,
+  CardHeader,
+  CardMedia,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import PermIdentityIcon from "@material-ui/icons/PermIdentity";
+// import PermIdentityIcon from "@material-ui/icons/PermIdentity";//
 import clsx from "clsx";
 import PropTypes from "prop-types";
+import { IMAGE_BASE_URL } from "../../config/constants";
 import FilledCircleCount from "../FilledCircleCount/FilledCircleCount";
 import TreeNodeLabel from "../Typography/TreeNodeLabel/TreeNodeLabel";
-
+import someImage from "../../assets/images/ref1.png";
 const useStyles = makeStyles((theme) => ({
   card: {
-    // height: "3rem",
     cursor: "pointer",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     ...theme.typography.body1,
     fontWeight: 700,
     border: "solid 0.2rem",
-    borderTopRightRadius:50,
-    borderBottomRightRadius:50,
+    borderTopRightRadius: 50,
+    borderBottomRightRadius: 50,
     borderColor: theme.palette.background.default,
-    backgroundColor:theme.palette.module.backgroundLight,
-    
+    backgroundColor: theme.palette.module.backgroundLight,
+    paddingLeft: "2rem",
+    // maxWidth: "700px",
     "&:hover": {
       border: "solid 0.2rem",
       borderColor: theme.palette.primary.main,
       textDecoration: "none",
-      backgroundColor:theme.palette.module.backgroundLight,
+      backgroundColor: theme.palette.module.backgroundLight,
     },
   },
   activeCard: {
-    // height: "3rem",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     cursor: "pointer",
     ...theme.typography.body1,
     fontWeight: 700,
-    borderTopRightRadius:50,
-    borderBottomRightRadius:50,
+    borderTopRightRadius: 50,
+    borderBottomRightRadius: 50,
     backgroundColor: theme.palette.module.backgroundLight,
     textDecoration: "none",
+    paddingLeft: "2rem",
+    // maxWidth: "700px",
+    border: "solid 0.2rem",
+    borderColor: theme.palette.common.green,
   },
   found: {
     border: `dashed 1px ${theme.palette.primary.main}`,
   },
   CardHeader: {
-    // borderRadius: "2rem",
+    position: "relative",
+    width: "100%",
+    display: "flex",
+    flexDirection: "row",
+  },
+  image: {
+    width: "auto",
+    height: "5rem",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
   },
   user: {
-    border: "solid 0.2rem",
+    border: "outset 0.2rem",
+    borderBottomLeftRadius: 50,
+    borderBottomRightRadius: 50,
     borderColor: theme.palette.text.user,
+    padding: "10px",
   },
   distributer: {
-    border: "solid 0.2rem",
+    border: "outset 0.2rem",
+    borderTopRightRadius: 50,
+    borderBottomRightRadius: 50,
     borderColor: theme.palette.text.distributer,
   },
+  imgContainerDist: {
+    border: "double 0.2rem",
+    borderTopRightRadius: 50,
+    borderBottomRightRadius: 50,
+    borderColor: "white",
+  },
+
+  imgContainerUser: {
+    border: "double 0.2rem",
+    borderBottomLeftRadius: 50,
+    borderBottomRightRadius: 50,
+    borderColor: "white",
+  },
   circle: {
-    // width: 30,
+    position: "absolute",
+    width: "20rem",
+    height: "2rem",
     // transform: "scale(0.7)",
+    right: "-5%",
+    justifyContent: "flex-start",
+    paddingLeft: "5%",
   },
   titleContainer: {
     width: "100%",
     display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: "column",
+    justifyContent: "flex-start",
   },
 }));
 
@@ -67,7 +118,7 @@ function TreeNodeCard({
   value,
   hasChilds,
   label,
-  id_referral_codes,
+  id_referral_code,
   childCount,
   image,
   selected,
@@ -84,47 +135,52 @@ function TreeNodeCard({
     ),
     ...props,
   };
+  const imageProps = {
+    className: clsx(
+      hasChilds ? classes.distributer : classes.user,
+      classes.image
+    ),
+  };
+
+  const imageContainerStyle = {
+    className: clsx(
+      hasChilds ? classes.imgContainerDist : classes.imgContainerUser
+    ),
+  };
 
   return (
-    <CardHeader
-      component="div"
-      {...elProps}
-      classes={{ content: classes.CardHeader }}
-      avatar={
-        <Avatar
-          aria-label="recipe"
-          className={hasChilds ? classes.distributer : classes.user}
-        >
-          {!image ? image : <PermIdentityIcon />}
-        </Avatar>
-      }
-      title={
+    <Card {...elProps}>
+      <div {...imageContainerStyle}>
+        <CardMedia
+          component="img"
+          alt={label}
+          image={!image ? IMAGE_BASE_URL + image : someImage}
+          {...imageProps}
+        />
+      </div>
+      <CardContent className={classes.CardHeader}>
         <Box className={classes.titleContainer}>
           <TreeNodeLabel title={label} value={label} />
-          {hasChilds && (
-            <>
-              <FilledCircleCount
-                circleClassName={classes.circle}
-                value={"Count: " + "  " + childCount}
-                variant="orange"
-              />
-            </>
-          )}
+          <TreeNodeLabel
+            title={id_referral_code}
+            value={" [ User Id  -  " + nodeId + " ]"}
+          />
+          <TreeNodeLabel
+            title={id_referral_code}
+            value={" [ Referel Id  -  " + id_referral_code + " ]"}
+          />
         </Box>
-      }
-      subheader={
         <>
-        <TreeNodeLabel
-          title={id_referral_codes}
-          value={" [ User Id  -  " + nodeId + " ]"}
-        />
-         <TreeNodeLabel
-          title={id_referral_codes}
-          value={" [ Referel Id  -  " + id_referral_codes + " ]"}
-        />
+          {hasChilds && (
+            <FilledCircleCount
+              circleClassName={classes.circle}
+              value={"Immediate Referral Count: " + childCount}
+              variant="orange"
+            />
+          )}
         </>
-      }
-    />
+      </CardContent>
+    </Card>
   );
 }
 
@@ -135,3 +191,51 @@ TreeNodeCard.propTypes = {
 };
 
 export default TreeNodeCard;
+
+{
+  /* <CardHeader
+component="div" */
+}
+// {...elProps}
+// classes={{ content: classes.CardHeader }}
+// avatar={
+// <Avatar
+//   aria-label="recipe"
+//   className={hasChilds ? classes.distributer : classes.user}
+// >
+<>
+  {/* {!image ? (
+      <image src={IMAGE_BASE_URL + image} />
+    ) : (
+      <image src={someImage} />
+    )} */}
+</>;
+// </Avatar>
+// }
+// title={
+// <Box className={classes.titleContainer}>
+//   <TreeNodeLabel title={label} value={label} />
+//   {hasChilds && (
+//     <>
+//       <FilledCircleCount
+//         circleClassName={classes.circle}
+//         value={"Count: " + "  " + childCount}
+//         variant="orange"
+//       />
+//     </>
+//   )}
+// </Box>
+// }
+// subheader={
+// <>
+//   <TreeNodeLabel
+//     title={id_referral_code}
+//     value={" [ User Id  -  " + nodeId + " ]"}
+//   />
+//   <TreeNodeLabel
+//     title={id_referral_code}
+//     value={" [ Referel Id  -  " + id_referral_code + " ]"}
+//   />
+// </>
+// }
+// />

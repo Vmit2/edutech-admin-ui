@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import App from "./App";
 import "./config/fonts.css";
+import "./index.css";
 import { ReactQueryDevtools } from "react-query-devtools";
 // import { createBrowserHistory } from "history";
 // import { Router, Route, Switch, Redirect } from "react-router-dom";

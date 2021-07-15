@@ -8,7 +8,7 @@ export const SIDE_DRAWER_WIDTH_MOBILE = 256;
 export const MAX_DESCRIPTION_LENGTH = 1000;
 
 export const DEFAULT_LOCATION_PHOTO = "/static/images/essex.png";
-
+export const IMAGE_BASE_URL = "https://edutech-mlm.s3.ap-south-1.amazonaws.com/";
 // redux action constants
 export const SET_ACTIVE_USER = "SET_ACTIVE_USER";
 export const ADD_CHILD = "ADD_CHILD";

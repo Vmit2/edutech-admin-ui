@@ -7,13 +7,7 @@ import PropTypes from "prop-types";
 import React, { useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MoreHorizontalIcon from "../../../../components/Icons/MoreHorizontalIcon";
-import {
-  setDistributerDetails,
-  getDistributerDetails,
-} from "../../../../hooks/api/useDistributerDetails";
-// import DistributerDeleteDialog from 'src/forms/DistributerForm/DistributerDeleteDialog'
-// import DistributerRetireDialog from 'src/forms/DistributerForm/DistributerRetireDialog'
-// import { setDistributerDetails } from "src/hooks/api/useDistributerDetails";
+import { setDistributerDetails } from "../../../../hooks/api/useDistributerDetails";
 
 function DistributersActionMenu({ hasWritePermission, distributer }) {
   const menuButtonRef = useRef();
@@ -24,15 +18,13 @@ function DistributersActionMenu({ hasWritePermission, distributer }) {
   const handleActionClick = async (key) => {
     switch (key) {
       case "view":
-        setDistributerDetails(distributer.id_user, distributer);
-
-        navigate(`${distributer.id_user}`);
+        // setDistributerDetails(distributer.id_user, distributer);
+        console.log('distributer ',distributer);
+        navigate(`${distributer.id_referral_code}`);
         break;
 
       case "delete":
-        // setDistributerDetails(distributer.id_user, distributer);
-        getDistributerDetails(distributer.id_user);
-        // navigate("${distributer.id}/edi");
+      
         break;
 
       default:
