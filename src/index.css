@@ -1,0 +1,21 @@
+.MuiTreeItem-root:hover,
+.MuiTreeItem-root:active {
+  background-color: transparent !important;
+}
+
+.MuiTreeItem-label:active,
+.MuiTreeItem-label:hover {
+  background-color: transparent !important;
+}
+.Mui-selected:active,
+.Mui-selected:hover {
+  background-color: transparent !important;
+}
+.Mui-expanded:active,
+.Mui-expanded:hover {
+  background-color: transparent !important;
+}
+.MuiTreeItem-group:active,
+.MuiTreeItem-group:hover {
+  background-color: transparent !important;
+}

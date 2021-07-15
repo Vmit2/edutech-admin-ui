@@ -23,7 +23,7 @@ export const lightTheme = {
       label: '#5c6063',
       side_labels:'#FFFFFF',
       user:'#FC1310',
-      distributer:'#2472FD'
+      distributer:'#2472FD'//'#2472FD'
     },
     primary: {
       light: '#63ead2',

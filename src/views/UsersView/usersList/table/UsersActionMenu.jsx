@@ -3,32 +3,30 @@ import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Typography from "@material-ui/core/Typography";
+import { useSnackbar } from "notistack";
 import PropTypes from "prop-types";
 import React, { useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import MoreHorizontalIcon from "../../../../components/Icons/MoreHorizontalIcon";
-import { deleteUser, deleteUserApi, setUserDetails } from "../../../../hooks/api/useUserDetails";
-import CustomDialog from "../../../../components/CustomDialog";
-import TertiaryButton from "../../../../components/Buttons/TertiaryButton";
 import PrimaryButton from "../../../../components/Buttons/PrimaryButton";
+import TertiaryButton from "../../../../components/Buttons/TertiaryButton";
+import CustomDialog from "../../../../components/CustomDialog";
+import MoreHorizontalIcon from "../../../../components/Icons/MoreHorizontalIcon";
+import { deleteUserApi } from "../../../../hooks/api/useUserDetails";
+import { invalidateUsers } from "../../../../hooks/api/useUsers";
 function UsersActionMenu({ hasWritePermission, user }) {
   const menuButtonRef = useRef();
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
   const [isOpen, setIsOpen] = useState(false);
   const [activeDialog, setActiveDialog] = useState(false);
 
   const handleActionClick = async (key) => {
     switch (key) {
       case "view":
-        setUserDetails(user.id_user, user);
-
         navigate(`${user.id_user}`);
         break;
 
       case "delete":
-        // setUserDetails(user.id_user, user);
-        // deleteUser(user.id_user);
-        // navigate("${user.id}/edi");
         setActiveDialog(true);
         break;
 
@@ -43,7 +41,18 @@ function UsersActionMenu({ hasWritePermission, user }) {
   };
 
   const onSubmitDelete = () => {
-    deleteUserApi(user.id_user);
+    const { error, data } = deleteUserApi(user.id_user);
+    if (!error) {
+      handleSuccess();
+    }
+  };
+
+  const handleSuccess = async () => {
+    await invalidateUsers();
+    handleCloseDialog();
+    enqueueSnackbar("User Deleted successfully", {
+      variant: "success",
+    });
   };
 
   const actions = useMemo(() => {

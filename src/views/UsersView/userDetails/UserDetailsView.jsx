@@ -15,6 +15,7 @@ import React, { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import someImage from "../../../assets/images/ref1.png";
 import userImg from "../../../assets/images/userImg.png";
+import LoadingProgress from "../../../components/LoadingProgress";
 import {
   uploadAddharBack,
   uploadAddharFront,
@@ -47,25 +48,28 @@ function UserDetailsView() {
   });
   const [open, setOpen] = useState(false);
   const [prevImage, setPrevImage] = useState();
-
-  const { userId } = useParams();
-  const userDetails = useUserDetails(userId);
-  const detailsData = formateUserDetails(userDetails);
-  const packageDetails = formatePageaDeatails();
   const navigate = useNavigate();
 
   const { urlParams } = useUrlParams();
+  const { userId } = useParams();
+  const { status, userResponse, error } = useUserDetails(userId);
   const userDetailsNew = usePackagesList({
     params: urlParamsToApi(urlParams),
   });
 
   const data = useMemo(() => {
-    if (userDetailsNew.status !== 'success') {
+    if (userDetailsNew.status !== "success") {
       return [];
     }
     return userDetailsNew;
   }, [userDetailsNew]);
-  console.log("=", userId, data);
+
+  if (status === "loading") {
+    return <LoadingProgress p={2} />;
+  }
+
+  const detailsData = formateUserDetails(userResponse);
+  const packageDetails = formatePageaDeatails();
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -135,6 +139,7 @@ function UserDetailsView() {
   return (
     <div className="">
       <DashboardPage documentTitle={title} pageTitle={title}>
+        {status === "loading" && <LoadingProgress p={2} />}
         <Container className={classes.detailsContainer} spacing={2}>
           <Grid container>
             <Grid item className={classes.profileConatiner}>

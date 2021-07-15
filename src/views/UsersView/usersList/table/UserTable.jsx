@@ -53,20 +53,24 @@ function UserTable({
           <TableBody>
             {!isLoading &&
               data &&
-              data.map((user) => (
-                <TableRow key={user.id_user}>
-                  <TableCell>
-                    {user.salutaion} {user.first_name} {user.middle_name}{" "}
-                    {user.last_name}
-                  </TableCell>
-                  <TableCell>{user.gender === 1 ? "Male" : "Female"}</TableCell>
-                  <TableCell>{user.phone_number}</TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell align="center">
-                    <UsersActionMenu user={user} hasWritePermission={true} />
-                  </TableCell>
-                </TableRow>
-              ))}
+              data
+                .filter((user) => user.is_active !== 0)
+                .map((user) => (
+                  <TableRow key={user.id_user}>
+                    <TableCell>
+                      {user.salutaion} {user.first_name} {user.middle_name}{" "}
+                      {user.last_name}
+                    </TableCell>
+                    <TableCell>
+                      {user.gender === 1 ? "Male" : "Female"}
+                    </TableCell>
+                    <TableCell>{user.phone_number}</TableCell>
+                    <TableCell>{user.email}</TableCell>
+                    <TableCell align="center">
+                      <UsersActionMenu user={user} hasWritePermission={true} />
+                    </TableCell>
+                  </TableRow>
+                ))}
           </TableBody>
         </Table>
 
@@ -76,7 +80,7 @@ function UserTable({
       {!isLoading && (
         <TablePagination
           component="div"
-          count={count}
+          count={count - data.filter((user) => user.is_active !== 1).length}
           page={page - 1}
           rowsPerPage={pageSize}
           rowsPerPageOptions={PAGE_SIZE_STEPS}

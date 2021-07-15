@@ -1,44 +1,44 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
-  Typography,
-  Card,
-  CardMedia,
-  CardContent,
-  Checkbox,
-  Modal,
   Button,
+  Card,
+  CardContent,
+  CardMedia,
+  Checkbox,
   Container,
   Grid,
+  Modal,
+  Typography,
 } from "@material-ui/core";
-import { useNavigate, useParams } from "react-router-dom";
-import { useDistributerDetails } from "../../../hooks/api/useDistributerDetails";
-import DashboardPage from "../../../layouts/Dashboard/DashboardPage";
-import useStyles from "./DistributersDetailsView.style";
-import PublishIcon from "@material-ui/icons/Publish";
 import CloseIcon from "@material-ui/icons/Close";
-import LabelValue from "../../shared/LabelValue";
-import userImg from "../../../assets/images/userImg.png";
+import PublishIcon from "@material-ui/icons/Publish";
+import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import someImage from "../../../assets/images/ref1.png";
-import {
-  formateDistributerDetails,
-  formateWalletDetails,
-  getformatedDate,
-} from "./utilitizes/utils";
+import userImg from "../../../assets/images/userImg.png";
+import LoadingProgress from "../../../components/LoadingProgress";
+import { useDistributerDetails } from "../../../hooks/api/useDistributerDetails";
+import { updateKyc } from "../../../hooks/api/useDistributers";
 import {
   uploadAddharBack,
   uploadAddharFront,
   uploadPancard,
 } from "../../../hooks/api/useFileUpload";
-import { updateKyc } from "../../../hooks/api/useDistributers";
+import DashboardPage from "../../../layouts/Dashboard/DashboardPage";
+import LabelValue from "../../shared/LabelValue";
 import SucessModel from "../../shared/SucessModel";
+import useStyles from "./DistributersDetailsView.style";
+import {
+  formateDistributerDetails,
+  formateWalletDetails,
+  getformatedDate,
+} from "./utilitizes/utils";
 
 const DistributersDetailsView = ({ ...props }) => {
   const title = "Distributers";
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
+  const [prevImage, setPrevImage] = useState();
   const { distributerId } = useParams();
-  const distributerDetails = useDistributerDetails(distributerId);
-  const detailsData = formateDistributerDetails(distributerDetails);
-  const walletDetails = formateWalletDetails();
   const navigate = useNavigate();
   const [state, setState] = useState({
     panCard: false,
@@ -48,8 +48,12 @@ const DistributersDetailsView = ({ ...props }) => {
     panCardImage: null,
     sucess: false,
   });
-  const [open, setOpen] = useState(false);
-  const [prevImage, setPrevImage] = useState();
+  const { status, distResponse, error } = useDistributerDetails(distributerId);
+  if (status === "loading") {
+    return <LoadingProgress p={2} />;
+  }
+  const detailsData = formateDistributerDetails(distResponse);
+  const walletDetails = formateWalletDetails();
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -112,14 +116,6 @@ const DistributersDetailsView = ({ ...props }) => {
     });
   };
 
-  // Component Will Unmount
-  useEffect(() => {
-    if (!detailsData) {
-      navigate("/distributers");
-      return null;
-    }
-  }, []);
-
   if (!detailsData) {
     navigate("/distributers");
     return null;
@@ -128,6 +124,7 @@ const DistributersDetailsView = ({ ...props }) => {
   return (
     <div className="">
       <DashboardPage documentTitle={title} pageTitle={title}>
+        {status === "loading" && <LoadingProgress p={2} />}
         <Container className={classes.detailsContainer} spacing={2}>
           <Grid container>
             <Grid item className={classes.profileConatiner}>

@@ -2,20 +2,29 @@ import { queryCache, useQuery } from "react-query";
 import { QUERY_STALE_TIME, QueryKeys } from "../../config/query";
 import UserService from "../../services/api/UserService";
 
-function queryFn(_, { userId }) {
-  // return UserService.updateKyc(userId);
+function queryFn(_, { params }) {
+  return UserService.getUserById(params);
 }
 
-function buildQueryKey(id) {
-  const userId = Number(id);
-
-  return [QueryKeys.USER_DETAILS, { userId }];
+function buildQueryKey(params) {
+  return [QueryKeys.USER_DETAILS, { params }];
 }
 
-export function useUserDetails(userId) {
-  const queryKey = buildQueryKey(userId);
-  const queryData = queryCache.getQueryData(queryKey);
-  return queryData;
+export function useUserDetails(id) {
+  const enabled = true;
+  const queryKey = buildQueryKey(id);
+
+  const config = {
+    enabled,
+    staleTime: QUERY_STALE_TIME,
+  };
+
+  const { status, data, error } = useQuery({ queryKey, queryFn, config });
+  return {
+    status,
+    userResponse: data && data.data.results && data.data.results[0],
+    error,
+  };
 }
 
 export function getUserDetails(userId) {
@@ -52,7 +61,7 @@ export async function updateKyc(userId) {
   }
 }
 
-async function deleteUserApi(userId){
+async function deleteUserApi(userId) {
   try {
     const data = await UserService.deleteUser(userId);
     return {
@@ -77,6 +86,4 @@ export function removeUserDetails(userId) {
   queryCache.removeQueries(queryKey);
 }
 
-export{
-  deleteUserApi
-}
+export { deleteUserApi };

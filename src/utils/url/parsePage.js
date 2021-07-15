@@ -1,4 +1,4 @@
-export const PAGE_SIZE_STEPS = [5, 10];
+export const PAGE_SIZE_STEPS = [10, 20];
 
 export function parsePage(params, key = "page") {
   const value = params.get(key);
@@ -15,5 +15,5 @@ export function parsePageSize(params, key = "size") {
   const perPage = Math.floor(Number(value));
   const isValid = PAGE_SIZE_STEPS.includes(perPage);
 
-  return isValid ? perPage : PAGE_SIZE_STEPS[0];
+  return isValid ? perPage : PAGE_SIZE_STEPS[1];
 }
