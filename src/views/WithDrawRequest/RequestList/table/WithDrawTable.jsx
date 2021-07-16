@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core";
+import { Button, makeStyles } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -9,9 +9,25 @@ import TableRow from "@material-ui/core/TableRow";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 import PropTypes from "prop-types";
 import React from "react";
+import { useState } from "react";
+import TertiaryButton from "../../../../components/Buttons/TertiaryButton";
 import LoadingProgress from "../../../../components/LoadingProgress";
 import { useUserState } from "../../../../hooks/redux";
 import { PAGE_SIZE_STEPS } from "../../../../utils/url/parsePage";
+import SucessModel from "../../../shared/SucessModel";
+
+const useStyles = makeStyles((theme) => ({
+  approveButton: {
+    background: theme.palette.common.white,
+    color: theme.palette.common.backgroundLight,
+    border:"solid 1px",
+    borderColor:theme.palette.common.backgroundLight,
+    height: "2.5rem",
+    "&:hover": {
+      background: theme.palette.button.tertiaryHover,
+    },
+  },
+}));
 
 function UserTable({
   isLoading,
@@ -30,8 +46,19 @@ function UserTable({
     onPageChange(newPage + 1, pageSize);
   };
 
+  const [state, setState] = useState({ sucess: false });
   const handlePageSizeChange = (event) => {
     onPageChange(1, event.target.value);
+  };
+
+  const classes = useStyles();
+
+  const onApproveRequest = () => {};
+
+  const closeSuccessPopup = () => {
+    setState({
+      sucess: false,
+    });
   };
 
   return (
@@ -40,23 +67,15 @@ function UserTable({
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell
-              // sortDirection={brandSortState.direction}
-              >
-                <TableSortLabel
-                // active={brandSortState.isActive}
-                // direction={brandSortState.direction}
-                // onClick={() => handleSortChange(EquipmentSorts.BRAND_MODEL)}
-                >
-                  Name
-                </TableSortLabel>
+              <TableCell>
+                <TableSortLabel>Name</TableSortLabel>
               </TableCell>
               <TableCell>Beneficiary Type</TableCell>
               <TableCell>Mobile</TableCell>
               <TableCell>Email</TableCell>
               <TableCell>Payment Mode</TableCell>
               <TableCell>Amount</TableCell>
-              <TableCell>Request</TableCell>
+              <TableCell align="center">Request</TableCell>
             </TableRow>
           </TableHead>
 
@@ -65,12 +84,19 @@ function UserTable({
               data &&
               data.map((user) => (
                 <TableRow key={user.id_user}>
-                  <TableCell>{user.first_name}</TableCell>
-                  <TableCell>{user.gender === 1 ? "Male" : "Female"}</TableCell>
-                  <TableCell>{user.phone_number}</TableCell>
+                  <TableCell>{user.beneficiary_name}</TableCell>
+                  <TableCell>{user.beneficiary_type}</TableCell>
+                  <TableCell>{user.phone}</TableCell>
                   <TableCell>{user.email}</TableCell>
+                  <TableCell>{user.payment_mode}</TableCell>
+                  <TableCell>{user.amount}</TableCell>
                   <TableCell align="center">
-                    <Button>Click to Approve</Button>
+                    <TertiaryButton
+                      className={classes.approveButton}
+                      onClick={() => setState({ sucess: true })}
+                    >
+                      Approve
+                    </TertiaryButton>
                   </TableCell>
                 </TableRow>
               ))}
@@ -79,7 +105,12 @@ function UserTable({
 
         {isLoading && <LoadingProgress p={2} />}
       </Box>
-
+      <SucessModel
+        open={state.sucess}
+        content={"You are sure you want to approve withdraw request."}
+        onSubmit={onApproveRequest}
+        handleClose={closeSuccessPopup}
+      />
       {!isLoading && (
         <TablePagination
           component="div"

@@ -18,8 +18,8 @@ import Account from "./Account";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    // backgroundColor: theme.palette.module.backgroundLight,
-    // theme.palette.background.default,
+    // backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.module.backgroundLight,
     boxShadow: "none",
   },
   toolbar: {
@@ -30,6 +30,15 @@ const useStyles = makeStyles((theme) => ({
       minHeight: APP_BAR_HEIGHT_MOBILE,
       padding: 15,
     },
+    boxShadow : theme.palette.shadow.primary,
+  },
+  eduTechLogoStyle: {
+    border: `outset 2px ${theme.palette.module.border}`,
+    borderRadius:"50%",
+    padding: "1px",
+    width:"50px",
+    height:"50px",
+    boxShadow : theme.palette.shadow.primary,
   },
 }));
 
@@ -51,15 +60,11 @@ function TopAppBar({ className, openMobileDrawer, ...props }) {
 
         <Hidden mdDown>
           <RouterLink to="/">
-            <img
-              className="eduTechLogo"
-              width={45}
-              height={45}
-              src={eduTechLogo}
-              alt="appLogo"
-            />
+            <div className={classes.eduTechLogoStyle}>
+              <img width={45} height={45} src={eduTechLogo} alt="appLogo" />
+            </div>
           </RouterLink>
-          {/* <PageTitleText value={pageTitle} /> */}
+          {/* <PageTitleText value="Edutech" /> */}
         </Hidden>
 
         <Box flexGrow={1} ml={2} />

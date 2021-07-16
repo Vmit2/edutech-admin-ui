@@ -50,7 +50,7 @@ function UsersActionMenu({ hasWritePermission, user }) {
   const handleSuccess = async () => {
     await invalidateUsers();
     handleCloseDialog();
-    enqueueSnackbar("User Deleted successfully", {
+    enqueueSnackbar("User Inactived successfully", {
       variant: "success",
     });
   };
@@ -67,7 +67,7 @@ function UsersActionMenu({ hasWritePermission, user }) {
       },
       {
         key: "delete",
-        name: "Delete",
+        name: "Inactive",
       },
     ];
 

@@ -42,8 +42,29 @@ export function setDistributerDetails(distributerId, data, opts = {}) {
   queryCache.setQueryData(queryKey, data, config);
 }
 
+async function deleteDistributerApi(id) {
+  try {
+    const data = await DistributerService.deleteDistributer(id);
+    return {
+      error: false,
+      data,
+    };
+  } catch (err) {
+    const apiErrorMessage = err.edutechError
+      ? err.error.response.data.message
+      : "An unexpected error occurred. Please try again.";
+
+    return {
+      error: true,
+      apiErrorMessage,
+    };
+  }
+}
+
 export function removeDistributerDetails(distributerId) {
   const queryKey = buildQueryKey(distributerId);
 
   queryCache.removeQueries(queryKey);
 }
+
+export { deleteDistributerApi };

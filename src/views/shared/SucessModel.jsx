@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
     },
     container: {
-        width: '60%',
+        width: '40%',
         display: 'flex',
         flexDirection: 'column',
         background: '#fff',
@@ -36,13 +36,13 @@ const useStyles = makeStyles((theme) => ({
         alignSelf: 'flex-end',
     },
     buttonContainer: {
-        width: '30%',
         display: 'flex',
         justifyContent: 'space-between',
     },
     primaryButton: {
         background: theme.palette.module.backgroundLight,
         color: theme.palette.common.white,
+        marginLeft : '2rem',
         padding: '6px 15px',
         "&:hover": {
             background: theme.palette.module.backgroundLight,

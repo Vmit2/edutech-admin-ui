@@ -7,19 +7,19 @@ import {
   Container,
   Grid,
   Modal,
-  Typography,
+  Typography
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import PublishIcon from "@material-ui/icons/Publish";
 import React, { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import someImage from "../../../assets/images/ref1.png";
-import userImg from "../../../assets/images/userImg.png";
 import LoadingProgress from "../../../components/LoadingProgress";
+import { IMAGE_BASE_URL } from "../../../config/constants";
 import {
   uploadAddharBack,
   uploadAddharFront,
-  uploadPancard,
+  uploadPancard
 } from "../../../hooks/api/useFileUpload";
 import { usePackagesList } from "../../../hooks/api/usePackageDetails";
 import { updateKyc, useUserDetails } from "../../../hooks/api/useUserDetails";
@@ -32,7 +32,7 @@ import { useUrlParams } from "./useUrlParams";
 import {
   formatePageaDeatails,
   formateUserDetails,
-  getformatedDate,
+  getformatedDate
 } from "./utilitizes/utils";
 
 function UserDetailsView() {
@@ -119,8 +119,7 @@ function UserDetailsView() {
 
   const getImageFromApi = (image) => {
     if (image) {
-      const baseURL = "https://edutech-mlm.s3.ap-south-1.amazonaws.com/";
-      return baseURL + image;
+      return IMAGE_BASE_URL + image;
     } else {
       return someImage;
     }
@@ -148,7 +147,7 @@ function UserDetailsView() {
                   className={classes.imgStyle}
                   height="100"
                   width="100"
-                  src={userImg}
+                  src={getImageFromApi(detailsData.photo)}
                 />
                 <Typography variant="h5" className={classes.fullName}>
                   {detailsData.salutation && detailsData.salutation + "."}

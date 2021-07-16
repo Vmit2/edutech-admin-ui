@@ -14,8 +14,8 @@ import PublishIcon from "@material-ui/icons/Publish";
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import someImage from "../../../assets/images/ref1.png";
-import userImg from "../../../assets/images/userImg.png";
 import LoadingProgress from "../../../components/LoadingProgress";
+import { IMAGE_BASE_URL } from "../../../config/constants";
 import { useDistributerDetails } from "../../../hooks/api/useDistributerDetails";
 import { updateKyc } from "../../../hooks/api/useDistributers";
 import {
@@ -23,9 +23,11 @@ import {
   uploadAddharFront,
   uploadPancard,
 } from "../../../hooks/api/useFileUpload";
+import { useWalletList } from "../../../hooks/api/useWalletDetails";
 import DashboardPage from "../../../layouts/Dashboard/DashboardPage";
 import LabelValue from "../../shared/LabelValue";
 import SucessModel from "../../shared/SucessModel";
+import { useUrlParams } from "../../UsersView/userDetails/useUrlParams";
 import useStyles from "./DistributersDetailsView.style";
 import {
   formateDistributerDetails,
@@ -39,6 +41,14 @@ const DistributersDetailsView = ({ ...props }) => {
   const [open, setOpen] = useState(false);
   const [prevImage, setPrevImage] = useState();
   const { distributerId } = useParams();
+  const { urlParams } = useUrlParams();
+
+  const walletDetailsApi = useWalletList({
+    params: { id: distributerId },
+  });
+  const walletDetails = walletDetailsApi
+    ? formateWalletDetails(walletDetailsApi)
+    : null;
   const navigate = useNavigate();
   const [state, setState] = useState({
     panCard: false,
@@ -53,7 +63,6 @@ const DistributersDetailsView = ({ ...props }) => {
     return <LoadingProgress p={2} />;
   }
   const detailsData = formateDistributerDetails(distResponse);
-  const walletDetails = formateWalletDetails();
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -103,8 +112,7 @@ const DistributersDetailsView = ({ ...props }) => {
 
   const getImageFromApi = (image) => {
     if (image) {
-      const baseURL = "https://edutech-mlm.s3.ap-south-1.amazonaws.com/";
-      return baseURL + image;
+      return IMAGE_BASE_URL + image;
     } else {
       return someImage;
     }
@@ -133,7 +141,7 @@ const DistributersDetailsView = ({ ...props }) => {
                   className={classes.imgStyle}
                   height="100"
                   width="100"
-                  src={userImg}
+                  src={getImageFromApi(detailsData.photo)}
                 />
                 <Typography variant="h5" className={classes.fullName}>
                   {detailsData.salutation && detailsData.salutation + "."}
@@ -206,6 +214,12 @@ const DistributersDetailsView = ({ ...props }) => {
                   <Grid item xs={12} sm={6} md={6}>
                     <LabelValue label="Pancard:" value={detailsData.panCard} />
                   </Grid>
+                  <Grid item xs={12} sm={6} md={6}>
+                    <LabelValue
+                      label="Referral code:"
+                      value={detailsData.code}
+                    />
+                  </Grid>
                 </Grid>
               </Grid>
               <Grid container>
@@ -217,24 +231,46 @@ const DistributersDetailsView = ({ ...props }) => {
                   <Typography variant="h4" className={classes.moreDetailsTitle}>
                     Wallet:
                   </Typography>
-                  <Grid container className={classes.packageCardWrapper}>
-                    <Card xs={12} sm={3} md={3} className={classes.packageCard}>
-                      <CardContent item className={classes.packageCardContent}>
-                        <LabelValue
-                          label={"Wallet Amount:"}
-                          value={walletDetails.walletAmount}
-                        />
-                        <LabelValue
-                          label={"Total Earning"}
-                          value={walletDetails.totalEarning}
-                        />
-                        <LabelValue
-                          label={"Immediate Referral Count:"}
-                          value={walletDetails.immediateReferralCount}
-                        />
-                      </CardContent>
-                    </Card>
-                  </Grid>
+                  {walletDetails && (
+                    <Grid container className={classes.packageCardWrapper}>
+                      <Card
+                        xs={12}
+                        sm={3}
+                        md={3}
+                        className={classes.packageCard}
+                      >
+                        <CardContent
+                          item
+                          className={classes.packageCardContent}
+                        >
+                          <LabelValue
+                            label={"Wallet Amount:"}
+                            value={
+                              walletDetails.walletAmount
+                                ? walletDetails.walletAmount
+                                : ""
+                            }
+                          />
+                          <LabelValue
+                            label={"Total Earning:"}
+                            value={
+                              walletDetails.totalEarning
+                                ? walletDetails.totalEarning
+                                : ""
+                            }
+                          />
+                          <LabelValue
+                            label={"Immediate Referral Count:"}
+                            value={
+                              walletDetails.immediateReferralCount
+                                ? walletDetails.immediateReferralCount
+                                : ""
+                            }
+                          />
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  )}
                 </Grid>
               </Grid>
               <Grid item container className={classes.kycDetailsConatiner}>

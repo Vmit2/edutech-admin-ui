@@ -9,7 +9,6 @@ import TableSortLabel from "@material-ui/core/TableSortLabel";
 import PropTypes from "prop-types";
 import React from "react";
 import LoadingProgress from "../../../../components/LoadingProgress";
-import { useUserState } from "../../../../hooks/redux";
 import { PAGE_SIZE_STEPS } from "../../../../utils/url/parsePage";
 import UsersActionMenu from "./UsersActionMenu";
 
@@ -23,8 +22,8 @@ function UserTable({
   // sortDirection,
   onPageChange,
   // onSortChange,
+  statusUrlParams,
 }) {
-  const { activeBusiness } = useUserState();
   const handlePageChange = (_, newPage) => {
     // Material-UI pages are 0 based.
     onPageChange(newPage + 1, pageSize);
@@ -32,6 +31,17 @@ function UserTable({
 
   const handlePageSizeChange = (event) => {
     onPageChange(1, event.target.value);
+  };
+  const getData = (dataArr) => {
+    if (statusUrlParams && statusUrlParams.status === "both") {
+      return dataArr;
+    } else if (statusUrlParams && statusUrlParams.status === "inactive") {
+      return dataArr.filter((user) => user.is_active === 0);
+    } else if (statusUrlParams && statusUrlParams.status === "active") {
+      return dataArr.filter((user) => user.is_active !== 0);
+    } else {
+      return dataArr;
+    }
   };
 
   return (
@@ -53,24 +63,20 @@ function UserTable({
           <TableBody>
             {!isLoading &&
               data &&
-              data
-                .filter((user) => user.is_active !== 0)
-                .map((user) => (
-                  <TableRow key={user.id_user}>
-                    <TableCell>
-                      {user.salutaion} {user.first_name} {user.middle_name}{" "}
-                      {user.last_name}
-                    </TableCell>
-                    <TableCell>
-                      {user.gender === 1 ? "Male" : "Female"}
-                    </TableCell>
-                    <TableCell>{user.phone_number}</TableCell>
-                    <TableCell>{user.email}</TableCell>
-                    <TableCell align="center">
-                      <UsersActionMenu user={user} hasWritePermission={true} />
-                    </TableCell>
-                  </TableRow>
-                ))}
+              getData(data).map((user) => (
+                <TableRow key={user.id_user}>
+                  <TableCell>
+                    {user.salutaion} {user.first_name} {user.middle_name}{" "}
+                    {user.last_name}
+                  </TableCell>
+                  <TableCell>{user.gender === 1 ? "Male" : "Female"}</TableCell>
+                  <TableCell>{user.phone_number}</TableCell>
+                  <TableCell>{user.email}</TableCell>
+                  <TableCell align="center">
+                    <UsersActionMenu user={user} hasWritePermission={true} />
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
 

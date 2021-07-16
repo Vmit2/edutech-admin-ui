@@ -1,5 +1,5 @@
 import { queryCache, useQuery } from "react-query";
-import { ActiveStatus } from "../../config/constants";
+import { KYCStatus } from "../../config/constants";
 import { QUERY_STALE_TIME, QueryKeys } from "../../config/query";
 import DistributerService from "../../services/api/DistributerService";
 
@@ -7,7 +7,7 @@ function queryFn(_,{ params }) {
   if (params.search && params.search.length > 0) {
     return DistributerService.searchAll(params);
   } else {
-    const kycFlag = params && params.kyc === ActiveStatus.COMPLETED ? 1 : 0;
+    const kycFlag = params && params.kyc === KYCStatus.COMPLETED ? 1 : 0;
     return DistributerService.getAllByKyc(params, kycFlag);
   }
 }

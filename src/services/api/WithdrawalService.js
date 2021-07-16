@@ -60,6 +60,14 @@ async function getPackageById(userId) {
   return res;
 }
 
+async function approveWithDrawRequest(requestId) {
+  const url = `/wallet/makeWireTransferFromAdmin/${requestId}`;
+
+  const res = await apiClient.put(url);
+
+  return res;
+}
+
 export default {
   getAll,
   getAllByKyc,
@@ -67,5 +75,6 @@ export default {
   create,
   updateKyc,
   getPackageById,
-  deleteUser
+  deleteUser,
+  approveWithDrawRequest
 };
