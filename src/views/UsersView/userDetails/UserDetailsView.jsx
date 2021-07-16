@@ -7,20 +7,19 @@ import {
   Container,
   Grid,
   Modal,
-  Typography,
+  Typography
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import PublishIcon from "@material-ui/icons/Publish";
 import React, { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import someImage from "../../../assets/images/ref1.png";
-import userImg from "../../../assets/images/userImg.png";
 import LoadingProgress from "../../../components/LoadingProgress";
 import { IMAGE_BASE_URL } from "../../../config/constants";
 import {
   uploadAddharBack,
   uploadAddharFront,
-  uploadPancard,
+  uploadPancard
 } from "../../../hooks/api/useFileUpload";
 import { usePackagesList } from "../../../hooks/api/usePackageDetails";
 import { updateKyc, useUserDetails } from "../../../hooks/api/useUserDetails";
@@ -33,7 +32,7 @@ import { useUrlParams } from "./useUrlParams";
 import {
   formatePageaDeatails,
   formateUserDetails,
-  getformatedDate,
+  getformatedDate
 } from "./utilitizes/utils";
 
 function UserDetailsView() {

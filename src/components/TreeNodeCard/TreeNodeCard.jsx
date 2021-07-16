@@ -1,19 +1,11 @@
-import {
-  Avatar,
-  Box,
-  Card,
-  CardContent,
-  CardHeader,
-  CardMedia,
-} from "@material-ui/core";
+import { Box, Card, CardContent, CardMedia } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-// import PermIdentityIcon from "@material-ui/icons/PermIdentity";//
 import clsx from "clsx";
 import PropTypes from "prop-types";
+import someImage from "../../assets/images/ref1.png";
 import { IMAGE_BASE_URL } from "../../config/constants";
 import FilledCircleCount from "../FilledCircleCount/FilledCircleCount";
 import TreeNodeLabel from "../Typography/TreeNodeLabel/TreeNodeLabel";
-import someImage from "../../assets/images/ref1.png";
 const useStyles = makeStyles((theme) => ({
   card: {
     cursor: "pointer",
@@ -75,6 +67,7 @@ const useStyles = makeStyles((theme) => ({
     borderBottomLeftRadius: 50,
     borderBottomRightRadius: 50,
     borderColor: theme.palette.text.user,
+    padding: "10px",
   },
   distributer: {
     border: "outset 0.2rem",
@@ -190,51 +183,3 @@ TreeNodeCard.propTypes = {
 };
 
 export default TreeNodeCard;
-
-{
-  /* <CardHeader
-component="div" */
-}
-// {...elProps}
-// classes={{ content: classes.CardHeader }}
-// avatar={
-// <Avatar
-//   aria-label="recipe"
-//   className={hasChilds ? classes.distributer : classes.user}
-// >
-<>
-  {/* {!image ? (
-      <image src={IMAGE_BASE_URL + image} />
-    ) : (
-      <image src={someImage} />
-    )} */}
-</>;
-// </Avatar>
-// }
-// title={
-// <Box className={classes.titleContainer}>
-//   <TreeNodeLabel title={label} value={label} />
-//   {hasChilds && (
-//     <>
-//       <FilledCircleCount
-//         circleClassName={classes.circle}
-//         value={"Count: " + "  " + childCount}
-//         variant="orange"
-//       />
-//     </>
-//   )}
-// </Box>
-// }
-// subheader={
-// <>
-//   <TreeNodeLabel
-//     title={id_referral_code}
-//     value={" [ User Id  -  " + nodeId + " ]"}
-//   />
-//   <TreeNodeLabel
-//     title={id_referral_code}
-//     value={" [ Referel Id  -  " + id_referral_code + " ]"}
-//   />
-// </>
-// }
-// />
