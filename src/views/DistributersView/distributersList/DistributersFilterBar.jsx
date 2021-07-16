@@ -4,6 +4,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import clsx from "clsx";
 import React from "react";
 import FilterBar from "../../../components/FilterBar";
+import DesktopStatusFilter from "../../../components/Filters/StatusFilter/DesktopStatusFilter";
 import TextInput from "../../../components/TextInput/TextInput";
 
 const useStyles = makeStyles((theme) => ({
@@ -12,7 +13,13 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 30,
   },
 }));
-function DistributersFilterBar({ value, onChange, onBlur }) {
+function DistributersFilterBar({
+  value,
+  onChange,
+  onBlur,
+  urlParams,
+  setUrlParam,
+}) {
   const classes = useStyles();
   const classNames = clsx(classes.containerFilterBar);
   return (
@@ -29,6 +36,11 @@ function DistributersFilterBar({ value, onChange, onBlur }) {
           onChange={onChange}
           endIcon={<SearchIcon />}
         />
+
+        {/* <DesktopStatusFilter
+          value={urlParams.status}
+          onApply={(value) => setUrlParam("status", value)}
+        /> */}
       </FilterBar>
     </div>
   );

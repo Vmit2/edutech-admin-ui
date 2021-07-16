@@ -50,6 +50,14 @@ async function create(body) {
   return translateUser(res.data);
 }
 
+async function deleteDistributer(distributerId) {
+  const url = `/admin/deleteUser?userId=${distributerId}`;
+
+  const res = await apiClient.put(url);
+
+  return res;
+}
+
 async function update(userId, body) {
   const url = `/users/${userId}`;
 
@@ -75,4 +83,5 @@ export default {
   update,
   updateKyc,
   searchAll,
+  deleteDistributer
 };

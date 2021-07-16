@@ -1,7 +1,7 @@
 import pickBy from "lodash/pickBy";
 import { useSearchParams } from "react-router-dom";
-import { ActiveStatus } from "../../../config/constants";
-import { parseActiveStatus } from "../../../utils/url/parseActiveStatus";
+import { KYCStatus } from "../../../config/constants";
+import { parseKycStatus } from "../../../utils/url/parseKycStatus";
 import { parsePage, parsePageSize } from "../../../utils/url/parsePage";
 
 export function useUrlParams() {
@@ -9,7 +9,7 @@ export function useUrlParams() {
   const urlParams = {
     page: parsePage(searchParams),
     size: parsePageSize(searchParams),
-    kyc: parseActiveStatus(searchParams) || ActiveStatus.COMPLETED,
+    kyc: parseKycStatus(searchParams) || KYCStatus.COMPLETED,
   };
   const setUrlParams = (params) => {
     const newParams = {

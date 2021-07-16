@@ -45,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "auto",
   },
   active: {
+     //color: theme.palette.primary.light
     color: theme.palette.primary.main,
     "& $title": {
       fontWeight: theme.typography.fontWeightSemibold,

@@ -10,18 +10,25 @@ import {
   SIDE_DRAWER_WIDTH_MOBILE,
 } from "../../../config/constants";
 import NavContent from "./NavContent";
-
+import Package from "../../../../package.json";
+import Label from "../../../components/Label/Label";
 const useStyles = makeStyles((theme) => ({
   mobileDrawer: {
     width: SIDE_DRAWER_WIDTH_MOBILE,
-    backgroundColor: theme.palette.module.backgroundLight,
+    // backgroundColor: theme.palette.module.backgroundLight,
+    backgroundColor: theme.palette.primary.main,
   },
   desktopDrawer: {
     width: SIDE_DRAWER_WIDTH_DESKTOP,
     top: APP_BAR_HEIGHT_DESKTOP,
     height: `calc(100% - ${APP_BAR_HEIGHT_DESKTOP}px)`,
     backgroundColor: theme.palette.module.backgroundLight,
+    // backgroundColor: theme.palette.primary.main,
     border: 0,
+  },
+  versionStyle: {
+    textAlign: "center",
+    marginLeft: "50%",
   },
 }));
 
@@ -49,6 +56,9 @@ function SideNavBar({ isMobileDrawerOpen, closeMobileDrawer }) {
           onClose={closeMobileDrawer}
         >
           {content}
+          <Label className="versionStyle" color="primary">
+            Version:- {Package.version}
+          </Label>
         </Drawer>
       </Hidden>
       <Hidden mdDown>
@@ -59,6 +69,9 @@ function SideNavBar({ isMobileDrawerOpen, closeMobileDrawer }) {
           variant="persistent"
         >
           {content}
+          <Label className="versionStyle" color="primary">
+            Version:- {Package.version}
+          </Label>
         </Drawer>
       </Hidden>
     </>

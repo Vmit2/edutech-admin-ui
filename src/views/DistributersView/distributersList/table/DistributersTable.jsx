@@ -22,6 +22,7 @@ function DistributersTable({
   // sortDirection,
   onPageChange,
   // onSortChange,
+  statusUrlParams,
 }) {
   const handlePageChange = (_, newPage) => {
     // Material-UI pages are 0 based.
@@ -31,7 +32,17 @@ function DistributersTable({
   const handlePageSizeChange = (event) => {
     onPageChange(1, event.target.value);
   };
-
+  const getData = (dataArr) => {
+    if (statusUrlParams && statusUrlParams.status === "both") {
+      return dataArr;
+    } else if (statusUrlParams && statusUrlParams.status === "inactive") {
+      return dataArr.filter((distributer) => distributer.is_active === 0);
+    } else if (statusUrlParams && statusUrlParams.status === "active") {
+      return dataArr.filter((distributer) => distributer.is_active !== 0);
+    } else {
+      return dataArr;
+    }
+  };
   return (
     <>
       <Box minWidth={700}>
@@ -59,10 +70,15 @@ function DistributersTable({
           <TableBody>
             {!isLoading &&
               data &&
-              data.map((distributer) => (
+              getData(data).map((distributer) => (
                 <TableRow key={distributer.id_user}>
-                  <TableCell>{distributer.salutaion} {distributer.first_name} {distributer.middle_name} {distributer.last_name}</TableCell>
-                  <TableCell>{distributer.gender === 1 ? "Male" : "Female"}</TableCell>
+                  <TableCell>
+                    {distributer.salutaion} {distributer.first_name}{" "}
+                    {distributer.middle_name} {distributer.last_name}
+                  </TableCell>
+                  <TableCell>
+                    {distributer.gender === 1 ? "Male" : "Female"}
+                  </TableCell>
                   <TableCell>{distributer.phone_number}</TableCell>
                   <TableCell>{distributer.email}</TableCell>
                   <TableCell align="center">

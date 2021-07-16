@@ -16,6 +16,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import someImage from "../../../assets/images/ref1.png";
 import userImg from "../../../assets/images/userImg.png";
 import LoadingProgress from "../../../components/LoadingProgress";
+import { IMAGE_BASE_URL } from "../../../config/constants";
 import {
   uploadAddharBack,
   uploadAddharFront,
@@ -119,8 +120,7 @@ function UserDetailsView() {
 
   const getImageFromApi = (image) => {
     if (image) {
-      const baseURL = "https://edutech-mlm.s3.ap-south-1.amazonaws.com/";
-      return baseURL + image;
+      return IMAGE_BASE_URL + image;
     } else {
       return someImage;
     }
@@ -148,7 +148,7 @@ function UserDetailsView() {
                   className={classes.imgStyle}
                   height="100"
                   width="100"
-                  src={userImg}
+                  src={getImageFromApi(detailsData.photo)}
                 />
                 <Typography variant="h5" className={classes.fullName}>
                   {detailsData.salutation && detailsData.salutation + "."}

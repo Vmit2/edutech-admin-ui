@@ -75,12 +75,15 @@ function Account() {
         onClick={handleOpen}
       >
         <Avatar
+          style={{ border: "outset 2px orange" }}
           alt={userDetails.First_Name}
           className={classes.avatar}
           src={userDetails.photo}
         />
         <Hidden smDown>
-          <Typography>{userDetails.Name}</Typography>
+          <Typography style={{ color: "orange" }}>
+            {userDetails.Name}
+          </Typography>
         </Hidden>
       </Box>
 

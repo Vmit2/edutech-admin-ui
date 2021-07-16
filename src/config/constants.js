@@ -92,8 +92,18 @@ Object.freeze(InstanceType);
 
 export const ActiveStatus = {
   BOTH: "both",
-  COMPLETED: "completed",
-  NOT_COMPLETED: "not_completed",
+  ACTIVE: "active",
+  INACTIVE: "inactive",
 };
 export const ActiveStatusValues = Object.values(ActiveStatus);
 Object.freeze(ActiveStatus);
+
+export const KYCStatus = {
+  BOTH: "both",
+  COMPLETED: "completed",
+  NOT_COMPLETED: "not_completed",
+};
+export const KYCStatusValues = Object.values(KYCStatus);
+Object.freeze(KYCStatus);
+
+

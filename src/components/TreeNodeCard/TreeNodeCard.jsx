@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     ...theme.typography.body1,
     fontWeight: 700,
-    border: "solid 0.2rem",
+    border: "outset 0.2rem",
     borderTopRightRadius: 50,
     borderBottomRightRadius: 50,
     borderColor: theme.palette.background.default,
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: "2rem",
     // maxWidth: "700px",
     "&:hover": {
-      border: "solid 0.2rem",
+      border: "outset 0.2rem",
       borderColor: theme.palette.primary.main,
       textDecoration: "none",
       backgroundColor: theme.palette.module.backgroundLight,
@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     paddingLeft: "2rem",
     // maxWidth: "700px",
-    border: "solid 0.2rem",
+    border: "outset 0.2rem",
     borderColor: theme.palette.common.green,
   },
   found: {
@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
   },
   image: {
-    width: "auto",
+    width: "5rem",
     height: "5rem",
     display: "flex",
     flexDirection: "row",
@@ -75,7 +75,6 @@ const useStyles = makeStyles((theme) => ({
     borderBottomLeftRadius: 50,
     borderBottomRightRadius: 50,
     borderColor: theme.palette.text.user,
-    padding: "10px",
   },
   distributer: {
     border: "outset 0.2rem",
@@ -84,17 +83,17 @@ const useStyles = makeStyles((theme) => ({
     borderColor: theme.palette.text.distributer,
   },
   imgContainerDist: {
-    border: "double 0.2rem",
+    border: "outset 0.2rem",
     borderTopRightRadius: 50,
     borderBottomRightRadius: 50,
-    borderColor: "white",
+    borderColor: "#7658F9",
   },
 
   imgContainerUser: {
-    border: "double 0.2rem",
+    border: "outset 0.2rem",
     borderBottomLeftRadius: 50,
     borderBottomRightRadius: 50,
-    borderColor: "white",
+    borderColor: "#7658F9",
   },
   circle: {
     position: "absolute",
@@ -153,8 +152,8 @@ function TreeNodeCard({
       <div {...imageContainerStyle}>
         <CardMedia
           component="img"
-          alt={label}
-          image={!image ? IMAGE_BASE_URL + image : someImage}
+          alt={label[0]}
+          src={image ? IMAGE_BASE_URL + image : someImage}
           {...imageProps}
         />
       </div>

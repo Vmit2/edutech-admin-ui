@@ -26,6 +26,25 @@ export function useWithdrawalRequests({ enabled = true, params } = {}) {
   };
 }
 
+export async function approveWithDrawRequest(requestId) {
+  try {
+    const data = await WithdrawalService.approveWithDrawRequest(requestId);
+    return {
+      error: false,
+      data,
+    };
+  } catch (err) {
+    const apiErrorMessage = err.edutechError
+      ? err.error.response.data.message
+      : "An unexpected error occurred. Please try again.";
+
+    return {
+      error: true,
+      apiErrorMessage,
+    };
+  }
+}
+
 export function invalidateUsers(opts = {}) {
   const { refetchActive } = opts;
 

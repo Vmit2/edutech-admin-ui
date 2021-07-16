@@ -3,28 +3,33 @@ import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Typography from "@material-ui/core/Typography";
+import { useSnackbar } from "notistack";
 import PropTypes from "prop-types";
 import React, { useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import PrimaryButton from "../../../../components/Buttons/PrimaryButton";
+import TertiaryButton from "../../../../components/Buttons/TertiaryButton";
+import CustomDialog from "../../../../components/CustomDialog";
 import MoreHorizontalIcon from "../../../../components/Icons/MoreHorizontalIcon";
-import { setDistributerDetails } from "../../../../hooks/api/useDistributerDetails";
+import { deleteDistributerApi } from "../../../../hooks/api/useDistributerDetails";
+import { invalidateDistributers } from "../../../../hooks/api/useDistributers";
 
 function DistributersActionMenu({ hasWritePermission, distributer }) {
   const menuButtonRef = useRef();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const [activeDialog, setActiveDialog] = useState("");
-
+  const [activeDialog, setActiveDialog] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
   const handleActionClick = async (key) => {
     switch (key) {
       case "view":
-        // setDistributerDetails(distributer.id_user, distributer);
-        console.log('distributer ',distributer);
+        // setDistributerDetails(distributer.id_distributer, distributer);
+        console.log("distributer ", distributer);
         navigate(`${distributer.id_referral_code}`);
         break;
 
       case "delete":
-      
+        setActiveDialog(true);
         break;
 
       default:
@@ -34,7 +39,22 @@ function DistributersActionMenu({ hasWritePermission, distributer }) {
   };
 
   const handleCloseDialog = () => {
-    setActiveDialog("");
+    setActiveDialog(false);
+  };
+
+  const onSubmitDelete = () => {
+    const { error, data } = deleteDistributerApi(distributer.id_user);
+    if (!error) {
+      handleSuccess();
+    }
+  };
+
+  const handleSuccess = async () => {
+    await invalidateDistributers();
+    handleCloseDialog();
+    enqueueSnackbar("Distributer Inactived successfully", {
+      variant: "success",
+    });
   };
 
   const actions = useMemo(() => {
@@ -47,10 +67,10 @@ function DistributersActionMenu({ hasWritePermission, distributer }) {
         key: "view",
         name: "View",
       },
-      {
-        key: "delete",
-        name: "Delete",
-      },
+      // {
+      //   key: "delete",
+      //   name: "Inactive",
+      // },
     ];
 
     return availableActions;
@@ -77,16 +97,34 @@ function DistributersActionMenu({ hasWritePermission, distributer }) {
         })}
       </Menu>
 
-      {/* <DistributerRetireDialog
-        distributerId={distributer.id}
-        isOpen={activeDialog === 'retire'}
+      <CustomDialog
+        userId={distributer.id}
+        isOpen={activeDialog}
         onClose={handleCloseDialog}
+        title="Inactive User"
+        content={`Do you really want to Inactive  ${distributer.first_name} ${distributer.middle_name} ${distributer.last_name} ?`}
+        actionItems={
+          <>
+            <TertiaryButton
+              style={{
+                width: "8rem",
+                height: "2.5rem",
+                marginRight: "2rem",
+                border: "1px solid ",
+              }}
+              onClick={handleCloseDialog}
+            >
+              Cancle
+            </TertiaryButton>
+            <PrimaryButton
+              onClick={onSubmitDelete}
+              style={{ width: "8rem", height: "2.5rem" }}
+            >
+              Sure
+            </PrimaryButton>
+          </>
+        }
       />
-      <DistributerDeleteDialog
-        distributerId={distributer.id}
-        isOpen={activeDialog === 'delete'}
-        onClose={handleCloseDialog}
-      /> */}
     </>
   ) : (
     <Button onClick={() => handleActionClick("view")}>{"View"}</Button>
