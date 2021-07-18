@@ -26,9 +26,9 @@ export function useWithdrawalRequests({ enabled = true, params } = {}) {
   };
 }
 
-export async function approveWithDrawRequest(requestId) {
+export async function approveWithDrawRequest(userData) {
   try {
-    const data = await WithdrawalService.approveWithDrawRequest(requestId);
+    const data = await WithdrawalService.approveWithDrawRequest(userData);
     return {
       error: false,
       data,

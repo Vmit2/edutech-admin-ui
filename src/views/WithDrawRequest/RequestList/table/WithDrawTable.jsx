@@ -12,6 +12,7 @@ import React from "react";
 import { useState } from "react";
 import TertiaryButton from "../../../../components/Buttons/TertiaryButton";
 import LoadingProgress from "../../../../components/LoadingProgress";
+import { approveWithDrawRequest } from "../../../../hooks/api/useWithdrawalRequests";
 import { useUserState } from "../../../../hooks/redux";
 import { PAGE_SIZE_STEPS } from "../../../../utils/url/parsePage";
 import SucessModel from "../../../shared/SucessModel";
@@ -46,14 +47,17 @@ function UserTable({
     onPageChange(newPage + 1, pageSize);
   };
 
-  const [state, setState] = useState({ sucess: false });
+  const [state, setState] = useState({ sucess: false, userData : {}, amount : 0 });
   const handlePageSizeChange = (event) => {
     onPageChange(1, event.target.value);
   };
 
   const classes = useStyles();
 
-  const onApproveRequest = () => {};
+  const onApproveRequest = () => {
+    approveWithDrawRequest(state.userData)
+    setState({ sucess : false })
+  };
 
   const closeSuccessPopup = () => {
     setState({
@@ -93,7 +97,7 @@ function UserTable({
                   <TableCell align="center">
                     <TertiaryButton
                       className={classes.approveButton}
-                      onClick={() => setState({ sucess: true })}
+                      onClick={() => setState({ sucess: true,userData : user,amount : user.amount })}
                     >
                       Approve
                     </TertiaryButton>
@@ -107,7 +111,7 @@ function UserTable({
       </Box>
       <SucessModel
         open={state.sucess}
-        content={"You are sure you want to approve withdraw request."}
+        content={`You are sure you want to approve withdraw request of \u20B9${state.amount} `}
         onSubmit={onApproveRequest}
         handleClose={closeSuccessPopup}
       />
