@@ -5,7 +5,7 @@ async function getPackageById(userId) {
 
   const res = await apiClient.get(url);
 
-  return res;
+  return res.data;
 }
 
 export default {

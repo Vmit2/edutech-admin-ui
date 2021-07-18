@@ -52,7 +52,9 @@ function WithDrawRequestListView() {
   };
 
   return (
-    <DashboardPage>
+    <DashboardPage
+    pageTitle={title}
+    >
       <Card>
         <WithDrawTable
           count={userDetails.count}

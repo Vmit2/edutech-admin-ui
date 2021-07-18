@@ -17,13 +17,9 @@ export function usePackagesList({ enabled = true, params } = {}) {
     staleTime: QUERY_STALE_TIME,
   };
 
-  const { status, data, error } =  useQuery({ queryKey, queryFn, config });
+  const  {data} =  useQuery({ queryKey, queryFn, config });
 
-  return {
-    status,
-    data: data,
-    error,
-  };
+  return data && data.result ? data.result :[]
 }
 
 export function invalidateDistributers(opts = {}) {
