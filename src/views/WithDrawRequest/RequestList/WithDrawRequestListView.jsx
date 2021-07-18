@@ -16,7 +16,6 @@ function WithDrawRequestListView() {
     params: urlParamsToApi(urlParams),
   });
   const { status, data, error } = useWithdrawalRequests();
-  console.log("withdrawal requests ", data);
 
   const isLoading =
     userDetails.status === "idle" || userDetails.status === "loading";

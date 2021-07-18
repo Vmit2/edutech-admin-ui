@@ -12,7 +12,8 @@ const useStyles = makeStyles((theme) => ({
         paddingRight : '1rem',
       },
     label : {
-        flexBasis : '30%',
+        flexGrow : '30%',
+        whiteSpace: 'nowrap',
     },
     value : {
         flexBasis : '70%',
