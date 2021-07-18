@@ -11,7 +11,7 @@ export const formateUserDetails = (userDetails) => {
         email: userDetails.email,
         password: userDetails.password,
         phoneNumber: userDetails.phone_number,
-        gender: userDetails.gender === 1 ? "Male" : "Female" ,
+        gender: userDetails.gender === 1 ? "Male" : "Female",
         billingAddress: userDetails.billing_address,
         shippingAddress: userDetails.shipping_address,
         dateOfBirth: userDetails.date_of_birth,
@@ -25,35 +25,70 @@ export const formateUserDetails = (userDetails) => {
     }
 }
 
-export const formatePageaDeatails = () => {
-    return [
-        {
-            idPackagePurchase: 2,
-            boardId: 1,
-            standardId: 1,
-            userId: 26,
-            totalPrice: "3675",
-            transactionId: "bdbc499468869e183e7e94af92fb56d4",
-            purchaseDate: "2021-05-28T10:30:00.000Z",
-            expiryDate: "2022-05-27T23:10:00.000Z",
-            status: 1,
-            createdDate: "2021-05-28T11:21:33.000Z",
-            updatedDate: "2021-05-28T11:21:33.000Z"
-        },
-        {
-            idpackagePurchase: 3,
-            boardId: 1,
-            standardId: 1,
-            userId: 26,
-            totalPrice: "3675",
-            transactionId: "bdbc499468869e183e7e94af92fb56d4",
-            purchaseDate: "2021-05-28T10:30:00.000Z",
-            expiryDate: "2022-05-27T23:10:00.000Z",
-            status: 1,
-            createdDate: "2021-05-28T11:23:53.000Z",
-            updatedDate: "2021-05-28T11:23:53.000Z"
-        },
-    ]
+export const formatePageaDeatails = (details) => {
+    return details && details.map((detail) => {
+        let packageDetails = {
+            idPackagePurchase: detail.id_package_purchase,
+            boardId: detail.board_id,
+            standardId: detail.standard_id,
+            userId: detail.user_id,
+            totalPrice: detail.total_price,
+            transactionId: detail.transaction_id,
+            purchaseDate: detail.purchase_date,
+            expiryDate: detail.expiry_date,
+            status: detail.status,
+            createdDate: detail.created_date,
+            updatedDate: detail.updated_date,
+        }
+        if (detail.studentDetails) {
+            packageDetails.studentDetails = detail.studentDetails
+        }
+        if (detail.subjectDetails) {
+            packageDetails.subjectDetails = {
+                idStandards: detail.subjectDetails.id_standards,
+                subjectPackageId: detail.subjectDetails.subject_package_id,
+                standardName: detail.subjectDetails.standard_name,
+                subjectList: detail.subjectDetails.subject_list.split(",\n"),
+                price: detail.subjectDetails.price,
+                boardId: detail.subjectDetails.board_id,
+                createdDate: detail.subjectDetails.created_date,
+                updateDate: detail.subjectDetails.updated_date
+            }
+        }
+        return packageDetails
+    })
+}
+
+export const formatePageaDeatail = (detail) => {
+    let packageDetails = {
+        idPackagePurchase: detail.id_package_purchase,
+        boardId: detail.board_id,
+        standardId: detail.standard_id,
+        userId: detail.user_id,
+        totalPrice: detail.total_price,
+        transactionId: detail.transaction_id,
+        purchaseDate: detail.purchase_date,
+        expiryDate: detail.expiry_date,
+        status: detail.status,
+        createdDate: detail.created_date,
+        updatedDate: detail.updated_date,
+    }
+    if (detail.studentDetails) {
+        packageDetails.studentDetails = detail.studentDetails
+    }
+    if (detail.subjectDetails) {
+        packageDetails.subjectDetails = {
+            idStandards: detail.subjectDetails.id_standards,
+            subjectPackageId: detail.subjectDetails.subject_package_id,
+            standardName: detail.subjectDetails.standard_name,
+            subjectList: detail.subjectDetails.subject_list.split(",\n"),
+            price: detail.subjectDetails.price,
+            boardId: detail.subjectDetails.board_id,
+            createdDate: detail.subjectDetails.created_date,
+            updateDate: detail.subjectDetails.updated_date
+        }
+    }
+    return packageDetails
 }
 
 export const getformatedDate = (dateValue) => {

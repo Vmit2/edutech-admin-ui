@@ -47,6 +47,17 @@ const useStyles = makeStyles((theme) => ({
       border: "10px solid",
       backgroundColor: theme.palette.common.green,
     },
+    packageDetailsWrapper : {
+      display: "flex",
+      justifyContent: "center",
+      backgroundColor: theme.palette.background.paper,
+      flexDirection: "column",
+      width: "98%",
+      boxShadow: theme.palette.shadow.secondary,
+      padding: "20px 40px 20px",
+      margin: "auto 0",
+      borderRadius: "10px 10px 10px 10px",
+    },
     moreDetailsConatiner: {
       display: "flex",
       justifyContent: "center",
@@ -140,6 +151,18 @@ const useStyles = makeStyles((theme) => ({
         opacity : 0.5,
       }
     },
+    view : {
+      background:  theme.palette.common.white,
+      border : "1px solid " + theme.palette.module.backgroundLight,
+      color: theme.palette.module.backgroundLight,
+      "&:hover": {
+        color: theme.palette.module.backgroundLight,
+      },
+      "&:disabled" : {
+        color:theme.palette.module.backgroundLight,
+        opacity : 0.5,
+      }
+    },
     checkboxStyle: {
       padding: "unset",
     },
@@ -174,7 +197,22 @@ const useStyles = makeStyles((theme) => ({
       gridTemplateColumns: "1fr 1fr 1fr",
       gap: "1rem",
     },
-    packageCard : {
+    packageBottomContainer : {
+      display :  'felx',
+      justifyContent : 'space-between',
+      alignItems : 'center',
+    },
+    statusContainer : {
+      display : 'felx',
+      alignItems : 'center',
+    },
+    Active : {
+      color : 'green',
+      fontSize : '14px',
+    },
+    InActive : {
+      color : 'red',
+      fontSize : '14px',
     }
   }));
 
