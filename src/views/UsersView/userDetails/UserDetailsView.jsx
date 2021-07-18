@@ -9,6 +9,7 @@ import {
   Modal,
   Typography
 } from "@material-ui/core";
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import CloseIcon from "@material-ui/icons/Close";
 import PublishIcon from "@material-ui/icons/Publish";
 import React, { useMemo, useState } from "react";
@@ -34,6 +35,7 @@ import {
   formateUserDetails,
   getformatedDate
 } from "./utilitizes/utils";
+import PackageDetails from "./PackageDetails";
 
 function UserDetailsView() {
   const title = "Details";
@@ -57,19 +59,18 @@ function UserDetailsView() {
     params: urlParamsToApi(urlParams),
   });
 
-  const data = useMemo(() => {
-    if (userDetailsNew.status !== "success") {
-      return [];
-    }
-    return userDetailsNew;
-  }, [userDetailsNew]);
-
   if (status === "loading") {
     return <LoadingProgress p={2} />;
   }
+  console.log('====================================');
+  console.log(userDetailsNew);
+  console.log('====================================');
 
   const detailsData = formateUserDetails(userResponse);
-  const packageDetails = formatePageaDeatails();
+  const packageDetails = formatePageaDeatails(userDetailsNew);
+  console.log('====================================');
+  console.log(packageDetails);
+  console.log('====================================');
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -259,6 +260,17 @@ function UserDetailsView() {
                                 label={"Total Price:"}
                                 value={detials.totalPrice}
                               />
+                              <Grid container className={classes.packageBottomContainer}>
+                                <Grid>
+                                  <Typography className={classes.statusContainer}><FiberManualRecordIcon className={detials.status === 1 ? classes.Active : classes.InActive} />{detials.status === 1 ? 'Active' : 'In-Active'} </Typography>
+                                </Grid>
+                                <Button
+                                  className={classes.view}
+                                >
+                                  View
+                                </Button>
+                              </Grid>
+
                             </CardContent>
                           </Card>
                         );
@@ -519,6 +531,7 @@ function UserDetailsView() {
             handleClose={closeSuccessPopup}
           />
         </Container>
+        <PackageDetails packageDetails={packageDetails}/>
       </DashboardPage>
     </div>
   );

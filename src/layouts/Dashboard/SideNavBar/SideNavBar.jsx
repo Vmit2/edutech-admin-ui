@@ -4,14 +4,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import Package from "../../../../package.json";
+import Label from "../../../components/Label/Label";
 import {
   APP_BAR_HEIGHT_DESKTOP,
   SIDE_DRAWER_WIDTH_DESKTOP,
-  SIDE_DRAWER_WIDTH_MOBILE,
+  SIDE_DRAWER_WIDTH_MOBILE
 } from "../../../config/constants";
 import NavContent from "./NavContent";
-import Package from "../../../../package.json";
-import Label from "../../../components/Label/Label";
 const useStyles = makeStyles((theme) => ({
   mobileDrawer: {
     width: SIDE_DRAWER_WIDTH_MOBILE,

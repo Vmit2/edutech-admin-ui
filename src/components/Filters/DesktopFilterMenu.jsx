@@ -1,12 +1,7 @@
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import React from "react";
-import { PrimaryButton, TertiaryButton } from "../Buttons";
-import CloseIcon from "../Icons/CloseIcon";
-import FilterMenuTitleText from "../Typography/FilterMenuTitleText";
 
 const useStyles = makeStyles(() => ({
   root: {

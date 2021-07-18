@@ -78,17 +78,6 @@ function UsersActionMenu({ hasWritePermission, user }) {
 
   return actions.length > 0 ? (
     <>
-      {/* <IconButton ref={menuButtonRef} onClick={() => setIsOpen(true)}>
-        <MoreHorizontalIcon fontSize="small" />
-      </IconButton>
-      <Menu
-        anchorEl={menuButtonRef.current}
-        open={isOpen}
-        onClose={() => setIsOpen(false)}
-      > */}
-      {/* <MenuItem key={key} onClick={() => handleActionClick(key)}>
-              <Typography variant="button">{name}</Typography>
-            </MenuItem> */}
       <Grid container alignItems="center">
         {actions.map((action) => {
           const { key, name } = action;
@@ -96,11 +85,11 @@ function UsersActionMenu({ hasWritePermission, user }) {
             <Grid item key={key} onClick={() => handleActionClick(key)}>
               {action.icon ? (
                 <MenuItem>
-                  <TrashIcon style={{color:"red"}} />
+                  <TrashIcon style={{ color: "red" }} />
                 </MenuItem>
               ) : (
                 <MenuItem>
-                  <ViewIcon style={{color:"blue"}} />
+                  <ViewIcon style={{ color: "blue" }} />
                   <Typography variant="button">{name}</Typography>
                 </MenuItem>
               )}

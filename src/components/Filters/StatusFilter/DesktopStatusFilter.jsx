@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import React, { useMemo } from "react";
 import { ActiveStatus } from "../../../config/constants";
 import { getUserStatusLabel } from "../../../utils/format/getUserStatusLabel";
-import { MenuChip } from "../../Chips";
 import DesktopFilterMenu from "../../Filters/DesktopFilterMenu";
 import { useDesktopFilter } from "../useDesktopFilter";
 import StatusFilterOptions from "./StatusFilterOptions";
