@@ -17,12 +17,18 @@ const DistributersListView = lazy(() =>
   import("../views/DistributersView/distributersList/DistributersListView")
 );
 const DistributersDetailsView = lazy(() =>
-  import("../views/DistributersView/distributersDetailsView/DistributersDetailsView")
+  import(
+    "../views/DistributersView/distributersDetailsView/DistributersDetailsView"
+  )
 );
-const WithDrawRequestListView = lazy(()=> import("../views/WithDrawRequest/RequestList/WithDrawRequestListView"))
+const WithDrawRequestListView = lazy(() =>
+  import("../views/WithDrawRequest/RequestList/WithDrawRequestListView")
+);
 const Hierarchy = lazy(() => import("../views/Hierarchy/Hierarchy"));
 const NotFoundView = lazy(() => import("../views/Errors/NotFoundView"));
-
+const PackageDetails = lazy(() =>
+  import("../views/UsersView/userDetails/PackageDetails")
+);
 export const routes = [
   {
     path: "login",
@@ -72,9 +78,12 @@ export const routes = [
       {
         path: "users/add",
         element: <UserDetailsView />,
-        path: "distributers",
-        element: <DistributersListView />,
       },
+      {
+        path: "users/:userId/package",
+        element: <PackageDetails />,
+      },
+      { path: "distributers", element: <DistributersListView /> },
       {
         path: "distributers/:distributerId",
         element: <DistributersDetailsView />,

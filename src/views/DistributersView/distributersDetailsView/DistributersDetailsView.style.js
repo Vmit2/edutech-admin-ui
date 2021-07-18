@@ -164,11 +164,22 @@ const useStyles = makeStyles((theme) => ({
   packageConatinerWrapper: {
     flexDirection: "column",
     marginTop: "30px",
+    width: "100%",
   },
-  packageCardWrapper: {
+  walletCardContain: {
     display: "grid",
     gridTemplateColumns: "1fr 1fr 1fr",
     gap: "1rem",
+  },
+  freezButtonStyle: {
+    background: theme.palette.common.white,
+    color: theme.palette.common.backgroundLight,
+    border: "solid 1px",
+    borderColor: theme.palette.common.backgroundLight,
+    height: "2.5rem",
+    "&:hover": {
+      background: theme.palette.button.tertiaryHover,
+    },
   },
   packageCard: {},
   viewAsButton: {

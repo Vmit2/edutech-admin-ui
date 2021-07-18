@@ -7,7 +7,7 @@ function queryFn(_, { params }) {
 }
 
 function buildQueryKey(params) {
-  return [QueryKeys.PACKAGES_LIST, { params }];
+  return [QueryKeys.DIST_WALLET_DETAILS, { params }];
 }
 
 export function useWalletList({ enabled = true, params } = {}) {
@@ -18,4 +18,32 @@ export function useWalletList({ enabled = true, params } = {}) {
   };
   const { data } = useQuery({ queryKey, queryFn, config });
   return data && data.result;
+}
+
+export async function updateWalletStatus(distributerId, status) {
+  try {
+    const data = await WalletService.updateWalletStatus(distributerId, status);
+
+    return {
+      error: false,
+      data,
+    };
+  } catch (err) {
+    const apiErrorMessage = err.edutechError
+      ? err.error.response.data.message
+      : "An unexpected error occurred. Please try again.";
+
+    return {
+      error: true,
+      apiErrorMessage,
+    };
+  }
+}
+
+export function invalidateWallet(opts = {}) {
+  const { refetchActive } = opts;
+
+  return queryCache.invalidateQueries(QueryKeys.DIST_WALLET_DETAILS, {
+    refetchActive,
+  });
 }

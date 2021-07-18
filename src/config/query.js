@@ -10,4 +10,5 @@ export const QueryKeys = {
   ROOT_DISTRIBUTER:"root_distributer",
   PACKAGES_LIST:"packages_list",
   WITHDRAWAL_REQUESTS_LIST:"withdraw_requests_list",
+  DIST_WALLET_DETAILS:"dist_wallet_details"
 }

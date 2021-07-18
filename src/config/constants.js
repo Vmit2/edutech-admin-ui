@@ -13,6 +13,7 @@ export const IMAGE_BASE_URL = "https://edutech-mlm.s3.ap-south-1.amazonaws.com/"
 export const SET_ACTIVE_USER = "SET_ACTIVE_USER";
 export const ADD_CHILD = "ADD_CHILD";
 export const EXPAND_TREE_NODE = "EXPAND_TREE_NODE";
+export const SET_PACKAGE_DETAILS = "SET_PACKAGE_DETAILS";
 
 export const Themes = {
   LIGHT: "LIGHT",
