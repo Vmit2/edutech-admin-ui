@@ -1,22 +1,22 @@
-import Container from '@material-ui/core/Container'
-import Grid from '@material-ui/core/Grid'
-import { makeStyles } from '@material-ui/core/styles'
-import clsx from 'clsx'
-import PropTypes from 'prop-types'
-import React from 'react'
-import { Helmet } from 'react-helmet';
+import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
+import { makeStyles } from "@material-ui/core/styles";
+import clsx from "clsx";
+import PropTypes from "prop-types";
+import React from "react";
+import { Helmet } from "react-helmet";
 // import { usePageViewEvent } from 'src/hooks/usePageViewEvent'
-import PageBreadcrumbs from '../../components/PageBreadcrumbs/PageBreadcrumbs';
-import PageTitleText from '../../components/Typography/PageTitleText/PageTitleText';
+import PageBreadcrumbs from "../../components/PageBreadcrumbs/PageBreadcrumbs";
+import PageTitleText from "../../components/Typography/PageTitleText/PageTitleText";
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
-    minHeight: '100%',
+    minHeight: "100%",
     paddingTop: theme.spacing(3),
     paddingBottom: theme.spacing(3),
   },
   container: {
-    [theme.breakpoints.up('lg')]: {
+    [theme.breakpoints.up("lg")]: {
       paddingLeft: 64,
       paddingRight: 64,
     },
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 30,
     marginBottom: 30,
   },
-}))
+}));
 
 function DashboardPage({
   className,
@@ -34,9 +34,10 @@ function DashboardPage({
   hideBreadcrumbs,
   pageTitle,
   children,
+  action
 }) {
-  const classes = useStyles()
-  const hasHeaderContent = !hideBreadcrumbs || !!pageTitle
+  const classes = useStyles();
+  const hasHeaderContent = !hideBreadcrumbs || !!pageTitle;
 
   // usePageViewEvent()
 
@@ -54,15 +55,15 @@ function DashboardPage({
               {!hideBreadcrumbs && <PageBreadcrumbs />}
 
               {pageTitle && <PageTitleText value={pageTitle} />}
-
             </Grid>
+            <Grid item><br/><br/>{action && action}</Grid>
           </Grid>
         )}
 
         {children}
       </Container>
     </div>
-  )
+  );
 }
 
 DashboardPage.propTypes = {
@@ -72,11 +73,12 @@ DashboardPage.propTypes = {
   hideBreadcrumbs: PropTypes.bool,
   pageTitle: PropTypes.string,
   children: PropTypes.node.isRequired,
-}
+  action:PropTypes.any,
+};
 
 DashboardPage.defaultProps = {
   head: null,
   hideBreadcrumbs: false,
-}
+};
 
-export default DashboardPage
+export default DashboardPage;

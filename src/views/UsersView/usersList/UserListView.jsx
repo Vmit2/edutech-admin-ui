@@ -68,16 +68,21 @@ function UsersListView() {
   };
   const onBlur = () => {};
   return (
-    <DashboardPage documentTitle={title} pageTitle={title}>
-      <ListSummaryBar
-        action={
-          <Link component={RouterLink} to="add" underline="none">
-            <PrimaryButton component="div" startIcon={<PlusCircleIcon />}>
-              Add New User
-            </PrimaryButton>
-          </Link>
-        }
-      />
+    <DashboardPage
+      documentTitle={title}
+      pageTitle={title}
+      action={
+        <ListSummaryBar
+          action={
+            <Link component={RouterLink} to="add" underline="none">
+              <PrimaryButton component="div" startIcon={<PlusCircleIcon />}>
+                Add New User
+              </PrimaryButton>
+            </Link>
+          }
+        />
+      }
+    >
       <UsersFilterBar
         value={searchValue}
         onBlur={onBlur}

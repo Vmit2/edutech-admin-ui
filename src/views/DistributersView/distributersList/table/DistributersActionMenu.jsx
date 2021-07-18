@@ -1,6 +1,5 @@
+import { Grid } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Typography from "@material-ui/core/Typography";
 import { useSnackbar } from "notistack";
@@ -10,7 +9,8 @@ import { useNavigate } from "react-router-dom";
 import PrimaryButton from "../../../../components/Buttons/PrimaryButton";
 import TertiaryButton from "../../../../components/Buttons/TertiaryButton";
 import CustomDialog from "../../../../components/CustomDialog";
-import MoreHorizontalIcon from "../../../../components/Icons/MoreHorizontalIcon";
+import TrashIcon from "../../../../components/Icons/TrashIcon";
+import ViewIcon from "../../../../components/Icons/ViewIcon";
 import { deleteDistributerApi } from "../../../../hooks/api/useDistributerDetails";
 import { invalidateDistributers } from "../../../../hooks/api/useDistributers";
 
@@ -24,7 +24,6 @@ function DistributersActionMenu({ hasWritePermission, distributer }) {
     switch (key) {
       case "view":
         // setDistributerDetails(distributer.id_distributer, distributer);
-        console.log("distributer ", distributer);
         navigate(`${distributer.id_referral_code}`);
         break;
 
@@ -66,11 +65,13 @@ function DistributersActionMenu({ hasWritePermission, distributer }) {
       {
         key: "view",
         name: "View",
+        icon: null,
       },
-      // {
-      //   key: "delete",
-      //   name: "Inactive",
-      // },
+      {
+        key: "delete",
+        name: "Inactive",
+        icon:"Trashcan"
+      },
     ];
 
     return availableActions;
@@ -78,7 +79,7 @@ function DistributersActionMenu({ hasWritePermission, distributer }) {
 
   return actions.length > 0 ? (
     <>
-      <IconButton ref={menuButtonRef} onClick={() => setIsOpen(true)}>
+      {/* <IconButton ref={menuButtonRef} onClick={() => setIsOpen(true)}>
         <MoreHorizontalIcon fontSize="small" />
       </IconButton>
       <Menu
@@ -95,8 +96,26 @@ function DistributersActionMenu({ hasWritePermission, distributer }) {
             </MenuItem>
           );
         })}
-      </Menu>
-
+      </Menu> */}
+      <Grid container alignItems="center">
+        {actions.map((action) => {
+          const { key, name } = action;
+          return (
+            <Grid item key={key} onClick={() => handleActionClick(key)}>
+              {action.icon ? (
+                <MenuItem>
+                  <TrashIcon style={{ color: "red" }} />
+                </MenuItem>
+              ) : (
+                <MenuItem>
+                  <ViewIcon style={{ color: "blue" }} />
+                  <Typography variant="button">{name}</Typography>
+                </MenuItem>
+              )}
+            </Grid>
+          );
+        })}
+      </Grid>
       <CustomDialog
         userId={distributer.id}
         isOpen={activeDialog}

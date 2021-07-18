@@ -7,7 +7,7 @@ import {
   Container,
   Grid,
   Modal,
-  Typography,
+  Typography
 } from "@material-ui/core";
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import CloseIcon from "@material-ui/icons/Close";
