@@ -9,7 +9,7 @@ import TextInput from "../../../components/TextInput/TextInput";
 
 const useStyles = makeStyles((theme) => ({
   containerFilterBar: {
-    marginTop: 30,
+    // marginTop: 30,
     marginBottom: 30,
   },
 }));

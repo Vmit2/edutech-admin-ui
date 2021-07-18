@@ -9,7 +9,7 @@ import TextInput from "../../../components/TextInput/TextInput";
 
 const useStyles = makeStyles((theme) => ({
   containerFilterBar: {
-    marginTop: 30,
+    // marginTop: 30,
     marginBottom: 30,
   },
 }));
@@ -37,10 +37,10 @@ function DistributersFilterBar({
           endIcon={<SearchIcon />}
         />
 
-        {/* <DesktopStatusFilter
+        <DesktopStatusFilter
           value={urlParams.status}
           onApply={(value) => setUrlParam("status", value)}
-        /> */}
+        />
       </FilterBar>
     </div>
   );

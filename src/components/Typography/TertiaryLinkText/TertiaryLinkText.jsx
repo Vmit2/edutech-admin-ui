@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
   text: {
     cursor: 'pointer',
     ...theme.typography.body1,
-    color: theme.palette.text.secondary,
+    color: theme.palette.common.yellow,
     fontWeight: 700,
     '&:hover': {
       color: theme.palette.primary.main,

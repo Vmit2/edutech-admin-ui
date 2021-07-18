@@ -110,9 +110,7 @@ const useStyles = makeStyles((theme) => ({
   kycDetailsConatiner: {
     marginTop: "30px",
   },
-  buttonContainer:{
-    
-  },
+  buttonContainer: {},
   approveButton: {
     marginTop: "30px",
     background: theme.palette.module.backgroundLight,
@@ -120,23 +118,23 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       background: theme.palette.module.backgroundLight,
     },
-    "&:disabled" : {
+    "&:disabled": {
       color: theme.palette.common.white,
-      opacity : 0.5,
-    }
+      opacity: 0.5,
+    },
   },
-  updateButton : {
+  updateButton: {
     marginTop: "30px",
-    background:  theme.palette.common.white,
-    border : "1px solid " + theme.palette.module.backgroundLight,
+    background: theme.palette.common.white,
+    border: "1px solid " + theme.palette.module.backgroundLight,
     color: theme.palette.module.backgroundLight,
     "&:hover": {
       color: theme.palette.module.backgroundLight,
     },
-    "&:disabled" : {
-      color:theme.palette.module.backgroundLight,
-      opacity : 0.5,
-    }
+    "&:disabled": {
+      color: theme.palette.module.backgroundLight,
+      opacity: 0.5,
+    },
   },
   checkboxStyle: {
     padding: "unset",
@@ -163,16 +161,25 @@ const useStyles = makeStyles((theme) => ({
   modal: {
     height: "100vh",
   },
-  packageConatinerWrapper:{
-    flexDirection : "column",
-    marginTop : '30px',
+  packageConatinerWrapper: {
+    flexDirection: "column",
+    marginTop: "30px",
   },
-  packageCardWrapper:{
-    display: 'grid',
+  packageCardWrapper: {
+    display: "grid",
     gridTemplateColumns: "1fr 1fr 1fr",
     gap: "1rem",
   },
-  packageCard : {
-  }
+  packageCard: {},
+  viewAsButton: {
+    background: theme.palette.common.white,
+    color: theme.palette.common.backgroundLight,
+    border: "solid 1px",
+    borderColor: theme.palette.common.backgroundLight,
+    height: "2.5rem",
+    "&:hover": {
+      background: theme.palette.button.tertiaryHover,
+    },
+  },
 }));
-  export default useStyles;
+export default useStyles;

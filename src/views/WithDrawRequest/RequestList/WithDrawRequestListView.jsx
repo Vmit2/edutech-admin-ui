@@ -1,10 +1,5 @@
-import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
-import Link from "@material-ui/core/Link";
 import React from "react";
-import { Link as RouterLink } from "react-router-dom";
-import PlusCircleIcon from "../../../components/Icons/PlusCircleIcon";
 import { useUsers } from "../../../hooks/api/useUsers";
 import { useWithdrawalRequests } from "../../../hooks/api/useWithdrawalRequests";
 import DashboardPage from "../../../layouts/Dashboard/DashboardPage";
@@ -52,9 +47,7 @@ function WithDrawRequestListView() {
   };
 
   return (
-    <DashboardPage
-    pageTitle={title}
-    >
+    <DashboardPage pageTitle={title}>
       <Card>
         <WithDrawTable
           count={userDetails.count}
