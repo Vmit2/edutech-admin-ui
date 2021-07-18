@@ -8,13 +8,17 @@ import {
   Grid,
   Link,
   Modal,
-  Typography
+  Typography,
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import PublishIcon from "@material-ui/icons/Publish";
+import { useSnackbar } from "notistack";
 import React, { useState } from "react";
 import { Link as RouterLink, useNavigate, useParams } from "react-router-dom";
 import someImage from "../../../assets/images/ref1.png";
+import PrimaryButton from "../../../components/Buttons/PrimaryButton";
+import TertiaryButton from "../../../components/Buttons/TertiaryButton";
+import CustomDialog from "../../../components/CustomDialog";
 import LoadingProgress from "../../../components/LoadingProgress";
 import TertiaryLinkText from "../../../components/Typography/TertiaryLinkText";
 import { IMAGE_BASE_URL } from "../../../config/constants";
@@ -23,9 +27,13 @@ import { updateKyc } from "../../../hooks/api/useDistributers";
 import {
   uploadAddharBack,
   uploadAddharFront,
-  uploadPancard
+  uploadPancard,
 } from "../../../hooks/api/useFileUpload";
-import { useWalletList } from "../../../hooks/api/useWalletDetails";
+import {
+  invalidateWallet,
+  updateWalletStatus,
+  useWalletList,
+} from "../../../hooks/api/useWalletDetails";
 import DashboardPage from "../../../layouts/Dashboard/DashboardPage";
 import LabelValue from "../../shared/LabelValue";
 import SucessModel from "../../shared/SucessModel";
@@ -34,7 +42,7 @@ import useStyles from "./DistributersDetailsView.style";
 import {
   formateDistributerDetails,
   formateWalletDetails,
-  getformatedDate
+  getformatedDate,
 } from "./utilitizes/utils";
 
 const DistributersDetailsView = ({ ...props }) => {
@@ -44,14 +52,9 @@ const DistributersDetailsView = ({ ...props }) => {
   const [prevImage, setPrevImage] = useState();
   const { distributerId } = useParams();
   const { urlParams } = useUrlParams();
-
-  const walletDetailsApi = useWalletList({
-    params: { id: distributerId },
-  });
-  const walletDetails = walletDetailsApi
-    ? formateWalletDetails(walletDetailsApi)
-    : null;
+  const [isModalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
   const [state, setState] = useState({
     panCard: false,
     addharCard: false,
@@ -61,6 +64,13 @@ const DistributersDetailsView = ({ ...props }) => {
     sucess: false,
   });
   const { status, distResponse, error } = useDistributerDetails(distributerId);
+  const id_user = distResponse && distResponse.id_user;
+  const walletDetailsApi = useWalletList({
+    params: { id: id_user },
+  });
+  const walletDetails = walletDetailsApi
+    ? formateWalletDetails(walletDetailsApi)
+    : null;
   if (status === "loading") {
     return <LoadingProgress p={2} />;
   }
@@ -130,6 +140,36 @@ const DistributersDetailsView = ({ ...props }) => {
     navigate("/distributers");
     return null;
   }
+
+  const onWalletFreez = () => {
+    setModalOpen(true);
+  };
+  const handleCloseDialog = () => {
+    setModalOpen(false);
+  };
+
+  const onWalletFreezApi = () => {
+    const { error, data } = updateWalletStatus(
+      detailsData.idUser,
+      walletDetails && walletDetails.status === 1 ? 2 : 1
+    );
+    if (!error) {
+      handleSuccess();
+    }
+  };
+
+  const handleSuccess = async () => {
+    await invalidateWallet();
+    handleCloseDialog();
+    enqueueSnackbar(
+      walletDetails && walletDetails.status === 1
+        ? "Wallet Freezed successfully"
+        : "Wallet Unfreezed successfully",
+      {
+        variant: "success",
+      }
+    );
+  };
 
   return (
     <div className="">
@@ -242,18 +282,15 @@ const DistributersDetailsView = ({ ...props }) => {
                   <Typography variant="h4" className={classes.moreDetailsTitle}>
                     Wallet:
                   </Typography>
-                  {walletDetails && (
+                  {walletDetails ? (
                     <Grid container className={classes.packageCardWrapper}>
                       <Card
                         xs={12}
-                        sm={3}
-                        md={3}
+                        sm={12}
+                        md={12}
                         className={classes.packageCard}
                       >
-                        <CardContent
-                          item
-                          className={classes.packageCardContent}
-                        >
+                        <CardContent item className={classes.walletCardContain}>
                           <LabelValue
                             label={"Wallet Amount:"}
                             value={
@@ -278,6 +315,31 @@ const DistributersDetailsView = ({ ...props }) => {
                                 : ""
                             }
                           />
+                          <TertiaryButton
+                            onClick={onWalletFreez}
+                            className={classes.freezButtonStyle}
+                          >
+                            {" "}
+                            {walletDetails && walletDetails.status === 1 ? "Freez" : "Unfreez"}
+                          </TertiaryButton>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  ) : (
+                    <Grid container className={classes.packageCardWrapper}>
+                      <Card
+                        xs={12}
+                        sm={3}
+                        md={3}
+                        className={classes.packageCard}
+                      >
+                        <CardContent
+                          item
+                          className={classes.packageCardContent}
+                        >
+                          <Typography align={"center"}>
+                            No wallet data
+                          </Typography>
                         </CardContent>
                       </Card>
                     </Grid>
@@ -535,6 +597,38 @@ const DistributersDetailsView = ({ ...props }) => {
             content={"You are sure you want to approve KYC"}
             onSubmit={onSubmitKyc}
             handleClose={closeSuccessPopup}
+          />
+          <CustomDialog
+            userId={detailsData.id}
+            isOpen={isModalOpen}
+            onClose={handleCloseDialog}
+            title="Freez Wallet"
+            content={
+              walletDetails && walletDetails.status === 1
+                ? "Do you really want to freez this wallet ?"
+                : "Do you really want to Unfreez this wallet ?"
+            }
+            actionItems={
+              <>
+                <TertiaryButton
+                  style={{
+                    width: "8rem",
+                    height: "2.5rem",
+                    marginRight: "2rem",
+                    border: "1px solid ",
+                  }}
+                  onClick={handleCloseDialog}
+                >
+                  Cancle
+                </TertiaryButton>
+                <PrimaryButton
+                  onClick={onWalletFreezApi}
+                  style={{ width: "8rem", height: "2.5rem" }}
+                >
+                  Yes
+                </PrimaryButton>
+              </>
+            }
           />
         </Container>
       </DashboardPage>

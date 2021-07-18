@@ -37,7 +37,7 @@ export const formateWalletDetails = (details) => {
     totalEarning: details.total_earning,
     createdDate: details.created_date,
     updatedDate: details.updated_date,
-    immediateReferralCount: details.immediate_referral_count,
+    immediateReferralCount: details.immediateReferralCount,
   };
 };
 

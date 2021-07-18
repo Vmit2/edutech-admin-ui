@@ -9,7 +9,15 @@ const useStyles = makeStyles((theme) => ({
     labelValueConatiner: {
         display: "flex",
         marginBottom: "10px",
+        paddingRight : '1rem',
       },
+    label : {
+        flexGrow : '30%',
+        whiteSpace: 'nowrap',
+    },
+    value : {
+        flexBasis : '70%',
+    }  
 }))
 
 function LabelValue({ label, value }) {
