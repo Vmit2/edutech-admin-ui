@@ -15,8 +15,8 @@ import Label from "../../../components/Label/Label";
 const useStyles = makeStyles((theme) => ({
   mobileDrawer: {
     width: SIDE_DRAWER_WIDTH_MOBILE,
-    // backgroundColor: theme.palette.module.backgroundLight,
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.module.backgroundLight,
+    // backgroundColor: theme.palette.primary.main,
   },
   desktopDrawer: {
     width: SIDE_DRAWER_WIDTH_DESKTOP,

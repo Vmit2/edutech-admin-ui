@@ -25,28 +25,31 @@ function DesktopStatusFilter({ value, onApply }) {
     onApply: (newValues) => onApply(newValues),
   });
   return (
-    <MenuChip
-      content={
-        <DesktopFilterMenu
-          title="Status"
-          onApply={(newValues) => handleApply(newValues[0])}
-          onCancel={handleCancel}
-        >
-          <StatusFilterOptions
-            selectedKey={selectedValue}
-            onChange={updateSelectedValue}
-          />
-        </DesktopFilterMenu>
-      }
+    // <MenuChip
+    //   content={
+    <>
+      {/* {activeStatusName || "Status"} */}
+      <DesktopFilterMenu
+        title="Status"
+        onApply={(newValues) => handleApply(newValues[0])}
+        onCancel={handleCancel}
+      >
+        <StatusFilterOptions
+          selectedKey={selectedValue}
+          onChange={updateSelectedValue}
+        />
+      </DesktopFilterMenu>
+      {/* }
       isActive={
         value === ActiveStatus.ACTIVE || value === ActiveStatus.INACTIVE
-      }
-      isOpen={isOpen}
+      } */}
+      {/* isOpen={isOpen}
       onClick={openMenu}
-      onClose={handleApply}
-    >
-      {activeStatusName || "Status"}
-    </MenuChip>
+      onClose={handleApply} */}
+      {/* > */}
+      {/* {activeStatusName || "Status"}
+    </MenuChip> */}
+    </>
   );
 }
 

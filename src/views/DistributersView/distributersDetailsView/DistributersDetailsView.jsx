@@ -6,22 +6,24 @@ import {
   Checkbox,
   Container,
   Grid,
+  Link,
   Modal,
-  Typography,
+  Typography
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import PublishIcon from "@material-ui/icons/Publish";
 import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link as RouterLink, useNavigate, useParams } from "react-router-dom";
 import someImage from "../../../assets/images/ref1.png";
 import LoadingProgress from "../../../components/LoadingProgress";
+import TertiaryLinkText from "../../../components/Typography/TertiaryLinkText";
 import { IMAGE_BASE_URL } from "../../../config/constants";
 import { useDistributerDetails } from "../../../hooks/api/useDistributerDetails";
 import { updateKyc } from "../../../hooks/api/useDistributers";
 import {
   uploadAddharBack,
   uploadAddharFront,
-  uploadPancard,
+  uploadPancard
 } from "../../../hooks/api/useFileUpload";
 import { useWalletList } from "../../../hooks/api/useWalletDetails";
 import DashboardPage from "../../../layouts/Dashboard/DashboardPage";
@@ -32,7 +34,7 @@ import useStyles from "./DistributersDetailsView.style";
 import {
   formateDistributerDetails,
   formateWalletDetails,
-  getformatedDate,
+  getformatedDate
 } from "./utilitizes/utils";
 
 const DistributersDetailsView = ({ ...props }) => {
@@ -185,6 +187,15 @@ const DistributersDetailsView = ({ ...props }) => {
                     />
                   </Grid>
                 </Grid>
+              </Grid>
+              <Grid item style={{ alignSelf: "flex-end" }}>
+                <Link
+                  component={RouterLink}
+                  to={`/users/${detailsData.idUser}`}
+                  underline="none"
+                >
+                  <TertiaryLinkText value="View As User ..." />
+                </Link>
               </Grid>
             </Grid>
             <Grid container className={classes.moreDetailsConatiner}>

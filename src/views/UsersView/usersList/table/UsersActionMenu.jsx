@@ -1,6 +1,5 @@
+import { Grid } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Typography from "@material-ui/core/Typography";
 import { useSnackbar } from "notistack";
@@ -10,7 +9,8 @@ import { useNavigate } from "react-router-dom";
 import PrimaryButton from "../../../../components/Buttons/PrimaryButton";
 import TertiaryButton from "../../../../components/Buttons/TertiaryButton";
 import CustomDialog from "../../../../components/CustomDialog";
-import MoreHorizontalIcon from "../../../../components/Icons/MoreHorizontalIcon";
+import TrashIcon from "../../../../components/Icons/TrashIcon";
+import ViewIcon from "../../../../components/Icons/ViewIcon";
 import { deleteUserApi } from "../../../../hooks/api/useUserDetails";
 import { invalidateUsers } from "../../../../hooks/api/useUsers";
 function UsersActionMenu({ hasWritePermission, user }) {
@@ -64,10 +64,12 @@ function UsersActionMenu({ hasWritePermission, user }) {
       {
         key: "view",
         name: "View",
+        icon: null,
       },
       {
         key: "delete",
         name: "Inactive",
+        icon: "TrashIcon",
       },
     ];
 
@@ -76,24 +78,37 @@ function UsersActionMenu({ hasWritePermission, user }) {
 
   return actions.length > 0 ? (
     <>
-      <IconButton ref={menuButtonRef} onClick={() => setIsOpen(true)}>
+      {/* <IconButton ref={menuButtonRef} onClick={() => setIsOpen(true)}>
         <MoreHorizontalIcon fontSize="small" />
       </IconButton>
       <Menu
         anchorEl={menuButtonRef.current}
         open={isOpen}
         onClose={() => setIsOpen(false)}
-      >
+      > */}
+      {/* <MenuItem key={key} onClick={() => handleActionClick(key)}>
+              <Typography variant="button">{name}</Typography>
+            </MenuItem> */}
+      <Grid container alignItems="center">
         {actions.map((action) => {
           const { key, name } = action;
-
           return (
-            <MenuItem key={key} onClick={() => handleActionClick(key)}>
-              <Typography variant="button">{name}</Typography>
-            </MenuItem>
+            <Grid item key={key} onClick={() => handleActionClick(key)}>
+              {action.icon ? (
+                <MenuItem>
+                  <TrashIcon style={{color:"red"}} />
+                </MenuItem>
+              ) : (
+                <MenuItem>
+                  <ViewIcon style={{color:"blue"}} />
+                  <Typography variant="button">{name}</Typography>
+                </MenuItem>
+              )}
+            </Grid>
           );
         })}
-      </Menu>
+      </Grid>
+      {/* </Menu> */}
 
       <CustomDialog
         userId={user.id}

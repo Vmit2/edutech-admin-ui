@@ -43,7 +43,7 @@ function DesktopFilterMenu({
 
   return (
     <div className={classes.root} style={{ maxWidth }}>
-      <div className={clsx(classes.actions)}>
+      {/* <div className={clsx(classes.actions)}>
         <FilterMenuTitleText value={title} />
 
         {onCancel && (
@@ -51,8 +51,7 @@ function DesktopFilterMenu({
             <CloseIcon />
           </IconButton>
         )}
-      </div>
-
+      </div> */}
       <div
         className={clsx(
           classes.content,
@@ -63,9 +62,9 @@ function DesktopFilterMenu({
         {children}
       </div>
 
-      <Divider />
+      {/* <Divider /> */}
 
-      <div className={clsx(classes.actions, classes.marginTop)}>
+      {/* <div className={clsx(classes.actions, classes.marginTop)}>
         <PrimaryButton size="small" onClick={onApply}>
           Apply
         </PrimaryButton>
@@ -75,7 +74,7 @@ function DesktopFilterMenu({
             Clear
           </TertiaryButton>
         )}
-      </div>
+      </div> */}
     </div>
   );
 }
