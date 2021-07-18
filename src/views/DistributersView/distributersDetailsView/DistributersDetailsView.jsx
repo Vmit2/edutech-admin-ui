@@ -242,7 +242,7 @@ const DistributersDetailsView = ({ ...props }) => {
                   <Typography variant="h4" className={classes.moreDetailsTitle}>
                     Wallet:
                   </Typography>
-                  {walletDetails && (
+                  {walletDetails ? (
                     <Grid container className={classes.packageCardWrapper}>
                       <Card
                         xs={12}
@@ -281,7 +281,23 @@ const DistributersDetailsView = ({ ...props }) => {
                         </CardContent>
                       </Card>
                     </Grid>
-                  )}
+                  ) :
+                  <Grid container className={classes.packageCardWrapper}>
+                      <Card
+                        xs={12}
+                        sm={3}
+                        md={3}
+                        className={classes.packageCard}
+                      >
+                        <CardContent
+                          item
+                          className={classes.packageCardContent}
+                        >
+                          <Typography align={'center'}>No wallet data</Typography>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  }
                 </Grid>
               </Grid>
               <Grid item container className={classes.kycDetailsConatiner}>

@@ -234,7 +234,7 @@ function UserDetailsView() {
                     Packages:
                   </Typography>
                   <Grid container className={classes.packageCardWrapper}>
-                    {packageDetails &&
+                    {packageDetails && packageDetails.length ?
                       packageDetails.map((detials, i) => {
                         return (
                           <Card
@@ -274,7 +274,24 @@ function UserDetailsView() {
                             </CardContent>
                           </Card>
                         );
-                      })}
+                      })
+                      : 
+                      <Grid container className={classes.packageCardWrapper} style={{"grid-template-columns" : '1fr'}}>
+                        <Card
+                          xs={12}
+                          sm={3}
+                          md={3}
+                          className={classes.packageCard}
+                        >
+                          <CardContent
+                            item
+                            className={classes.packageCardContent} 
+                          >
+                            <Typography align={'center'} >No Pacakage data</Typography>
+                          </CardContent>
+                        </Card>
+                      </Grid>
+                    }
                   </Grid>
                 </Grid>
               </Grid>
@@ -531,7 +548,7 @@ function UserDetailsView() {
             handleClose={closeSuccessPopup}
           />
         </Container>
-        <PackageDetails packageDetails={packageDetails}/>
+        <PackageDetails packageDetails={packageDetails} />
       </DashboardPage>
     </div>
   );

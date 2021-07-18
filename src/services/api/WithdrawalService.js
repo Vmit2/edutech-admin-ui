@@ -26,7 +26,6 @@ async function approveWithDrawRequest(data) {
     "phoneNumber": data.phone,
     "narration": data.narration
   }
-  console.log(body);
   const res = await apiClient.post(url, body);
 
   return res;
