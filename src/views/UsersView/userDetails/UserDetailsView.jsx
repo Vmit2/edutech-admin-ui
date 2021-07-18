@@ -7,12 +7,12 @@ import {
   Container,
   Grid,
   Modal,
-  Typography
+  Typography,
 } from "@material-ui/core";
-import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import CloseIcon from "@material-ui/icons/Close";
+import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import PublishIcon from "@material-ui/icons/Publish";
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import someImage from "../../../assets/images/ref1.png";
 import LoadingProgress from "../../../components/LoadingProgress";
@@ -20,7 +20,7 @@ import { IMAGE_BASE_URL } from "../../../config/constants";
 import {
   uploadAddharBack,
   uploadAddharFront,
-  uploadPancard
+  uploadPancard,
 } from "../../../hooks/api/useFileUpload";
 import { usePackagesList } from "../../../hooks/api/usePackageDetails";
 import { updateKyc, useUserDetails } from "../../../hooks/api/useUserDetails";
@@ -33,9 +33,13 @@ import { useUrlParams } from "./useUrlParams";
 import {
   formatePageaDeatails,
   formateUserDetails,
-  getformatedDate
+  getformatedDate,
 } from "./utilitizes/utils";
-import PackageDetails from "./PackageDetails";
+import { Link as RouterLink } from "react-router-dom";
+import Link from "@material-ui/core/Link";
+import { PrimaryButton } from "../../../components/Buttons";
+import { setPackage } from "../../../redux/actions/packageActions";
+import { useDispatch } from "react-redux";
 
 function UserDetailsView() {
   const title = "Details";
@@ -48,6 +52,7 @@ function UserDetailsView() {
     panCardImage: null,
     sucess: false,
   });
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [prevImage, setPrevImage] = useState();
   const navigate = useNavigate();
@@ -62,15 +67,15 @@ function UserDetailsView() {
   if (status === "loading") {
     return <LoadingProgress p={2} />;
   }
-  console.log('====================================');
+  console.log("====================================");
   console.log(userDetailsNew);
-  console.log('====================================');
+  console.log("====================================");
 
   const detailsData = formateUserDetails(userResponse);
   const packageDetails = formatePageaDeatails(userDetailsNew);
-  console.log('====================================');
+  console.log("====================================");
   console.log(packageDetails);
-  console.log('====================================');
+  console.log("====================================");
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -136,6 +141,11 @@ function UserDetailsView() {
     navigate("/users");
     return null;
   }
+
+  const onViewPackage = (packageDet) => {
+    dispatch(setPackage(packageDet));
+    navigate(`/users/${detailsData.idUser}/package`);
+  };
   return (
     <div className="">
       <DashboardPage documentTitle={title} pageTitle={title}>
@@ -260,17 +270,42 @@ function UserDetailsView() {
                                 label={"Total Price:"}
                                 value={detials.totalPrice}
                               />
-                              <Grid container className={classes.packageBottomContainer}>
+                              <Grid
+                                container
+                                className={classes.packageBottomContainer}
+                              >
                                 <Grid>
-                                  <Typography className={classes.statusContainer}><FiberManualRecordIcon className={detials.status === 1 ? classes.Active : classes.InActive} />{detials.status === 1 ? 'Active' : 'In-Active'} </Typography>
+                                  <Typography
+                                    className={classes.statusContainer}
+                                  >
+                                    <FiberManualRecordIcon
+                                      className={
+                                        detials.status === 1
+                                          ? classes.Active
+                                          : classes.InActive
+                                      }
+                                    />
+                                    {detials.status === 1
+                                      ? "Active"
+                                      : "In-Active"}{" "}
+                                  </Typography>
                                 </Grid>
+                                {/* <Button className={classes.view} >View</Button> */}
+                                {/* <Link
+                                  component={RouterLink}
+                                  to="package"
+                                  underline="none"
+                                > */}
                                 <Button
+                                  // component="div"
+                                  // startIcon={<PlusCircleIcon />}
                                   className={classes.view}
+                                  onClick={() => onViewPackage(detials)}
                                 >
                                   View
                                 </Button>
+                                {/* </Link> */}
                               </Grid>
-
                             </CardContent>
                           </Card>
                         );
@@ -531,7 +566,7 @@ function UserDetailsView() {
             handleClose={closeSuccessPopup}
           />
         </Container>
-        <PackageDetails packageDetails={packageDetails}/>
+        {/* <PackageDetails packageDetails={packageDetails}/> */}
       </DashboardPage>
     </div>
   );
