@@ -1,6 +1,6 @@
 import React, { HTMLAttributes, ReactElement, ReactNode } from 'react'
 
-interface WallaChipClasses {
+interface ChipClasses {
   root: {}
   startIcon: {}
   endIcon: {}
@@ -10,10 +10,10 @@ interface WallaChipClasses {
   full: {}
 }
 
-interface WallaChipProps extends HTMLAttributes<HTMLDivElement> {
+interface ChipProps extends HTMLAttributes<HTMLDivElement> {
   component?: 'div'
   className?: string
-  classes?: WallaChipClasses
+  classes?: ChipClasses
   disabled?: boolean
   endIcon?: ReactElement
   isLoading?: boolean
@@ -21,7 +21,7 @@ interface WallaChipProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode
 }
 
-interface WallaMenuChipProps extends WallaChipProps {
+interface MenuChipProps extends ChipProps {
   content: ReactElement
   isActive: boolean
   isOpen: boolean
@@ -29,5 +29,5 @@ interface WallaMenuChipProps extends WallaChipProps {
   onClose?: () => void
 }
 
-declare const DefaultChip: React.FunctionComponent<WallaChipProps>
-declare const MenuChip: React.FunctionComponent<WallaMenuChipProps>
+declare const DefaultChip: React.FunctionComponent<ChipProps>
+declare const MenuChip: React.FunctionComponent<MenuChipProps>

@@ -86,4 +86,12 @@ export function removeUserDetails(userId) {
   queryCache.removeQueries(queryKey);
 }
 
-export { deleteUserApi };
+function invalidateUserDetails(opts = {}) {
+  const { refetchActive } = opts;
+
+  return queryCache.invalidateQueries(QueryKeys.USER_DETAILS, {
+    refetchActive,
+  });
+}
+
+export { deleteUserApi, invalidateUserDetails };
