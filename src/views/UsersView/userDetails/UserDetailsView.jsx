@@ -12,7 +12,9 @@ import {
 import CloseIcon from "@material-ui/icons/Close";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import PublishIcon from "@material-ui/icons/Publish";
+import { useSnackbar } from "notistack";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import someImage from "../../../assets/images/ref1.png";
 import LoadingProgress from "../../../components/LoadingProgress";
@@ -23,8 +25,13 @@ import {
   uploadPancard,
 } from "../../../hooks/api/useFileUpload";
 import { usePackagesList } from "../../../hooks/api/usePackageDetails";
-import { updateKyc, useUserDetails } from "../../../hooks/api/useUserDetails";
+import {
+  invalidateUserDetails,
+  updateKyc,
+  useUserDetails,
+} from "../../../hooks/api/useUserDetails";
 import DashboardPage from "../../../layouts/Dashboard/DashboardPage";
+import { setPackage } from "../../../redux/actions/packageActions";
 import LabelValue from "../../shared/LabelValue";
 import SucessModel from "../../shared/SucessModel";
 import { urlParamsToApi } from "./urlParamsToApi";
@@ -52,6 +59,7 @@ function UserDetailsView() {
     panCardImage: null,
     sucess: false,
   });
+  const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [prevImage, setPrevImage] = useState();
@@ -99,13 +107,31 @@ function UserDetailsView() {
   };
 
   const onUpdate = () => {
-    state.panCardImage && uploadPancard(userId, state.panCardImage);
-    state.addharCardFrontImage &&
+    const res1 =
+      state.panCardImage && uploadPancard(userId, state.panCardImage);
+    const res2 =
+      state.addharCardFrontImage &&
       uploadAddharFront(userId, state.addharCardFrontImage);
-    state.addharCardBackImage &&
+    const res3 =
+      state.addharCardBackImage &&
       uploadAddharBack(userId, state.addharCardBackImage);
+    if (res1 && !res1.error) {
+      handleSuccess();
+    } else if (res2 && !res2.error) {
+      handleSuccess();
+    } else if (res3 && !res3.error) {
+      handleSuccess();
+    }
     return setState({
       isUpdate: false,
+    });
+  };
+
+  const handleSuccess = async () => {
+    await invalidateUserDetails();
+    closeSuccessPopup();
+    enqueueSnackbar("Document Updated successfully", {
+      variant: "success",
     });
   };
 

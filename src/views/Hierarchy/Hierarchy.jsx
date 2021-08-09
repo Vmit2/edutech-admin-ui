@@ -5,8 +5,9 @@ import ListSummaryBar from "../../components/ListSummaryBar/ListSummaryBar";
 import MLMTree from "../../components/MLMTree";
 import {
   useChildDistributers,
-  useRootDistributers
+  useRootDistributers,
 } from "../../hooks/api/useDistributersRootList";
+import { useTreeState } from "../../hooks/redux/useTreeState";
 import { search } from "../../hooks/useSearchDist";
 import DashboardPage from "../../layouts/Dashboard/DashboardPage";
 import HierarchyFilterBar from "./HierarchyFilterBar";
@@ -20,6 +21,7 @@ const Hierarchy = ({ ...props }) => {
   const [selected, setSelected] = useState([]);
   const [found, setFound] = useState(-1);
   const dispatch = useDispatch();
+  const { tree } = useTreeState();
   useRootDistributers();
 
   const { urlParams, setUrlParams } = useUrlParams();
@@ -48,7 +50,7 @@ const Hierarchy = ({ ...props }) => {
     setExpanded(nodeIds);
     setFound("");
     // if(nodeIds[0] !== 26){
-      // setUrlParamForChild("id", nodeIds[0]);
+    // setUrlParamForChild("id", nodeIds[0]);
     // }
   };
   const handleSelect = (event, nodeIds) => {
@@ -61,10 +63,11 @@ const Hierarchy = ({ ...props }) => {
   };
   const onBlur = () => {
     const nodeTree = {
-      // childs: users,
+      childs: tree,
     };
     let arr = [];
     const foundPath = search(searchValue, nodeTree, arr);
+    console.log('foundPath ',foundPath  );
     if (foundPath && foundPath.pathIds) {
       setSelected(foundPath.selected);
       setFound(foundPath.matchedSelfId);
