@@ -42,6 +42,11 @@ import {
   formateUserDetails,
   getformatedDate,
 } from "./utilitizes/utils";
+import { Link as RouterLink } from "react-router-dom";
+import Link from "@material-ui/core/Link";
+import { PrimaryButton } from "../../../components/Buttons";
+import { setPackage } from "../../../redux/actions/packageActions";
+import { useDispatch } from "react-redux";
 
 function UserDetailsView() {
   const title = "Details";
