@@ -20,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
     borderColor: theme.palette.background.default,
     backgroundColor: theme.palette.module.backgroundLight,
     paddingLeft: "2rem",
-    // maxWidth: "700px",
     "&:hover": {
       border: "outset 0.2rem",
       borderColor: theme.palette.primary.main,
@@ -40,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.module.backgroundLight,
     textDecoration: "none",
     paddingLeft: "2rem",
-    // maxWidth: "700px",
     border: "outset 0.2rem",
     borderColor: theme.palette.common.green,
   },
@@ -92,7 +90,6 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     width: "20rem",
     height: "2rem",
-    // transform: "scale(0.7)",
     right: "-5%",
     justifyContent: "flex-start",
     paddingLeft: "5%",

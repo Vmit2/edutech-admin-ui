@@ -5,7 +5,6 @@ import {
 } from '../../services/apiClient';
 import StorageService from '../../utils/storage/StorageService';
 
-// TODO: Don't store the access token in localStorage because it's vulnerable
 // to XSS attacks. Instead, store the access token in memory and have the
 // server send a secure, http only cookie with a refresh token.
 
@@ -18,7 +17,6 @@ async function getSession(username, password) {
   const res = await apiClient.post(url, body);
   const { token , result } = res.data;
   const userData = result[0];
-  // store.dispatch(setActiveUser(userData));
   if (!token) {
     throw new Error('Authentication failed.');
   }

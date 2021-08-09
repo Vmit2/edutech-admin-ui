@@ -8,6 +8,3 @@ export function findTreeNode(id_user, node ){
     }
     return runner(null, node);
 }
-
-// var target = findTreeNode("52126f7d", objects);
-// target.childs = childs;

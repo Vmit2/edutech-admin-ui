@@ -11,8 +11,6 @@ import CardTitleText from "../Typography/CardTitleText";
 import SummaryResultsText from "../Typography/SummaryResultsText";
 function CustomDialog({ isOpen, onClose, title, content,actionItems }) {
   const handleClose = () => {
-    // setDetailsContentActive();
-
     onClose();
   };
 

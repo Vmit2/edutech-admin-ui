@@ -18,7 +18,7 @@ import Verified from "./Verified";
 
 const UserListView = () => {
   const title = "Users";
-  useEffect(()=>{},[])
+  useEffect(() => {}, []);
   const { urlParams, setUrlParam } = useUrlParams({
     parseUrlParams: (searchParams) => ({
       page: parsePage(searchParams),
@@ -28,23 +28,19 @@ const UserListView = () => {
   const response = useUsers({
     params: urlParamsToApi(urlParams),
   });
-  // const users = response.data;
+
   const isLoading = response.status === "loading";
 
   return (
     <DashboardPage documentTitle={title} pageTitle={title}>
       <ListSummaryBar
         action={
-          // hasWritePermission ? (
           <Link component={RouterLink} to="add" underline="none">
             <PrimaryButton component="div" startIcon={<PlusCircleIcon />}>
               Add New User
             </PrimaryButton>
           </Link>
-          // ) : null
         }
-        // count={users.data && users.data.length}
-        // totalCount={users.count}
       />
 
       {isLoading && <LoadingProgress />}
@@ -63,7 +59,6 @@ const UserListView = () => {
             ),
           },
         ]}
-        
       />
     </DashboardPage>
   );

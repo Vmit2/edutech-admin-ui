@@ -5,10 +5,8 @@ import PropTypes from "prop-types";
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import AppErrorBoundary from "./AppErrorBoundary";
-// import { useSettings } from "./context/SettingsContext";
 import AppInitializer from "./AppInitializer";
 import AppRoutes from "./AppRoutes";
-// import ScrollReset from "./components/ScrollReset";
 import { createTheme } from "./config/theme";
 
 const useStyles = makeStyles(() => ({
@@ -33,7 +31,6 @@ const useStyles = makeStyles(() => ({
 
 function App() {
   useStyles();
-  // const { settings } = useSettings();
   return (
     <ThemeProvider theme={createTheme({})}>
       <SnackbarProvider maxSnack={1}>

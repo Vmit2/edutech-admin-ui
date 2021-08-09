@@ -1,7 +1,7 @@
 import React, { lazy } from "react";
 import { Navigate } from "react-router-dom";
-import DashboardLayout from "../layouts/Dashboard/DashboardLayout";
 import { AuthGuard, PermissionGuard } from "../components/Guards";
+import DashboardLayout from "../layouts/Dashboard/DashboardLayout";
 import { ReportsPermissions } from "./permissionsConfig/ReportsPermissions";
 import { UsersPermission } from "./permissionsConfig/UsersPermission";
 /* ===== User Profile ===== */
@@ -33,9 +33,7 @@ export const routes = [
   {
     path: "login",
     element: (
-      // <GuestGuard>
       <LoginView />
-      // </GuestGuard>
     ),
   },
   {

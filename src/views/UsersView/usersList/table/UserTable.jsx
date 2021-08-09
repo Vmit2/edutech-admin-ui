@@ -18,10 +18,7 @@ function UserTable({
   page,
   pageSize,
   count,
-  // sort,
-  // sortDirection,
   onPageChange,
-  // onSortChange,
   statusUrlParams,
 }) {
   const handlePageChange = (_, newPage) => {

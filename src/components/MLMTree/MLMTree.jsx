@@ -23,7 +23,6 @@ const MLMTree = ({ selected, found, ...props }) => {
       className={classes.root}
       defaultCollapseIcon={<ExpandMoreIcon />}
       defaultExpandIcon={<ChevronRightIcon />}
-      // expanded={expanded}
       {...props}
     >
       {getTreeItemsFromData(tree, selected, found)}

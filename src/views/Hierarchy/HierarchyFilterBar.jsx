@@ -1,4 +1,3 @@
-// import PropTypes from "prop-types";
 import React from "react";
 import FilterBar from "../../components/FilterBar";
 import TextInput from "../../components/TextInput/TextInput";
@@ -12,8 +11,6 @@ function HierarchyFilterBar({ value, onChange, onBlur }) {
         name="name"
         placeholder="Search Distributer"
         type="string"
-        // hintText="vimit"
-        // value={minAge}
         onBlur={onBlur}
         onChange={onChange}
         endIcon={<SearchIcon />}

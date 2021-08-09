@@ -42,11 +42,6 @@ import {
   formateUserDetails,
   getformatedDate,
 } from "./utilitizes/utils";
-import { Link as RouterLink } from "react-router-dom";
-import Link from "@material-ui/core/Link";
-import { PrimaryButton } from "../../../components/Buttons";
-import { setPackage } from "../../../redux/actions/packageActions";
-import { useDispatch } from "react-redux";
 
 function UserDetailsView() {
   const title = "Details";
@@ -310,21 +305,12 @@ function UserDetailsView() {
                                       : "In-Active"}{" "}
                                   </Typography>
                                 </Grid>
-                                {/* <Button className={classes.view} >View</Button> */}
-                                {/* <Link
-                                  component={RouterLink}
-                                  to="package"
-                                  underline="none"
-                                > */}
                                 <Button
-                                  // component="div"
-                                  // startIcon={<PlusCircleIcon />}
                                   className={classes.view}
                                   onClick={() => onViewPackage(detials)}
                                 >
                                   View
                                 </Button>
-                                {/* </Link> */}
                               </Grid>
                             </CardContent>
                           </Card>
@@ -372,7 +358,7 @@ function UserDetailsView() {
                       {state.panCardImage ? (
                         <CardMedia
                           className={classes.cardImage}
-                          image={getImageSrc(state.panCardImage)} //{someImage}
+                          image={getImageSrc(state.panCardImage)}
                           title="PanCard"
                           onClick={(event) =>
                             handleOpen(getImageSrc(state.panCardImage))
@@ -381,7 +367,7 @@ function UserDetailsView() {
                       ) : (
                         <CardMedia
                           className={classes.cardImage}
-                          image={getImageFromApi(detailsData.pancardPhoto)} //{someImage}
+                          image={getImageFromApi(detailsData.pancardPhoto)}
                           title="PanCard"
                           onClick={(event) =>
                             handleOpen(
@@ -437,7 +423,7 @@ function UserDetailsView() {
                       {state.addharCardFrontImage ? (
                         <CardMedia
                           className={classes.cardImage}
-                          image={getImageSrc(state.addharCardFrontImage)} //{userImg}
+                          image={getImageSrc(state.addharCardFrontImage)}
                           title="Addhar Card"
                           onClick={(event) =>
                             handleOpen(getImageSrc(state.addharCardFrontImage))
@@ -446,7 +432,7 @@ function UserDetailsView() {
                       ) : (
                         <CardMedia
                           className={classes.cardImage}
-                          image={getImageFromApi(detailsData.aadhaarFront)} //{userImg}
+                          image={getImageFromApi(detailsData.aadhaarFront)}
                           title="Addhar Card"
                           onClick={(event) =>
                             handleOpen(
@@ -502,7 +488,7 @@ function UserDetailsView() {
                       {state.addharCardBackImage ? (
                         <CardMedia
                           className={classes.cardImage}
-                          image={getImageSrc(state.addharCardBackImage)} //{userImg}
+                          image={getImageSrc(state.addharCardBackImage)}
                           title="Addhar Card"
                           onClick={(event) =>
                             handleOpen(getImageSrc(state.addharCardBackImage))
@@ -511,7 +497,7 @@ function UserDetailsView() {
                       ) : (
                         <CardMedia
                           className={classes.cardImage}
-                          image={getImageFromApi(detailsData.aadhaarFront)} //{userImg}
+                          image={getImageFromApi(detailsData.aadhaarFront)}
                           title="Addhar Card"
                           onClick={(event) =>
                             handleOpen(

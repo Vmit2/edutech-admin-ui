@@ -45,8 +45,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function RadioGroupInput({
-  // TODO: remove this once all helperText is removed
-  // eslint-disable-next-line react/prop-types
   helperText,
 
   disabled,
@@ -61,8 +59,6 @@ function RadioGroupInput({
 }) {
   const classes = useStyles();
 
-  // TODO: remove this once all helperText is removed
-  // eslint-disable-next-line no-param-reassign
   errorText = errorText || helperText;
 
   const buildFakeChangeEvent = (newValue) => {

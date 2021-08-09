@@ -24,10 +24,7 @@ function DesktopStatusFilter({ value, onApply }) {
     onApply: (newValues) => onApply(newValues),
   });
   return (
-    // <MenuChip
-    //   content={
     <>
-      {/* {activeStatusName || "Status"} */}
       <DesktopFilterMenu
         title="Status"
         onApply={(newValues) => handleApply(newValues[0])}
@@ -38,16 +35,6 @@ function DesktopStatusFilter({ value, onApply }) {
           onChange={updateSelectedValue}
         />
       </DesktopFilterMenu>
-      {/* }
-      isActive={
-        value === ActiveStatus.ACTIVE || value === ActiveStatus.INACTIVE
-      } */}
-      {/* isOpen={isOpen}
-      onClick={openMenu}
-      onClose={handleApply} */}
-      {/* > */}
-      {/* {activeStatusName || "Status"}
-    </MenuChip> */}
     </>
   );
 }

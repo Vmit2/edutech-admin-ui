@@ -57,14 +57,6 @@ function Account() {
       });
     }
   };
-
-  // if (userDetails.status === "loading") {
-  //   return null;
-  // }
-
-  // if (userDetails.error) {
-  //   return null;
-  // }
   return (
     <>
       <Box

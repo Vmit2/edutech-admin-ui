@@ -5,7 +5,6 @@ import clsx from "clsx";
 import PropTypes from "prop-types";
 import React from "react";
 import { Helmet } from "react-helmet";
-// import { usePageViewEvent } from 'src/hooks/usePageViewEvent'
 import PageBreadcrumbs from "../../components/PageBreadcrumbs/PageBreadcrumbs";
 import PageTitleText from "../../components/Typography/PageTitleText/PageTitleText";
 const useStyles = makeStyles((theme) => ({
@@ -39,8 +38,6 @@ function DashboardPage({
   const classes = useStyles();
   const hasHeaderContent = !hideBreadcrumbs || !!pageTitle;
 
-  // usePageViewEvent()
-
   return (
     <div className={clsx(classes.root, className)}>
       <Helmet>
@@ -68,7 +65,7 @@ function DashboardPage({
 
 DashboardPage.propTypes = {
   className: PropTypes.string,
-  documentTitle: PropTypes.string.isRequired,
+  documentTitle: PropTypes.string,
   head: PropTypes.element,
   hideBreadcrumbs: PropTypes.bool,
   pageTitle: PropTypes.string,

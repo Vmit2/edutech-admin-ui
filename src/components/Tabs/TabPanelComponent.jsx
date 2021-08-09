@@ -102,7 +102,6 @@ const TabPanelComponent = ({ tabData, ...props }) => {
           value={value}
           onChange={handleChange}
           indicatorColor="primary"
-          // textColor="primary"
           variant="fullWidth"
           className={classes.tabsStyle}
         >

@@ -7,7 +7,6 @@ import React from 'react'
 const useStyles = makeStyles((theme) => ({
   indicator: {
     height: '2px',
-    // borderRadius: 3,
     backgroundColor: theme.palette.primary.main,
   },
   label: {
@@ -29,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
   },
   borderBottom: {
     borderBottom: `1px solid ${theme.palette.module.border}`,
-    // marginTop: '-1px',
   },
 }))
 

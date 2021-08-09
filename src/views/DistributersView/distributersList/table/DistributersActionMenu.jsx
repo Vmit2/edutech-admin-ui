@@ -23,7 +23,6 @@ function DistributersActionMenu({ hasWritePermission, distributer }) {
   const handleActionClick = async (key) => {
     switch (key) {
       case "view":
-        // setDistributerDetails(distributer.id_distributer, distributer);
         navigate(`${distributer.id_referral_code}`);
         break;
 

@@ -34,14 +34,6 @@ async function searchAll(qParams = {}) {
   return res;
 }
 
-// async function getById(userId) {
-//   const url = `/users/${userId}`;
-
-//   const res = await apiClient.get(url);
-
-//   return translateUser(res.data);
-// }
-
 async function create(body) {
   const url = `/users`;
 
@@ -77,7 +69,6 @@ async function getPackageById(userId) {
 export default {
   getAll,
   getAllByKyc,
-  // getById,
   create,
   updateKyc,
   getPackageById,

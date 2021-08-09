@@ -8,7 +8,6 @@ export function urlParamsToApi(urlParams) {
     limit: size,
     kyc,
     search: q,
-    // sort: buildSort(),
   };
 
   return pickBy(apiParams, (p) => !!p);

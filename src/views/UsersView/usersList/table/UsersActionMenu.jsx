@@ -32,7 +32,6 @@ function UsersActionMenu({ hasWritePermission, user }) {
 
       default:
         setIsOpen(false);
-      // setActiveDialog(key);
     }
   };
 

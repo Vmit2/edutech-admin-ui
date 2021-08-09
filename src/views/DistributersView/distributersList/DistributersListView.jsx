@@ -53,13 +53,6 @@ function DistributersListView() {
     });
   };
 
-  // const setSort = (sort, dir) => {
-    // setUrlParams({
-    //   sort,
-    //   dir,
-    // });
-  // };
-
   const onChange = (e) => {
     setValue(e.target.value);
     setUrlParam("kyc", KYCStatus.COMPLETED);
@@ -98,10 +91,7 @@ function DistributersListView() {
           isLoading={isLoading}
           page={urlParams.page}
           pageSize={urlParams.size}
-          // sort={urlParams.sort}
-          // sortDirection={urlParams.dir}
           onPageChange={setPage}
-          // onSortChange={setSort}
           statusUrlParams={urlParams}
         />
       </Card>

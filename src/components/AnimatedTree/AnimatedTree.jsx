@@ -27,7 +27,6 @@ function AnimatedTree() {
       await next({ y: item.y, delay: item.delay });
       await next({ x: 0,  opacity: 1, width: 100, height: 100 });
     },
-    // leave: { x: 100, y: 800, opacity: 0 },
   });
 
   const [item3, setItem3] = useState([]);
@@ -37,7 +36,6 @@ function AnimatedTree() {
       await next({ y: item.y, opacity: 1, delay: item.delay });
       await next({ x: 0, width: 100, height: 100 });
     },
-    // leave: { x: 100, y: 800, opacity: 0 },
   });
 
   useEffect(() => {

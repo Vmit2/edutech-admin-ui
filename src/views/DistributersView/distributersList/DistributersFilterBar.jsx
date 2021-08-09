@@ -1,4 +1,3 @@
-// import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
 import clsx from "clsx";
@@ -9,7 +8,6 @@ import TextInput from "../../../components/TextInput/TextInput";
 
 const useStyles = makeStyles((theme) => ({
   containerFilterBar: {
-    // marginTop: 30,
     marginBottom: 30,
   },
 }));
@@ -30,7 +28,6 @@ function DistributersFilterBar({
           name="name"
           placeholder="Search Users"
           type="string"
-          // hintText="vimit"
           value={value}
           onBlur={onBlur}
           onChange={onChange}

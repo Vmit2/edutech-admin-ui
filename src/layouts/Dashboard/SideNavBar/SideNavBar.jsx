@@ -9,21 +9,19 @@ import Label from "../../../components/Label/Label";
 import {
   APP_BAR_HEIGHT_DESKTOP,
   SIDE_DRAWER_WIDTH_DESKTOP,
-  SIDE_DRAWER_WIDTH_MOBILE
+  SIDE_DRAWER_WIDTH_MOBILE,
 } from "../../../config/constants";
 import NavContent from "./NavContent";
 const useStyles = makeStyles((theme) => ({
   mobileDrawer: {
     width: SIDE_DRAWER_WIDTH_MOBILE,
     backgroundColor: theme.palette.module.backgroundLight,
-    // backgroundColor: theme.palette.primary.main,
   },
   desktopDrawer: {
     width: SIDE_DRAWER_WIDTH_DESKTOP,
     top: APP_BAR_HEIGHT_DESKTOP,
     height: `calc(100% - ${APP_BAR_HEIGHT_DESKTOP}px)`,
     backgroundColor: theme.palette.module.backgroundLight,
-    // backgroundColor: theme.palette.primary.main,
     border: 0,
   },
   versionStyle: {

@@ -38,10 +38,6 @@ export async function usePackageDetails(userId) {
     data.then((res) => {
       return res;
     });
-    // return {
-    //   error: false,
-    //   data,
-    // };
   } catch (err) {
     const apiErrorMessage = err.edutechError
       ? err.error.response.data.message

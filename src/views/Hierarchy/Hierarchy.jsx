@@ -38,20 +38,8 @@ const Hierarchy = ({ ...props }) => {
   };
 
   const handleToggle = (event, nodeIds) => {
-    // if (expanded && expanded.includes(nodeIds)) {
-    //   const temp = expanded.filter((id) => id !== nodeIds);
-    //   setExpanded(temp);
-    //   dispatch(expandTreeNode(temp));
-    // } else {
-    //   let temp = [nodeIds, ...expanded];
-    //   setExpanded(temp);
-    //   dispatch(expandTreeNode(temp));
-    // }
     setExpanded(nodeIds);
     setFound("");
-    // if(nodeIds[0] !== 26){
-    // setUrlParamForChild("id", nodeIds[0]);
-    // }
   };
   const handleSelect = (event, nodeIds) => {
     setUrlParam("id", nodeIds);
@@ -67,7 +55,7 @@ const Hierarchy = ({ ...props }) => {
     };
     let arr = [];
     const foundPath = search(searchValue, nodeTree, arr);
-    console.log('foundPath ',foundPath  );
+    console.log("foundPath ", foundPath);
     if (foundPath && foundPath.pathIds) {
       setSelected(foundPath.selected);
       setFound(foundPath.matchedSelfId);
@@ -86,7 +74,7 @@ const Hierarchy = ({ ...props }) => {
           onChange={onChange}
         />
         <ListSummaryBar
-          count={1} //{distributersDetails.currentPage}
+          count={1}
           legend={
             <>
               <FilledCircleCount
@@ -106,12 +94,6 @@ const Hierarchy = ({ ...props }) => {
           selected={selected}
           found={found}
         />
-
-        {/* <ListPagination
-          currentPage={1} //{urlParams.page}
-          totalPages={1} //{distributersDetails.totalPages}
-          // onChange={(_, newPage) => setUrlParam("page", newPage)}
-        /> */}
       </DashboardPage>
     </div>
   );

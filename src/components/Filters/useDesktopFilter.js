@@ -27,7 +27,6 @@ export function useDesktopFilter({ value, onApply }) {
     handleApply,
     openMenu: () => setIsOpen(true),
     updateSelectedValue: (newValue) => {
-      // setSelectedValue(newValue);
       onApply(newValue);
     },
   };

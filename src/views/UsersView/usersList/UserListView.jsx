@@ -108,10 +108,7 @@ function UsersListView() {
           isLoading={isLoading}
           page={urlParams.page}
           pageSize={urlParams.size}
-          // sort={urlParams.sort}
-          // sortDirection={urlParams.dir}
           onPageChange={setPage}
-          // onSortChange={setSort}
           statusUrlParams={urlParams}
         />
       </Card>

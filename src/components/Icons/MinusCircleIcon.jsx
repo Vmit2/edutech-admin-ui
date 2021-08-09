@@ -1,7 +1,6 @@
 import SvgIcon from '@material-ui/core/SvgIcon'
 import React from 'react'
 
-// Gizmo refers to this as 'no-entrance'
 function MinusCircleIcon(props) {
   return (
     <SvgIcon viewBox="0 0 64 64" {...props}>

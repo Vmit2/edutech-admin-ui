@@ -18,10 +18,7 @@ function DistributersTable({
   page,
   pageSize,
   count,
-  // sort,
-  // sortDirection,
   onPageChange,
-  // onSortChange,
   statusUrlParams,
 }) {
   const handlePageChange = (_, newPage) => {
@@ -49,16 +46,8 @@ function DistributersTable({
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell
-              // sortDirection={brandSortState.direction}
-              >
-                <TableSortLabel
-                // active={brandSortState.isActive}
-                // direction={brandSortState.direction}
-                // onClick={() => handleSortChange(EquipmentSorts.BRAND_MODEL)}
-                >
-                  Name
-                </TableSortLabel>
+              <TableCell>
+                <TableSortLabel>Name</TableSortLabel>
               </TableCell>
               <TableCell>Gender</TableCell>
               <TableCell>Mobile</TableCell>

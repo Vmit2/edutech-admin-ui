@@ -45,7 +45,6 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "auto",
   },
   active: {
-     //color: theme.palette.primary.light
     color: theme.palette.primary.main,
     "& $title": {
       fontWeight: theme.typography.fontWeightSemibold,
@@ -59,12 +58,9 @@ const useStyles = makeStyles((theme) => ({
 function NavItem({
   title,
   href,
-  // depth,
   children,
   icon: Icon,
   className,
-  // open: defaultIsOpen,
-  // info: Info,
   ...rest
 }) {
   const classes = useStyles();
@@ -78,7 +74,6 @@ function NavItem({
       {...rest}
     >
       <Button
-        // end="true"
         activeClassName={classes.active}
         className={clsx(classes.buttonLeaf)}
         component={RouterNavLink}
@@ -93,14 +88,6 @@ function NavItem({
 }
 
 NavItem.propTypes = {
-  // children: PropTypes.node,
-  // className: PropTypes.string,
-  // depth: PropTypes.number.isRequired,
-  // href: PropTypes.string,
-  // icon: PropTypes.any,
-  // info: PropTypes.any,
-  // open: PropTypes.bool,
-  // title: PropTypes.string.isRequired,
 };
 
 NavItem.defaultProps = {

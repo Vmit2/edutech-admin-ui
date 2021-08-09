@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme) => ({
     borderRadius:50,
     fontWeight: 700,
     "&:hover": {
-      // color: theme.palette.primary.main,
       textDecoration: "none",
     },
   },
@@ -21,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.background.default,
     fontWeight: 700,
     "&:hover": {
-      // color: theme.palette.primary.main,
       textDecoration: "none",
     },
   },

@@ -34,15 +34,6 @@ const treeReducer = (state = initialState, action) => {
       });
     }
 
-    // case CLEAR_USER_STATE: {
-    //   return produce(state, (draftState) => {
-    //     draftState.hasLoadedUserBusinesses = false
-    //     draftState.error = false
-    //     draftState.activeBusinessId = null
-    //     draftState.businesses = {}
-    //   })
-    // }
-
     default: {
       return state;
     }
